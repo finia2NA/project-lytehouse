@@ -1,16 +1,21 @@
 package de.cau.infprogoo.lighthouse;
 
+import java.awt.Color;
 import java.io.IOException;
+
 /**
  * Tests the connection.
+ * 
  * @author undif
  *
  */
 public class ConnectionTest {
-	
+
 	/**
 	 * yo
-	 * @param args index 0 -> username, index 1 -> token
+	 * 
+	 * @param args
+	 *            index 0 -> username, index 1 -> token
 	 */
 	public static void main(String[] args) {
 		String username = args[0];
@@ -35,17 +40,18 @@ public class ConnectionTest {
 			// bytes that define the red, green, and blue component of the color
 			// to be shown in that window. See documentation of LighthouseDisplay's
 			// send(...) method.
-			byte[] data = new byte[14 * 28 * 3];
+			Color[][] frame = new Color[28][14];
 
-			for (int i = 0; i < 14; i++) {
-				for (int j = 0; j < 28; j++) {
-					for (int k = 0; k < 3; k++) {
-						data[i * j * k] = 50;
-					}
+			for (int y = 0; y < 14; y++) {
+				for (int x = 0; x < 28; x++) {
+					frame[x][y] = Color.green;
 				}
 			}
 
+			byte[] data = LighthouseDisplay.dataConverter(frame);
+
 			display.send(data);
+
 		} catch (IOException e) {
 			System.out.println("Connection failed: " + e.getMessage());
 			e.printStackTrace();
