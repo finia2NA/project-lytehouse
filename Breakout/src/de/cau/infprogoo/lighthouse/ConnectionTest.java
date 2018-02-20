@@ -57,5 +57,4 @@ public class ConnectionTest {
 			e.printStackTrace();
 		}
 	}
-
 }

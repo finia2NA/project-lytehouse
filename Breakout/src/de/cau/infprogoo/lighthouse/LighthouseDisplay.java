@@ -140,7 +140,6 @@ public class LighthouseDisplay {
 
 		for (int y = 0; y < 14; y++) {
 			for (int x = 0; x < 28; x++) {
-
 				// The position of the first subpixel of the current pixel in the data array.
 				// For reason for this see Farbmapping.xlsx .
 				int pos = 84 * y + 3 * x;
