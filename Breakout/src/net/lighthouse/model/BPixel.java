@@ -4,7 +4,7 @@ import java.awt.Color;
 
 /**
  * A renderable BObject allways has one or more BPixels. Each of these Pixels
- * has an Offset from the X/Y of the Object, a Color and a transparency.
+ * has an Offset from the X/Y of the Object, a Color and an Opacity.
  * 
  * @author undif
  *
