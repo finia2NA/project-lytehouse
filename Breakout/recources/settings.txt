@@ -1,0 +1,11 @@
+# How to use: Lines starting with '#' are a comment. Each setting must have the form:
+# key = value
+
+# The token for rendering
+token = API-TOK_0Hup-ruQ4-/Vz2-YJTt-g1Jx
+
+# Whether the web view gets used
+web-view = false
+
+# Whether the lighthouse gets used
+lighthouse-view = false
