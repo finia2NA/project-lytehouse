@@ -6,6 +6,9 @@ import java.util.HashMap;
  * Default settings to fall back to when something goes wrong with
  * initiating the user settings.
  *
+ * To add a new setting you have to add the settings key the the valid settings array and put a default
+ * value in the settings HashMap.
+ *
  * @author Christoph Fricke
  */
 final class DefaultSettings {
@@ -35,32 +38,12 @@ final class DefaultSettings {
     }
 
     /**
-     * Returns the value for a given setting.
+     * Returns a HashMap with the default settings.
      *
-     * @param setting A setting string.
-     *
-     * @return The corresponding default value.
-     * @throws IllegalArgumentException If the value is {@code null}. This also means
-     *                                  that the setting was invalid.
+     * @return Returns the Default settings.
      */
-    String get(String setting) {
-        assert setting != null : "A setting can not be null!";
-
-        String value = settings.get(setting);
-
-        if (value == null) {
-            throw new IllegalArgumentException("This setting does not exists");
-        } else {
-            return value;
-        }
-    }
-
-    /**
-     * Returns a HashMap which contains all the settings mapped to their keys.
-     *
-     * @return HashMap with the default settings.
-     */
-    HashMap getAllSettings() {
+    HashMap<String, String> getSettings() {
         return settings;
     }
+
 }
