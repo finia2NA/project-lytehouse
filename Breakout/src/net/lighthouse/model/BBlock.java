@@ -17,13 +17,11 @@ public class BBlock extends BObject implements renderable {
 	@Override
 	public void setColor(Color color) {
 		shape[0].setColor(color);
-
 	}
 
 	@Override
 	public Color getColor() {
 		return shape[0].getColor();
-
 	}
 
 	@Override

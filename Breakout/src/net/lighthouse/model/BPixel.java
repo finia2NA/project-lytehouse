@@ -26,6 +26,22 @@ public class BPixel {
 		return color;
 	}
 
+	public int getOffsetX() {
+		return offsetX;
+	}
+
+	public int getOffsetY() {
+		return offsetY;
+	}
+
+	public void setOffsetX(int offsetX) {
+		this.offsetX = offsetX;
+	}
+
+	public void setOffsetY(int offsetY) {
+		this.offsetY = offsetY;
+	}
+
 	public void setColor(Color color) {
 		assert color != null;
 		this.color = color;

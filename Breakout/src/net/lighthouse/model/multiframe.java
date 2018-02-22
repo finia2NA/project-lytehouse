@@ -21,7 +21,7 @@ public interface multiframe {
 	 * @param frame
 	 *            the number of the current frame of the animation.
 	 */
-	public void setFrame(int frame);
+	public void setFrame(int numberOfFrame);
 
 	/**
 	 * increments the number of the current frame.
