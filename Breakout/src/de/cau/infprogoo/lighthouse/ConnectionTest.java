@@ -3,6 +3,8 @@ package de.cau.infprogoo.lighthouse;
 import java.awt.Color;
 import java.io.IOException;
 
+import net.lighthouse.util.Converter;
+
 /**
  * Tests the connection.
  * 
@@ -47,8 +49,7 @@ public class ConnectionTest {
 					frame[x][y] = Color.green;
 				}
 			}
-
-			byte[] data = LighthouseDisplay.dataConverter(frame);
+			byte[] data = Converter.dataConverter(frame);
 
 			display.send(data);
 

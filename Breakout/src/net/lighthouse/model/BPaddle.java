@@ -2,45 +2,37 @@ package net.lighthouse.model;
 
 import java.awt.Color;
 
-public class BPaddle extends BObject implements renderable {
-	BPixel[] shape;
+import net.lighthouse.view.BPixel;
 
-	BPaddle(int X, int Y, Color color, boolean visible) {
+public class BPaddle extends BObject implements renderable {
+	private Color color;
+	private double opacity;
+
+	BPaddle(int X, int Y, Color color, double opacity) {
 		super(X, Y);
-		BPixel links = new BPixel(-1, 0, color, 1);
-		BPixel mitte = new BPixel(0, 0, color, 1);
-		BPixel rechts = new BPixel(1, 0, color, 1);
-		shape = new BPixel[1];
-		shape[0] = links;
-		shape[1] = mitte;
-		shape[2] = rechts;
+		this.color = color;
+		this.opacity = opacity;
 	}
 
 	@Override
 	public void setColor(Color color) {
-		for (BPixel atm : shape) {
-			atm.setColor(color);
-		}
+		this.color = color;
 	}
 
 	@Override
 	public Color getColor() {
-		// returnt die Farbe vom mittleren weil sie eigentlich alle die selbe Farbe
-		// haben sollten.
-		return shape[0].getColor();
-
-	}
-
-	@Override
-	public BPixel[] getShape() {
-		return shape;
+		return color;
 	}
 
 	@Override
 	public void setOpacity(double opacity) {
-		for (BPixel atm : shape) {
-			atm.setOpacity(opacity);;
-		}
+		assert opacity <= 1 && opacity >= 0;
+		this.opacity = opacity;
+	}
+
+	@Override
+	public double getOpacity() {
+		return opacity;
 	}
 
 }

@@ -4,34 +4,35 @@ import java.awt.Color;
 import java.awt.Rectangle;
 import java.awt.Shape;
 
-public class BBlock extends BObject implements renderable {
-	BPixel[] shape;
+import net.lighthouse.view.BPixel;
 
-	BBlock(int X, int Y, Color color, boolean visible) {
+public class BBlock extends BObject implements renderable {
+	private Color color;
+	private double opacity;
+
+	BBlock(int X, int Y, Color color, double opacity) {
 		super(X, Y);
-		BPixel atm = new BPixel(0, 0, color, 1);
-		shape = new BPixel[1];
-		shape[0] = atm;
+		this.opacity = opacity;
 	}
 
 	@Override
 	public void setColor(Color color) {
-		shape[0].setColor(color);
+		this.color = color;
 	}
 
 	@Override
 	public Color getColor() {
-		return shape[0].getColor();
-	}
-
-	@Override
-	public BPixel[] getShape() {
-		return shape;
+		return color;
 	}
 
 	@Override
 	public void setOpacity(double opacity) {
-		shape[0].setOpacity(opacity);
+		assert opacity <= 1 && opacity >= 0;
+		this.opacity = opacity;
+	}
 
+	@Override
+	public double getOpacity() {
+		return opacity;
 	}
 }

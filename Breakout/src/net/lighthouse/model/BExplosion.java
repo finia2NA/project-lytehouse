@@ -3,40 +3,29 @@ package net.lighthouse.model;
 import java.awt.Color;
 
 public class BExplosion extends BObject implements multiframe, renderable {
-	BPixel[][] animation;
-	int numberOfFrame;
+	private int numberOfFrame;
+	private double opacity;
+	private Color color;
 
-	BExplosion(int X, int Y, Color color, boolean visible) {
+	BExplosion(int X, int Y, Color color, double opacity) {
 		super(X, Y);
-		// TODO: frame Array.
+		this.color = color;
+		this.opacity = opacity;
 	}
 
 	@Override
 	public void setColor(Color color) {
-		for (BPixel[] currentFrame : animation) {
-			for (BPixel p : currentFrame) {
-				p.setColor(color);
-			}
-		}
+		this.color = color;
 	}
 
 	@Override
 	public Color getColor() {
-		return animation[0][0].getColor();
-	}
-
-	@Override
-	public BPixel[] getShape() {
-		return animation[numberOfFrame];
+		return color;
 	}
 
 	@Override
 	public void setOpacity(double opacity) {
-		for (BPixel[] currentFrame : animation) {
-			for (BPixel p : currentFrame) {
-				p.setOpacity(opacity);
-			}
-		}
+		this.opacity = opacity;
 	}
 
 	@Override
@@ -52,6 +41,10 @@ public class BExplosion extends BObject implements multiframe, renderable {
 	@Override
 	public void incrementFrame() {
 		numberOfFrame++;
+	}
 
+	@Override
+	public double getOpacity() {
+		return opacity;
 	}
 }

@@ -1,4 +1,4 @@
-package net.lighthouse.model;
+package net.lighthouse.view;
 
 import java.awt.Color;
 

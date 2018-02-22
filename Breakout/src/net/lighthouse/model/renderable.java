@@ -3,6 +3,8 @@ package net.lighthouse.model;
 import java.awt.Color;
 import java.awt.Shape;
 
+import net.lighthouse.view.BPixel;
+
 /**
  * BObjects that implement this interface are renderable. Pretty much all
  * BObjects do that, but maybe one day there'll be a day where we need a
@@ -33,12 +35,7 @@ public interface renderable {
 	 *            {@code 0} object is invisible, {@code 100} object is visible
 	 */
 	public void setOpacity(double opacity);
-
-	/**
-	 * returns the Shape ob an object so the renderer knows what to do .
-	 * 
-	 * @return a BPixel array representing the Object.
-	 */
-	public BPixel[] getShape();
+	
+	public double getOpacity();
 
 }
