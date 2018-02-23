@@ -4,8 +4,12 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.regex.Pattern;
 
 /**
+ * This class provides user settings for the app. Default settings will be provided
+ * if the file cannot be read or for settings that are missing.
+ *
  * @author Christoph Fricke
  */
 public final class Settings {
@@ -34,11 +38,15 @@ public final class Settings {
 
             while (true) {
                 String setting = reader.readLine();
+
                 if (setting == null) {
                     break;
                 } else if (setting.equals("") || setting.charAt(0) == '#') {
                     continue;
+                } else if (!Pattern.compile("[a-zA-Z\\-]+ *= *[a-zA-Z\\-]+").matcher(setting.trim()).matches()) {
+                    continue;
                 }
+
                 String[] settingKeyValue = setting.split("=");
 
                 String key = settingKeyValue[0].trim();
@@ -49,7 +57,7 @@ public final class Settings {
                 }
             }
         } catch (IOException e) {
-            throw new IllegalArgumentException("This file was not found!");
+
         }
     }
 
