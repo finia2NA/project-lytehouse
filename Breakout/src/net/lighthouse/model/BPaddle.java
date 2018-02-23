@@ -8,8 +8,8 @@ public class BPaddle extends BObject implements renderable {
 	private Color color;
 	private double opacity;
 
-	BPaddle(int X, int Y, Color color, double opacity) {
-		super(X, Y);
+	BPaddle(int x, int y, Color color, double opacity) {
+		super(x, y);
 		this.color = color;
 		this.opacity = opacity;
 	}

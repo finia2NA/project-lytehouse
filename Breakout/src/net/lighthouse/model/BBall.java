@@ -7,8 +7,8 @@ public class BBall extends BBlock {
 	// index 0->x-Speed, index 1->y-Speed
 	private int[] speed;
 
-	BBall(int X, int Y, Color color, double opacity, int[] speed) {
-		super(X, Y, color, opacity);
+	BBall(int x, int y, Color color, double opacity, int[] speed) {
+		super(x, y, color, opacity);
 		this.speed = speed;
 	}
 
