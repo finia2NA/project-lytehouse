@@ -65,7 +65,7 @@ public class LighthouseDisplay {
 	 * @throws Exception
 	 *             if there is an error constructing a web-socket-client
 	 */
-	// TODO: this thing is giving me errors again, saying there's IAVE constructor
+	// TODO: this thing is giving me errors again, saying there isn't an IAVE constructor
 	// which takes a string..
 	public void connect() throws Exception {
 		try {
