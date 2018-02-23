@@ -2,6 +2,7 @@ package net.lighthouse.view;
 
 import java.awt.Color;
 
+//TODO: this class is currently not in use. if it's not used in the future, delete it!
 /**
  * A renderable BObject allways has one or more BPixels. Each of these Pixels
  * has an Offset from the X/Y of the Object, a Color and an Opacity.
