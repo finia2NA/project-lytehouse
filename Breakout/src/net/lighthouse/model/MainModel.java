@@ -55,8 +55,29 @@ public class MainModel {
 
 	}
 
+	/**
+	 * adds an object to the model.
+	 * 
+	 * @param object
+	 *            the object to add.
+	 */
 	public void addObject(BObject object) {
+		if (object instanceof BBall) {
+			balls.add((BBall) object);
 
+		} else if (object instanceof BBlock) {
+			blocks.add((BBlock) object);
+
+		} else if (object instanceof multiframe) {
+			effects.add((multiframe) object);
+
+		} else if (object instanceof BPaddle) {
+			paddle = (BPaddle) object;
+			
+			// Ich glaube nicht dass es einen usecase gibt wo man absichtlich das paddle
+			// durch ein neues ersetzt, deshalb die Warnung.
+			System.out.println("Warning on addObject: paddle has just been replaced.");
+		}
 	}
 
 	public ArrayList<BBlock> getBlocks() {
