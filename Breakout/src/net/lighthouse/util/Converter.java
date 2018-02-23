@@ -8,6 +8,40 @@ public final class Converter {
 	}
 
 	/**
+	 * when given a lighthouse-pixel, this method returns the corresponding client
+	 * pixel (top left corner).
+	 * 
+	 * @param x
+	 *            of the lighthouse pixel.
+	 * @param y
+	 *            of the lighthouse pixel.
+	 * @return the corresponding client pixel (top left corner).
+	 */
+	public static int[] toClientPixel(int x, int y) {
+		int[] re = new int[2];
+		re[0] = x * 20;
+		re[1] = y * 60;
+		return re;
+	}
+
+	/**
+	 * when given a client-pixel, this method returns the corresponding lighthouse
+	 * pixel
+	 * 
+	 * @param x
+	 *            of the client pixel.
+	 * @param y
+	 *            of the client pixel.
+	 * @return the corresponding lighthouse pixel.
+	 */
+	public static int[] toLighthousePixel(int x, int y) {
+		int[] re = new int[2];
+		re[0] = x / 20;
+		re[1] = y / 60;
+		return re;
+	}
+
+	/**
 	 * Converts a xy Color array to the byte array format the lighthouse API
 	 * requires.
 	 * 
@@ -17,7 +51,6 @@ public final class Converter {
 	 */
 	public static byte[] dataConverter(Color[][] colorFrame) {
 		byte[] data = new byte[1176];
-
 		for (int y = 0; y < 14; y++) {
 			for (int x = 0; x < 28; x++) {
 				// The position of the first subpixel of the current pixel in the data array.
@@ -35,7 +68,6 @@ public final class Converter {
 				data[pos + 2] = blue;
 			}
 		}
-
 		return data;
 	}
 }

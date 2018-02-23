@@ -10,8 +10,8 @@ public class BBlock extends BObject implements renderable {
 	private Color color;
 	private double opacity;
 
-	BBlock(int X, int Y, Color color, double opacity) {
-		super(X, Y);
+	BBlock(int x, int y, Color color, double opacity) {
+		super(x, y);
 		this.opacity = opacity;
 	}
 

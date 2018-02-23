@@ -1,7 +1,5 @@
 package de.cau.infprogoo.lighthouse;
 
-//this is an awt-import. maybe it won't work with fx/swing. 
-import java.awt.Color;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -67,15 +65,13 @@ public class LighthouseDisplay {
 	 * @throws Exception
 	 *             if there is an error constructing a web-socket-client
 	 */
+	// TODO: this thing is giving me errors again, saying there isn't an IAVE constructor
+	// which takes a string..
 	public void connect() throws Exception {
 		try {
 			connect("wss://lighthouse.uni-kiel.de/user/" + username + "/model", true);
 		} catch (URISyntaxException e) {
-			// Originally this thing said "Given username is invalid for a connection". But
-			// for some reason eclipse said that there was no Constructer for this exception
-			// type with a string. so I took out the String. not optimal, but a quick fix.
-			// TODO: fix this.
-			throw new InvalidAttributeValueException();
+			throw new InvalidAttributeValueException(/* "Given username is invalid for a connection" */);
 		}
 	}
 
@@ -126,8 +122,6 @@ public class LighthouseDisplay {
 			System.out.printf("LighthouseDisplay, Connecting to: %s\n", targetUri);
 		}
 	}
-
-
 
 	/**
 	 * getter for the configured username

@@ -7,10 +7,11 @@ public class BExplosion extends BObject implements multiframe, renderable {
 	private double opacity;
 	private Color color;
 
-	BExplosion(int X, int Y, Color color, double opacity) {
-		super(X, Y);
+	BExplosion(int x, int y, Color color, double opacity) {
+		super(x, y);
 		this.color = color;
 		this.opacity = opacity;
+		numberOfFrame = 0;
 	}
 
 	@Override
