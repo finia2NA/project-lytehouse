@@ -10,13 +10,8 @@ import java.util.ArrayList;
  *
  */
 
-// TODO: there's a bunch of methods missing right now. The question is wether or
-// not every add/remove/move/changestuff needs its own method in here. I would
-// argue not. as long as you have a way to get the object you want you can just
-// use native object methods.
-
 public class MainModel {
-	private ArrayList<BBlock> blocks;
+	private BlockList blocks;
 	// We'll definitly one have one paddle so this is not an ArrayList.
 	private BPaddle paddle;
 	// IDK, maybe one day we'll have a gamemode/powerup where we'll have multiple
@@ -34,7 +29,7 @@ public class MainModel {
 	 * @param blocks
 	 *            the blocks.
 	 */
-	public MainModel(BPaddle paddle, BBall ball, ArrayList<BBlock> blocks) {
+	public MainModel(BPaddle paddle, BBall ball, BlockList blocks) {
 		this.paddle = paddle;
 		balls.add(ball);
 		this.blocks = blocks;
@@ -44,10 +39,13 @@ public class MainModel {
 	 * Creates a MainModel with preconfigured Blocks, paddle and blocks.
 	 */
 	public MainModel() {
-		int[] atm = { 1, 1 };
-		balls.add(new BBall(7, 14, Color.BLUE, 1, atm));
-		paddle = new BPaddle(7, 27, Color.WHITE, 1);
-		blocks = new ArrayList<BBlock>();
+		balls = new ArrayList<BBall>();
+		balls.add(new BBall(560 / 2, 840 / 2, Color.BLUE, 1, 1, 1));
+
+		paddle = new BPaddle(560 / 2 - 80, 840 - 60, Color.WHITE, 1);
+
+		blocks = new BlockList();
+		blocks.defaultFill();
 	}
 
 	public void addExplosion(int x, int y, Color color) {
@@ -73,7 +71,7 @@ public class MainModel {
 
 		} else if (object instanceof BPaddle) {
 			paddle = (BPaddle) object;
-			
+
 			// Ich glaube nicht dass es einen usecase gibt wo man absichtlich das paddle
 			// durch ein neues ersetzt, deshalb die Warnung.
 			System.out.println("Warning on addObject: paddle has just been replaced.");
