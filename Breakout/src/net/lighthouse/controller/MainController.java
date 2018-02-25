@@ -21,6 +21,6 @@ public class MainController extends GraphicsProgram {
 	}
 
 	public void run() {
-
+		view.refresh(model);
 	}
 }

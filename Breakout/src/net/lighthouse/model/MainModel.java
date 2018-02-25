@@ -42,7 +42,7 @@ public class MainModel {
 		balls = new ArrayList<BBall>();
 		balls.add(new BBall(560 / 2, 840 / 2, Color.BLUE, 1, 1, 1));
 
-		paddle = new BPaddle(560 / 2 - 80, 840 - 60, Color.WHITE, 1);
+		paddle = new BPaddle(560 / 2 - 80, 840 - 60, Color.CYAN, 1);
 
 		blocks = new BlockList();
 		blocks.defaultFill();
@@ -78,7 +78,7 @@ public class MainModel {
 		}
 	}
 
-	public ArrayList<BBlock> getBlocks() {
+	public BlockList getBlocks() {
 		return blocks;
 	}
 
