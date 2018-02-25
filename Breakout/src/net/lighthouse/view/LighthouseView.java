@@ -7,8 +7,7 @@ import de.cau.infprogoo.lighthouse.LighthouseDisplay;
 import net.lighthouse.util.Converter;
 
 /**
- * this class is responsible for calculating lighhouse pixels and sending that
- * data.
+ * this class is responsible for sending data to the lighthouse.
  * 
  * @author finite
  *
@@ -36,6 +35,13 @@ public class LighthouseView {
 		this.username = username;
 		this.token = token;
 		this.brightness = 1;
+
+	}
+
+	/**
+	 * initializes the lighthouse display and tries to connect.
+	 */
+	public void init() {
 		assert !username.isEmpty() : "assert on LighthouseView: username is empty.";
 		assert !token.isEmpty() : "assert on LighthouseView: token is empty.";
 
@@ -62,9 +68,10 @@ public class LighthouseView {
 			e.printStackTrace();
 		}
 	}
-/**
- * tries to connect to the web display.
- */
+
+	/**
+	 * tries to connect to the web display.
+	 */
 	private void connect() {
 		System.out.println(
 				"LighthouseView: Trying to connect to web with username " + username + ", token " + token + ".");
