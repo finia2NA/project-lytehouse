@@ -8,6 +8,18 @@ public class BPaddle extends BObject implements renderable {
 	private Color color;
 	private double opacity;
 
+	/**
+	 * Paddle Constructor.
+	 * 
+	 * @param x
+	 *            of the paddle.
+	 * @param y
+	 *            of the paddle.
+	 * @param color
+	 *            of the paddle.
+	 * @param opacity
+	 *            of the paddle.
+	 */
 	BPaddle(int x, int y, Color color, double opacity) {
 		super(x, y);
 		this.color = color;
