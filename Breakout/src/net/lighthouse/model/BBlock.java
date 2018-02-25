@@ -13,6 +13,7 @@ public class BBlock extends BObject implements renderable {
 	BBlock(int x, int y, Color color, double opacity) {
 		super(x, y);
 		this.opacity = opacity;
+		this.color = color;
 	}
 
 	@Override
