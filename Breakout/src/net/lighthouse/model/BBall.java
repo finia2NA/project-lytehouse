@@ -13,6 +13,29 @@ public class BBall extends BBlock {
 	}
 
 	/**
+	 * Ball constructor.
+	 * 
+	 * @param x
+	 *            pos of the ball.
+	 * @param y
+	 *            pos of the ball.
+	 * @param color
+	 *            of the ball.
+	 * @param opacity
+	 *            of the ball.
+	 * @param speedX
+	 *            of the ball.
+	 * @param speedY
+	 *            of the ball.
+	 */
+	BBall(int x, int y, Color color, int opacity, int speedX, int speedY) {
+		super(x, y, color, opacity);
+		speed = new int[2];
+		speed[0] = speedX;
+		speed[1] = speedY;
+	}
+
+	/**
 	 * returns the speed of the object {@code index 0} x-speed, {@code index 1}
 	 * y-speed.
 	 * 
