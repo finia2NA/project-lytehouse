@@ -1,5 +1,7 @@
 package net.lighthouse.view;
 
-public class ClientView {
+import java.awt.Panel;
+
+public class ClientView extends Panel {
 
 }
