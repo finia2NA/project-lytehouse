@@ -1,6 +1,7 @@
 package net.lighthouse.controller;
 
 import acm.program.GraphicsProgram;
+import net.lighthouse.collision.CollisionChecker;
 import net.lighthouse.model.MainModel;
 import net.lighthouse.settings.Settings;
 import net.lighthouse.view.MainView;
@@ -12,17 +13,20 @@ import java.awt.event.*;
 public class MainController extends GraphicsProgram {
     private MainView view;
     private MainModel model;
+    private CollisionChecker ballChecker;
 
     public void init() {
         Settings.readUserSettings("settings.txt");
         // initializes the Model with default values(ball, paddle, buch o' blocks)
         model = new MainModel();
 
+        ballChecker = new CollisionChecker(model.getBall(0));
+
         view = new MainView(this);
         view.init();
         addMouseListeners();
 
-        int[] speed = {0, -1};
+        int[] speed = {0, 2};
         model.getBall(0).setSpeed(speed);
     }
 
@@ -47,6 +51,7 @@ public class MainController extends GraphicsProgram {
 
             // 1s == 1000ms => 50fps == 1/50s == 20ms
             if (nextTime - previousRefreshTime > 20) {
+                ballChecker.handleCollision(model);
                 model.getBall(0).move();
                 view.refresh(model);
                 previousRefreshTime = nextTime;
