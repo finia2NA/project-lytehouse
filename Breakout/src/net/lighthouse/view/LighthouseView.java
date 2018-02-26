@@ -44,8 +44,22 @@ public class LighthouseView {
 		int posX = paddle.getX();
 		int posY = paddle.getY();
 
-		// Pixel haben eine opacity von ihrem anteil in den lighthousepixel.
-		double leftSideOpacity = 1 - (posX % 20) / 19.00;
+		// Pixel haben eine opacity von ihrem anteil in dem lighthousepixel. für den
+		// ganz
+		double rightSideOpacity = (posX % 20) / 19.00;
+		double leftSideOpacity = 1 - rightSideOpacity;
+		int[] lh_pos = Converter.toLighthousePixel(posX, posY);
+
+		// rightmost pixel has opacity
+		re.add(new BPixel(lh_pos[0], lh_pos[1], paddle.getColor(), leftSideOpacity));
+
+		// center pixels have opacity = 1
+		for (int i = 1; i < 8; i++) {
+			re.add(new BPixel(lh_pos[0] + i, lh_pos[1], paddle.getColor(), 1));
+		}
+
+		// leftmost pixel has opacity
+		re.add(new BPixel(lh_pos[0] + 8, lh_pos[1], paddle.getColor(), rightSideOpacity));
 
 		return re;
 	}
@@ -80,8 +94,10 @@ public class LighthouseView {
 	 */
 	private ArrayList<BPixel> ballPixels(ArrayList<BBall> balls) {
 		ArrayList<BPixel> re = new ArrayList<BPixel>();
+		for (BBall ball : balls) {
+			int[] lh_pos = Converter.toLighthousePixel(ball.getX(), ball.getY());
+		}
 		return re;
-
 	}
 
 	/**
