@@ -46,7 +46,7 @@ public class LighthouseView {
 
 		// Pixel haben eine opacity von ihrem anteil in dem lighthousepixel. fuer den
 		// ganz
-		double rightSideOpacity = (posX % 20) / 19.00;
+		double rightSideOpacity = (posX % 20) / 20.00;
 		double leftSideOpacity = 1 - rightSideOpacity;
 		int[] lh_pos = Converter.toLighthousePixel(posX, posY);
 

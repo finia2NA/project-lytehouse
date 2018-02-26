@@ -2,6 +2,8 @@ package net.lighthouse.util;
 
 import java.awt.Color;
 
+import acm.graphics.GImage;
+
 public final class Converter {
 	private Converter() {
 
@@ -55,7 +57,7 @@ public final class Converter {
 			for (int x = 0; x < 28; x++) {
 				// The position of the first subpixel of the current pixel in the data array.
 				// For reason for this see Farbmapping.xlsx .
-				int pos = 84 * y + 3 * x;
+				int pos = (28 * y + x) * 3;
 
 				// Gets the subpixels of the current pixel. (byte) casts ints from 0 to 255 to
 				// unsigned bytes. which I think is the format we need.
@@ -66,6 +68,30 @@ public final class Converter {
 				data[pos] = red;
 				data[pos + 1] = green;
 				data[pos + 2] = blue;
+			}
+		}
+		return data;
+	}
+
+	/**
+	 * Converts a GImage to the byte array format the lighthosue APE requires.
+	 * 
+	 * @param image
+	 *            the GImage.
+	 * @return a byte array representing the input in lighthouse-format.
+	 */
+	public static byte[] dataConverter(GImage image) {
+		byte[] data = new byte[1176];
+		int[][] pixelArray = image.getPixelArray();
+
+		for (int y = 0; y < 14; y++) {
+			for (int x = 0; x < 28; x++) {
+				int pixel = pixelArray[x][y];
+				int pos = (28 * y + x) * 3;
+
+				data[pos] = (byte) GImage.getRed(pixel);
+				data[pos + 1] = (byte) GImage.getGreen(pixel);
+				data[pos + 2] = (byte) GImage.getBlue(pixel);
 			}
 		}
 		return data;

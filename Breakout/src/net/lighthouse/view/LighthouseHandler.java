@@ -3,6 +3,7 @@ package net.lighthouse.view;
 import java.awt.Color;
 import java.io.IOException;
 
+import acm.graphics.GImage;
 import de.cau.infprogoo.lighthouse.LighthouseDisplay;
 import net.lighthouse.util.Converter;
 
@@ -13,6 +14,7 @@ import net.lighthouse.util.Converter;
  *
  */
 public class LighthouseHandler {
+
 	// Bleeding Edge security going on in this class.
 	// #TheyCan'tHackYourEncryptionWhenYouDon'tHaveAny
 	private String username;
@@ -59,6 +61,25 @@ public class LighthouseHandler {
 	public void update(Color[][] pixels) {
 		// converts to lighthouse data standard.
 		byte[] data = Converter.dataConverter(pixels);
+
+		// send.
+		try {
+			display.send(data);
+		} catch (IOException e) {
+			System.out.println("Connection failed: " + e.getMessage());
+			e.printStackTrace();
+		}
+	}
+
+	/**
+	 * updates the display with pixel data
+	 * 
+	 * @param pixelArray
+	 *            the 28x14 2d int array containing the values of each pixel.
+	 */
+
+	public void update(GImage image) {
+		byte[] data = Converter.dataConverter(image);
 
 		// send.
 		try {

@@ -14,6 +14,7 @@ import net.lighthouse.settings.Settings;
  *
  */
 public class MainView {
+
 	private DarkhouseView lighthouse;
 	private ClientView client;
 	private GraphicsProgram top;
@@ -42,7 +43,7 @@ public class MainView {
 	public void refresh(MainModel model) {
 		// TODO: lighthouse refresh
 		if (Settings.getSetting("web-view").equals("true")) {
-			lighthouse.update(model);
+			lighthouse.update(top);
 		}
 		client.reDraw(model);
 	}
