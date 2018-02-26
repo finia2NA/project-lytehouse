@@ -23,7 +23,7 @@ public class BObject {
 		this.y = y;
 	}
 
-	// All the Methods beyond this point are jsut getters and setters and do pretty
+	// All the Methods beyond this point are just getters and setters and do pretty
 	// much what you'd expect them to do.
 	public int getX() {
 		return x;
