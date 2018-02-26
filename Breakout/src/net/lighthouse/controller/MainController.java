@@ -9,29 +9,47 @@ import java.awt.event.*;
  * MainController ist das Oberste Ding.
  */
 public class MainController extends GraphicsProgram {
-	private MainView view;
-	private MainModel model;
+    private MainView view;
+    private MainModel model;
 
-	public void init() {
-		// initializes the Model with default values(ball, paddle, buch o' blocks)
-		model = new MainModel();
+    public void init() {
+        // initializes the Model with default values(ball, paddle, buch o' blocks)
+        model = new MainModel();
 
-		view = new MainView(this);
-		view.init();
-		addMouseListeners();
-	}
+        view = new MainView(this);
+        view.init();
+        addMouseListeners();
+    }
 
-	public void run() {
-		view.refresh(model);
-	}
+    /**
+     * I need this to attach a debugger with IntelliJ. Otherwise IntelliJ is not able
+     * to find a main method while using the acm library.
+     * See more: https://stackoverflow.com/questions/28058665/java-runtime-error-could-not-initialize-class-formpreviewframe
+     *
+     * @param args Runtime arguments
+     */
+    public static void main(String[] args) {
+        new MainController().start(args);
+    }
 
-	public void mouseMoved(MouseEvent e) {
-		model.movePaddle(e.getX() - 80); // -80 cuz Paddle is 160 wide.
-	}
+    public void run() {
+        view.refresh(model);
 
-	// until we have automatic refreshs you can refresh the view by clicking
-	// anywhere.
-	public void mouseClicked(MouseEvent e) {
-		view.refresh(model);
-	}
+        //Game Loop
+        long previousRefreshTime = System.currentTimeMillis();
+        while (true) {
+            long nextTime = System.currentTimeMillis();
+
+            // 1s == 1000ms => 50fps == 1/50s == 20ms
+            if (nextTime - previousRefreshTime > 20) {
+                view.refresh(model);
+                previousRefreshTime = nextTime;
+            }
+        }
+    }
+
+    public void mouseMoved(MouseEvent e) {
+        model.movePaddle(e.getX() - 80); // -80 cuz Paddle is 160 wide.
+        view.refresh(model);
+    }
 }
