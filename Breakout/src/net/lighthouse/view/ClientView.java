@@ -40,6 +40,8 @@ public class ClientView {
 		drawBlocks(model.getBlocks());
 		drawBalls(model.getAllBalls());
 		drawPaddle(model.getPaddle());
+		// manually repainting after everything is set and done should drastically
+		// enhance performance.
 		top.repaint();
 	}
 
