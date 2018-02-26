@@ -14,9 +14,9 @@ import java.util.regex.Pattern;
  */
 public final class Settings {
 
-    private DefaultSettings defaultSettings = new DefaultSettings();
+    private static DefaultSettings defaultSettings = new DefaultSettings();
 
-    private HashMap<String, String> userSettings;
+    private static HashMap<String, String> userSettings;
 
     /**
      * We do not want objects of the type Settings to exits.
@@ -30,7 +30,7 @@ public final class Settings {
      *
      * @param settingsFile File to read the setting.
      */
-    public void readUserSettings(String settingsFile) {
+    public static void readUserSettings(String settingsFile) {
         userSettings = defaultSettings.getSettings();
 
         try {
@@ -57,7 +57,7 @@ public final class Settings {
                 }
             }
         } catch (IOException e) {
-
+            System.out.println("Could not read user settings! Will use default settings.");
         }
     }
 
@@ -69,7 +69,7 @@ public final class Settings {
      *
      * @return The setting value if the key exists or {@code null} if the key does not exists.
      */
-    public String getSetting(String key) {
+    public static String getSetting(String key) {
         if (userSettings == null) {
             throw new IllegalStateException("User Settings are not initialized yet. Call readUserSettings() first.");
         }
@@ -84,7 +84,7 @@ public final class Settings {
      *
      * @return True if key valid. False otherwise.
      */
-    private boolean isValidSettingKey(String key) {
+    private static boolean isValidSettingKey(String key) {
         for (String defaultKey : defaultSettings.validSettings) {
             if (defaultKey.equals(key)) {
                 return true;
