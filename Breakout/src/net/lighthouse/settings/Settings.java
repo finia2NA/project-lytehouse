@@ -57,7 +57,7 @@ public final class Settings {
                 }
             }
         } catch (IOException e) {
-
+            System.out.println("Could not read user settings! Will use default settings.");
         }
     }
 
