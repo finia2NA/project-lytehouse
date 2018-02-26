@@ -35,8 +35,6 @@ public class ClientView {
 	 *            the model to draw.
 	 */
 	public void reDraw(MainModel model) {
-		// TODO: this may not be the right remove function. No way to be shure till I
-		// try it out.
 		top.removeAll();
 		drawBlocks(model.getBlocks());
 		drawBalls(model.getAllBalls());
@@ -77,12 +75,12 @@ public class ClientView {
 			int x = block.getX();
 			int y = block.getY();
 			Color color = block.getColor();
-			
+
 			GRect blockRect = new GRect(x, y, 80, 60);
 			blockRect.setFilled(true);
 			blockRect.setFillColor(color);
 			top.add(blockRect);
 		}
-
+		// TODO: drawExplosions
 	}
 }

@@ -1,87 +1,55 @@
 package net.lighthouse.view;
 
 import java.awt.Color;
-import java.io.IOException;
+import java.util.ArrayList;
 
-import de.cau.infprogoo.lighthouse.LighthouseDisplay;
-import net.lighthouse.util.Converter;
+import net.lighthouse.model.BBall;
+import net.lighthouse.model.BPaddle;
+import net.lighthouse.model.BlockList;
+import net.lighthouse.model.MainModel;
 
-/**
- * this class is responsible for sending data to the lighthouse.
- * 
- * @author finite
- *
- */
 public class LighthouseView {
-	// Bleeding Edge security going on in this class.
-	// #TheyCan'tHackYourEncryptionWhenYouDon'tHaveAny
-	private String username;
-	private String token;
+	LighthouseHandler handler;
 
-	// Brightness scales from 0 to 1. Right now it's just stuck on 1, i'll do some
-	// stuff with it later.
-	private double brightness;
-
-	LighthouseDisplay display;
-
-	/**
-	 * constructs a lighthouse view with brightness = 1 and tries to connect to the
-	 * web display.
-	 * 
-	 * @param username
-	 * @param token
-	 */
 	public LighthouseView(String username, String token) {
-		this.username = username;
-		this.token = token;
-		this.brightness = 1;
-
+		handler = new LighthouseHandler(username, token);
 	}
 
-	/**
-	 * initializes the lighthouse display and tries to connect.
-	 */
 	public void init() {
-		assert !username.isEmpty() : "assert on LighthouseView: username is empty.";
-		assert !token.isEmpty() : "assert on LighthouseView: token is empty.";
-
-		display = new LighthouseDisplay(username, token);
-
-		connect();
+		handler.init();
 	}
 
-	/**
-	 * updates to display with pixel data.
-	 * 
-	 * @param pixels
-	 *            the 28x14 2d Color array containing the values of each pixel.
-	 */
-	private void update(Color[][] pixels) {
-		// converts to lighthouse data standard.
-		byte[] data = Converter.dataConverter(pixels);
+	public void update(MainModel model) {
+		// The components are drawn onto different layers and than combined
+		ArrayList<BPixel> ballLayer = ballPixels(model);
+		ArrayList<BPixel> blockLayer = blocksPixels(model);
+		ArrayList<BPixel> paddleLayer = paddlePixels(model);
 
-		// send.
-		try {
-			display.send(data);
-		} catch (IOException e) {
-			System.out.println("Connection failed: " + e.getMessage());
-			e.printStackTrace();
-		}
+		handler.update(combine(blockLayer, ballLayer, paddleLayer));
 	}
 
-	/**
-	 * tries to connect to the web display.
-	 */
-	private void connect() {
-		System.out.println(
-				"LighthouseView: Trying to connect to web with username " + username + ", token " + token + ".");
-		// Try connecting to the display
-		try {
-			display.connect();
-		} catch (Exception e) {
-			System.out.println("Connection failed: " + e.getMessage());
-			e.printStackTrace();
-		}
+	private ArrayList<BPixel> paddlePixels(MainModel model) {
+		BPaddle paddle = model.getPaddle();
+		return null;
+
+	}
+
+	private ArrayList<BPixel> blocksPixels(MainModel model) {
+		BlockList blocks = model.getBlocks();
+		return null;
+
+	}
+
+	private ArrayList<BPixel> ballPixels(MainModel model) {
+		ArrayList<BBall> balls = model.getAllBalls();
+		return null;
+
+	}
+
+	private Color[][] combine(ArrayList<BPixel> blockLayer, ArrayList<BPixel> ballLayer,
+			ArrayList<BPixel> paddleLayer) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
