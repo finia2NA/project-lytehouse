@@ -37,7 +37,7 @@ public class BlockList extends ArrayList<BBlock> {
 	}
 
 	// Da ich glaube dass getBlockAtXY oft hintereinander mit den selben XY-werten
-	// ausgeführt werden wird, gibt es einen cache der den letzten block mit tags
+	// ausgefuehrt werden wird, gibt es einen cache der den letzten block mit tags
 	// speichert. (Direct Mapped mit einer Menge)
 	int tagXlower = -1;
 	int tagYlower = -1;
@@ -57,9 +57,9 @@ public class BlockList extends ArrayList<BBlock> {
 			// hit!
 			return cache;
 		} else
-			// wenn der cache ein miss war müssen wir wohl in der Liste gucken.
+			// wenn der cache ein miss war muessen wir wohl in der Liste gucken.
 			for (BBlock block : this) {
-				// riesige überprüfung ob die position zwischen x und y liegt.
+				// riesige ueberpruefung ob die position zwischen x und y liegt.
 				if ((block.getX() < (x + 1) * 80 && block.getX() >= x * 80) && (block.getY() < (y + 1) * 60)
 						&& block.getY() >= y * 60) {
 					cache = block;
