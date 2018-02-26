@@ -95,7 +95,8 @@ public class LighthouseView {
 	private ArrayList<BPixel> ballPixels(ArrayList<BBall> balls) {
 		ArrayList<BPixel> re = new ArrayList<BPixel>();
 		for (BBall ball : balls) {
-			int[] lh_pos = Converter.toLighthousePixel(ball.getX(), ball.getY());
+			int centerX = ball.getX() + ball.getWith() / 2;
+			int centerY = ball.getY() + ball.getHeight() / 2;
 		}
 		return re;
 	}

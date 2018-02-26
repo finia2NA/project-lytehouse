@@ -10,51 +10,52 @@ import java.awt.event.*;
  * MainController ist das Oberste Ding.
  */
 public class MainController extends GraphicsProgram {
-    private MainView view;
-    private MainModel model;
+	private MainView view;
+	private MainModel model;
 
-    public void init() {
-        Settings.readUserSettings("settings.txt");
-        // initializes the Model with default values(ball, paddle, buch o' blocks)
-        model = new MainModel();
+	public void init() {
+		Settings.readUserSettings("settings.txt");
+		// initializes the Model with default values(ball, paddle, buch o' blocks)
+		model = new MainModel();
 
-        view = new MainView(this);
-        view.init();
-        addMouseListeners();
+		view = new MainView(this);
+		view.init();
+		addMouseListeners();
 
-        int[] speed = {0, -1};
-        model.getBall(0).setSpeed(speed);
-    }
+		int[] speed = { 0, -1 };
+		model.getBall(0).setSpeed(speed);
+	}
 
-    /**
-     * I need this to attach a debugger with IntelliJ. Otherwise IntelliJ is not able
-     * to find a main method while using the acm library.
-     * See more: https://stackoverflow.com/questions/28058665/java-runtime-error-could-not-initialize-class-formpreviewframe
-     *
-     * @param args Runtime arguments
-     */
-    public static void main(String[] args) {
-        new MainController().start(args);
-    }
+	/**
+	 * I need this to attach a debugger with IntelliJ. Otherwise IntelliJ is not
+	 * able to find a main method while using the acm library. See more:
+	 * https://stackoverflow.com/questions/28058665/java-runtime-error-could-not-initialize-class-formpreviewframe
+	 *
+	 * @param args
+	 *            Runtime arguments
+	 */
+	public static void main(String[] args) {
+		new MainController().start(args);
+	}
 
-    public void run() {
-        view.refresh(model);
+	public void run() {
+		view.refresh(model);
 
-        //Game Loop
-        long previousRefreshTime = System.currentTimeMillis();
-        while (true) {
-            long nextTime = System.currentTimeMillis();
+		// Game Loop
+		long previousRefreshTime = System.currentTimeMillis();
+		while (true) {
+			long nextTime = System.currentTimeMillis();
 
-            // 1s == 1000ms => 50fps == 1/50s == 20ms
-            if (nextTime - previousRefreshTime > 20) {
-                model.getBall(0).move();
-                view.refresh(model);
-                previousRefreshTime = nextTime;
-            }
-        }
-    }
+			// 1s == 1000ms => 50fps == 1/50s == 20ms
+			if (nextTime - previousRefreshTime > 20) {
+				model.getBall(0).move();
+				view.refresh(model);
+				previousRefreshTime = nextTime;
+			}
+		}
+	}
 
-    public void mouseMoved(MouseEvent e) {
-        model.movePaddle(e.getX() - 80); // -80 cuz Paddle is 160 wide.
-    }
+	public void mouseMoved(MouseEvent e) {
+		model.movePaddle(e.getX() - model.getPaddle().getWith() / 2);
+	}
 }
