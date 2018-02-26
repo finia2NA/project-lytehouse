@@ -83,10 +83,11 @@ public final class Converter {
 	public static byte[] dataConverter(GImage image) {
 		byte[] data = new byte[1176];
 		int[][] pixelArray = image.getPixelArray();
-
+		// TODO: x und y sind nicht so wie beim anderen dataconverter (vertauscht).
+		// könnte probleme machen. keep an eye on it.
 		for (int y = 0; y < 14; y++) {
 			for (int x = 0; x < 28; x++) {
-				int pixel = pixelArray[x][y];
+				int pixel = pixelArray[y][x];
 				int pos = (28 * y + x) * 3;
 
 				data[pos] = (byte) GImage.getRed(pixel);
