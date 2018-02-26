@@ -11,37 +11,37 @@ import java.awt.Color;
  *
  */
 public class BPixel {
-	private int offsetX;
-	private int offsetY;
+	private int x;
+	private int y;
 	private Color color;
 	private double opacity;
 
-	public BPixel(int offsetX, int offsetY, Color color, double opacity) {
-		this.offsetX = offsetX;
-		this.offsetY = offsetY;
+	public BPixel(int x, int y, Color color, double opacity) {
+		this.x = x;
+		this.y = y;
 		this.color = color;
 		this.opacity = opacity;
 	}
 
 	public Color getColor() {
-		
+
 		return color;
 	}
 
-	public int getOffsetX() {
-		return offsetX;
+	public int getX() {
+		return x;
 	}
 
-	public int getOffsetY() {
-		return offsetY;
+	public int getY() {
+		return y;
 	}
 
-	public void setOffsetX(int offsetX) {
-		this.offsetX = offsetX;
+	public void setX(int offsetX) {
+		this.x = offsetX;
 	}
 
-	public void setOffsetY(int offsetY) {
-		this.offsetY = offsetY;
+	public void setY(int offsetY) {
+		this.y = offsetY;
 	}
 
 	public void setColor(Color color) {
