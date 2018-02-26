@@ -100,7 +100,7 @@ public class LighthouseView {
 
 			int[] lh_pos = Converter.toLighthousePixel(0, centerY);
 			for (int i = 0; i < 2; i++) {
-				re.add(new BPixel(1, 1, ball.getColor(), 1));
+				re.add(new BPixel(lh_pos[0] + i, lh_pos[1], ball.getColor(), 1));
 			}
 		}
 		return re;

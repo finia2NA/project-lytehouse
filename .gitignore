@@ -3,7 +3,10 @@
 *.iml
 *.eml
 out
+
+#projects
 Explosion Animations
+settings.txt
 
 # Eclipse
 .settings

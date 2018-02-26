@@ -14,7 +14,7 @@ import net.lighthouse.settings.Settings;
  *
  */
 public class MainView {
-	private LighthouseView lighthouse;
+	private DarkhouseView lighthouse;
 	private ClientView client;
 	private GraphicsProgram top;
 
@@ -24,7 +24,7 @@ public class MainView {
 
 	public void init() {
 		if (Settings.getSetting("web-view").equals("true")) {
-			lighthouse = new LighthouseView(Settings.getSetting("user-name"), Settings.getSetting("token"));
+			lighthouse = new DarkhouseView(Settings.getSetting("user-name"), Settings.getSetting("token"));
 			lighthouse.init();
 
 		}
