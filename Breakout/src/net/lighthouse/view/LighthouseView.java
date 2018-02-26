@@ -23,23 +23,26 @@ public class LighthouseView {
 		// The components are drawn onto different layers and than combined
 		ArrayList<BPixel> ballLayer = ballPixels(model);
 		ArrayList<BPixel> blockLayer = blocksPixels(model);
-		ArrayList<BPixel> paddleLayer = PaddlePixels(model);
+		ArrayList<BPixel> paddleLayer = paddlePixels(model);
 
 		handler.update(combine(blockLayer, ballLayer, paddleLayer));
 	}
 
-	private ArrayList<BPixel> PaddlePixels(MainModel model) {
+	private ArrayList<BPixel> paddlePixels(MainModel model) {
 		BPaddle paddle = model.getPaddle();
+		return null;
 
 	}
 
 	private ArrayList<BPixel> blocksPixels(MainModel model) {
 		BlockList blocks = model.getBlocks();
+		return null;
 
 	}
 
 	private ArrayList<BPixel> ballPixels(MainModel model) {
 		ArrayList<BBall> balls = model.getAllBalls();
+		return null;
 
 	}
 
