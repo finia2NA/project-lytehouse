@@ -97,6 +97,11 @@ public class LighthouseView {
 		for (BBall ball : balls) {
 			int centerX = ball.getX() + ball.getWith() / 2;
 			int centerY = ball.getY() + ball.getHeight() / 2;
+
+			int[] lh_pos = Converter.toLighthousePixel(0, centerY);
+			for (int i = 0; i < 2; i++) {
+				re.add(new BPixel(1, 1, ball.getColor(), 1));
+			}
 		}
 		return re;
 	}
