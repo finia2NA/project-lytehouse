@@ -27,7 +27,7 @@ public class BlockList extends ArrayList<BBlock> {
 					color = Color.cyan;
 				}
 
-				BBlock atm = new BBlock(x * 80, y * 60, color, 1);
+				BBlock atm = new BBlock(x * 80, y * 60, color, 1, 80, 60);
 
 				// adds the Block to the List.
 				add(atm);

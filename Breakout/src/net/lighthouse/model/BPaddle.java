@@ -21,7 +21,7 @@ public class BPaddle extends BObject implements renderable {
 	 *            of the paddle.
 	 */
 	BPaddle(int x, int y, Color color, double opacity) {
-		super(x, y);
+		super(x, y, 160, 60);
 		this.color = color;
 		this.opacity = opacity;
 	}

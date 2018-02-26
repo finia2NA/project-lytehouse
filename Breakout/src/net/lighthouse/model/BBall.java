@@ -8,7 +8,7 @@ public class BBall extends BBlock {
 	private int[] speed;
 
 	BBall(int x, int y, Color color, double opacity, int[] speed) {
-		super(x, y, color, opacity);
+		super(x, y, color, opacity, 40, 60);
 		this.speed = speed;
 	}
 
@@ -29,7 +29,7 @@ public class BBall extends BBlock {
 	 *            of the ball.
 	 */
 	BBall(int x, int y, Color color, int opacity, int speedX, int speedY) {
-		super(x, y, color, opacity);
+		super(x, y, color, opacity, 40, 60);
 		speed = new int[2];
 		speed[0] = speedX;
 		speed[1] = speedY;
@@ -55,5 +55,13 @@ public class BBall extends BBlock {
 	 */
 	public void setSpeed(int[] speed) {
 		this.speed = speed;
+	}
+
+    /**
+     * Updates the position of the ball depending on the current position and the speed.
+     */
+	public void move() {
+	    this.setX(this.getX() + this.speed[0]);
+	    this.setY(this.getY() + this.speed[1]);
 	}
 }

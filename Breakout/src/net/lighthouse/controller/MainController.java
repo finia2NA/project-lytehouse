@@ -21,6 +21,9 @@ public class MainController extends GraphicsProgram {
         view = new MainView(this);
         view.init();
         addMouseListeners();
+
+        int[] speed = {0, -1};
+        model.getBall(0).setSpeed(speed);
     }
 
     /**
@@ -44,6 +47,7 @@ public class MainController extends GraphicsProgram {
 
             // 1s == 1000ms => 50fps == 1/50s == 20ms
             if (nextTime - previousRefreshTime > 20) {
+                model.getBall(0).move();
                 view.refresh(model);
                 previousRefreshTime = nextTime;
             }
@@ -52,6 +56,5 @@ public class MainController extends GraphicsProgram {
 
     public void mouseMoved(MouseEvent e) {
         model.movePaddle(e.getX() - 80); // -80 cuz Paddle is 160 wide.
-//        view.refresh(model);
     }
 }
