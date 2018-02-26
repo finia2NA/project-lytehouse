@@ -25,6 +25,7 @@ public class ClientView {
 		top.setSize(560, 840);
 		// TODO: this doesn't work. it's not essential, but it would be kinda cool.
 		top.setTitle("Breakout pre-release");
+		top.getGCanvas().setAutoRepaintFlag(false);
 	}
 
 	/**
@@ -39,6 +40,9 @@ public class ClientView {
 		drawBlocks(model.getBlocks());
 		drawBalls(model.getAllBalls());
 		drawPaddle(model.getPaddle());
+		// manually repainting after everything is set and done should drastically
+		// enhance performance.
+		top.repaint();
 	}
 
 	private void drawPaddle(BPaddle paddle) {
@@ -66,7 +70,6 @@ public class ClientView {
 			ballOval.setFillColor(color);
 			top.add(ballOval);
 		}
-
 	}
 
 	private void drawBlocks(BlockList blocks) {
