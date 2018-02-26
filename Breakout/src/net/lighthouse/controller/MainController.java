@@ -26,7 +26,7 @@ public class MainController extends GraphicsProgram {
         view.init();
         addMouseListeners();
 
-        int[] speed = {1, 2};
+        int[] speed = {2, 4};
         model.getBall(0).setSpeed(speed);
     }
 
@@ -54,7 +54,7 @@ public class MainController extends GraphicsProgram {
             // 1s == 1000ms => 50fps == 1/50s == 20ms
             if (nextTime - previousRefreshTime > 20) {
                 ballChecker.handlePaddleCollision(model.getPaddle());
-                runGame = ballChecker.handleBorderCollision(this.getWidth(), this.getHeight());
+                runGame = ballChecker.handleBorderCollision(this.getWidth(), model.getPaddle().getY());
 
                 model.getBall(0).move();
                 view.refresh(model);

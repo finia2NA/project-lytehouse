@@ -52,14 +52,14 @@ public class CollisionChecker {
      * Checks if the ball will leave the borders if the window and changes the direction accordingly.
      *
      * @param width  Width of the view.
-     * @param height Height of the view.
+     * @param paddleY Y position of the paddle.
      *
      * @return True if the game still can run. False if the ball hits the lower border.
      */
-    public boolean handleBorderCollision(int width, int height) {
+    public boolean handleBorderCollision(int width, int paddleY) {
         boolean switchX = myObject.nextX() <= 0 || myObject.nextX() + myObject.getWith() >= width;
         boolean switchY = myObject.nextY() <= 0;
-        boolean endGame = myObject.nextY() + myObject.getWith() >= height;
+        boolean endGame = myObject.nextY() + myObject.getHeight() >= paddleY;
 
         if (switchX) {
             int[] newBallSpeed = {myObject.getSpeed()[0] * -1, myObject.getSpeed()[1]};
