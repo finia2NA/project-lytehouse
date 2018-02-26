@@ -53,7 +53,8 @@ public class BlockList extends ArrayList<BBlock> {
 	 *            to look at.
 	 */
 	public BBlock getBlockAtXY(int x, int y) {
-		if (x >= tagXlower && x < tagXlower + 80 && y < tagYlower && y >= tagYlower + 60) {
+		if (x >= tagXlower && x < tagXlower + 80 && y < tagYlower + 60 && y >= tagYlower) {
+			// hit!
 			return cache;
 		} else
 			// wenn der cache ein miss war müssen wir wohl in der Liste gucken.
