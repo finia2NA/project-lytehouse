@@ -23,9 +23,12 @@ public class MainView {
 	}
 
 	public void init() {
-//		lighthouse = new LighthouseView(Settings.getSetting("user-name"), Settings.getSetting("token"));
+		if(Settings.getSetting("web-view").equals("true")) {
+			lighthouse = new LighthouseView(Settings.getSetting("user-name"), Settings.getSetting("token"));
+			lighthouse.init();
+
+		}
 		client = new ClientView(top);
-//		lighthouse.init();
 		client.init();
 	}
 
@@ -38,6 +41,9 @@ public class MainView {
 	 */
 	public void refresh(MainModel model) {
 		//TODO: lighthouse refresh
+		if(Settings.getSetting("web-view").equals("true")) {
+//			lighthouse.reDraw(model);
+		}
 		client.reDraw(model);
 	}
 

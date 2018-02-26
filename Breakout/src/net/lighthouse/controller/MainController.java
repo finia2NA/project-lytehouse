@@ -2,6 +2,7 @@ package net.lighthouse.controller;
 
 import acm.program.GraphicsProgram;
 import net.lighthouse.model.MainModel;
+import net.lighthouse.settings.Settings;
 import net.lighthouse.view.MainView;
 import java.awt.event.*;
 
@@ -13,6 +14,7 @@ public class MainController extends GraphicsProgram {
     private MainModel model;
 
     public void init() {
+        Settings.readUserSettings("settings.txt");
         // initializes the Model with default values(ball, paddle, buch o' blocks)
         model = new MainModel();
 
@@ -50,6 +52,6 @@ public class MainController extends GraphicsProgram {
 
     public void mouseMoved(MouseEvent e) {
         model.movePaddle(e.getX() - 80); // -80 cuz Paddle is 160 wide.
-        view.refresh(model);
+//        view.refresh(model);
     }
 }
