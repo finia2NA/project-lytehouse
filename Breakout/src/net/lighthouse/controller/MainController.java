@@ -1,6 +1,7 @@
 package net.lighthouse.controller;
 
 import acm.program.GraphicsProgram;
+import net.lighthouse.collision.CollisionChecker;
 import net.lighthouse.model.MainModel;
 import net.lighthouse.settings.Settings;
 import net.lighthouse.view.MainView;
@@ -10,21 +11,24 @@ import java.awt.event.*;
  * MainController ist das Oberste Ding.
  */
 public class MainController extends GraphicsProgram {
-	private MainView view;
-	private MainModel model;
+    private MainView view;
+    private MainModel model;
+    private CollisionChecker ballChecker;
 
 	public void init() {
 		Settings.readUserSettings("settings.txt");
 		// initializes the Model with default values(ball, paddle, buch o' blocks)
 		model = new MainModel();
 
-		view = new MainView(this);
-		view.init();
-		addMouseListeners();
+        ballChecker = new CollisionChecker(model.getBall(0));
 
-		int[] speed = { 0, -1 };
-		model.getBall(0).setSpeed(speed);
-	}
+        view = new MainView(this);
+        view.init();
+        addMouseListeners();
+
+        int[] speed = {1, 2};
+        model.getBall(0).setSpeed(speed);
+    }
 
 	/**
 	 * I need this to attach a debugger with IntelliJ. Otherwise IntelliJ is not
@@ -42,18 +46,23 @@ public class MainController extends GraphicsProgram {
 		view.refresh(model);
 
 		// Game Loop
+        boolean runGame = true;
 		long previousRefreshTime = System.currentTimeMillis();
-		while (true) {
+		while (runGame) {
 			long nextTime = System.currentTimeMillis();
 
-			// 1s == 1000ms => 50fps == 1/50s == 20ms
-			if (nextTime - previousRefreshTime > 20) {
-				model.getBall(0).move();
-				view.refresh(model);
-				previousRefreshTime = nextTime;
-			}
-		}
-	}
+            // 1s == 1000ms => 50fps == 1/50s == 20ms
+            if (nextTime - previousRefreshTime > 20) {
+                ballChecker.handlePaddleCollision(model.getPaddle());
+                runGame = ballChecker.handleBorderCollision(this.getWidth(), this.getHeight());
+
+                model.getBall(0).move();
+                view.refresh(model);
+                previousRefreshTime = nextTime;
+            }
+        }
+        System.out.println("You lost!");
+    }
 
 	public void mouseMoved(MouseEvent e) {
 		model.movePaddle(e.getX() - model.getPaddle().getWith() / 2);

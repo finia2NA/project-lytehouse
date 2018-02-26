@@ -44,7 +44,7 @@ public class LighthouseView {
 		int posX = paddle.getX();
 		int posY = paddle.getY();
 
-		// Pixel haben eine opacity von ihrem anteil in dem lighthousepixel. für den
+		// Pixel haben eine opacity von ihrem anteil in dem lighthousepixel. fuer den
 		// ganz
 		double rightSideOpacity = (posX % 20) / 19.00;
 		double leftSideOpacity = 1 - rightSideOpacity;
