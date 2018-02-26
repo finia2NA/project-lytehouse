@@ -6,8 +6,7 @@ import net.lighthouse.view.MainView;
 import java.awt.event.*;
 
 /**
- * Wir brauchen sowieso die Mausevents, deshalb mache ich das Ding jetzt mal zu
- * einem Grafikprogram.
+ * MainController ist das Oberste Ding.
  */
 public class MainController extends GraphicsProgram {
 	private MainView view;
@@ -27,7 +26,7 @@ public class MainController extends GraphicsProgram {
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		model.movePaddle(e.getX() - 80);
+		model.movePaddle(e.getX() - 80); // -80 cuz Paddle is 160 wide.
 	}
 
 	// until we have automatic refreshs you can refresh the view by clicking
