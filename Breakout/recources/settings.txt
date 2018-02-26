@@ -1,11 +1,13 @@
 # How to use: Lines starting with '#' are a comment. Each setting must have the form:
 # key = value
 
+user-name = stu209194
+
 # The token for rendering
-token = API-TOK_0Hup-ruQ4-/Vz2-YJTt-g1Jx
+token = API-TOK_TbHI-E7wf-OPss-ZrPb-66am
 
 # Whether the web view gets used
-web-view = false
+web-view = true
 
 # Whether the lighthouse gets used
 lighthouse-view = false

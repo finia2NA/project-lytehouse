@@ -29,6 +29,7 @@ public class ClientView {
 		// TODO: this doesn't work. it's not essential, but it would be kinda cool.
 		top.setTitle("Breakout pre-release");
 		top.getGCanvas().setAutoRepaintFlag(false);
+		top.setBackground(Color.BLACK);
 	}
 
 	/**
