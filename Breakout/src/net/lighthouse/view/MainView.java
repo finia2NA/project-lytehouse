@@ -23,9 +23,9 @@ public class MainView {
 	}
 
 	public void init() {
-//		lighthouse = new LighthouseView(Settings.getSetting("user-name"), Settings.getSetting("token"));
+		lighthouse = new LighthouseView(Settings.getSetting("user-name"), Settings.getSetting("token"));
 		client = new ClientView(top);
-//		lighthouse.init();
+		lighthouse.init();
 		client.init();
 	}
 
@@ -37,7 +37,7 @@ public class MainView {
 	 * @param model
 	 */
 	public void refresh(MainModel model) {
-		//TODO: lighthouse refresh
+		// TODO: lighthouse refresh
 		client.reDraw(model);
 	}
 
