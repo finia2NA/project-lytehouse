@@ -36,7 +36,7 @@ public class LighthouseView {
 	 * 
 	 * @param paddle
 	 *            the paddle
-	 * @return eine ArrayList von BPixeln die das paddle repräsentieren.
+	 * @return eine ArrayList von BPixeln die das paddle repraesentieren.
 	 */
 	private ArrayList<BPixel> paddlePixels(BPaddle paddle) {
 		ArrayList<BPixel> re = new ArrayList<BPixel>();
@@ -65,10 +65,10 @@ public class LighthouseView {
 	}
 
 	/**
-	 * baut eine BPixel version der blöcke. NOTE: damit das richtig funktioniert
-	 * müssen momentan die blöcke 1:1 mit lighthouse-pixeln korespondieren.
+	 * baut eine BPixel version der bloecke. NOTE: damit das richtig funktioniert
+	 * muessen momentan die bloecke 1:1 mit lighthouse-pixeln korespondieren.
 	 * 
-	 * @param model
+	 * @param blocks
 	 * @return
 	 */
 	private ArrayList<BPixel> blocksPixels(BlockList blocks) {
