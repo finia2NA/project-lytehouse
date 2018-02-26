@@ -2,7 +2,10 @@ package net.lighthouse.view;
 
 //JAVA
 import java.awt.Color;
+import java.awt.Image;
 import java.util.ArrayList;
+
+import acm.graphics.GImage;
 //ACM
 import acm.graphics.GOval;
 import acm.graphics.GRect;
@@ -65,10 +68,9 @@ public class ClientView {
 			Color color = ball.getColor();
 
 			// The ball is not a perfect circle because the lighthouse pixels are not round.
-			GOval ballOval = new GOval(x, y, 40, 60);
-			ballOval.setFilled(true);
-			ballOval.setFillColor(color);
-			top.add(ballOval);
+	
+			GImage football = new GImage("FootballLQ.png", x, y);
+			top.add(football);
 		}
 	}
 
