@@ -22,7 +22,7 @@ final class DefaultSettings {
      * Array with all valid setting keys.
      */
     final String[] validSettings = {
-        "token", "web-view", "lighthouse-view", "particles"
+        "user-name", "token", "web-view", "lighthouse-view", "particles"
     };
 
     /**
@@ -31,10 +31,11 @@ final class DefaultSettings {
     DefaultSettings() {
         settings = new HashMap<>();
 
-        settings.put(validSettings[0], "API-TOK_0Hup-ruQ4-/Vz2-YJTt-g1Jx");
-        settings.put(validSettings[1], "false");
+        settings.put(validSettings[0], "stu209210");
+        settings.put(validSettings[1], "API-TOK_0Hup-ruQ4-/Vz2-YJTt-g1Jx");
         settings.put(validSettings[2], "false");
         settings.put(validSettings[3], "false");
+        settings.put(validSettings[4], "false");
     }
 
     /**

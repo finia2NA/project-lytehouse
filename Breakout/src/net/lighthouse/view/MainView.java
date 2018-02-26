@@ -3,6 +3,7 @@ package net.lighthouse.view;
 import acm.program.GraphicsProgram;
 import net.lighthouse.controller.MainController;
 import net.lighthouse.model.MainModel;
+import net.lighthouse.settings.Settings;
 
 /**
  * the main View. Controlls what goes on in the client and lighthouse views. The
@@ -21,11 +22,10 @@ public class MainView {
 		this.top = top;
 	}
 
-	// TODO: username and token from settings
 	public void init() {
-		lighthouse = new LighthouseView("username", "token");
+//		lighthouse = new LighthouseView(Settings.getSetting("user-name"), Settings.getSetting("token"));
 		client = new ClientView(top);
-		lighthouse.init();
+//		lighthouse.init();
 		client.init();
 	}
 
