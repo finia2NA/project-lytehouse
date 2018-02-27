@@ -84,7 +84,7 @@ public final class Converter {
 		byte[] data = new byte[1176];
 		int[][] pixelArray = image.getPixelArray();
 		// TODO: x und y sind nicht so wie beim anderen dataconverter (vertauscht).
-		// könnte probleme machen. keep an eye on it.
+		// koennte probleme machen. keep an eye on it.
 		for (int y = 0; y < 14; y++) {
 			for (int x = 0; x < 28; x++) {
 				int pixel = pixelArray[y][x];
