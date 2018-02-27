@@ -10,26 +10,31 @@ import net.lighthouse.view.MainView;
 import java.awt.event.*;
 
 /**
- * MainController ist das Oberste Ding.
+ * Main Controller of the game. Keeps track of the game loop and game status.
+ * It also handles user interactions with the game.
  */
 public class MainController extends GraphicsProgram {
     private MainView view;
     private MainModel model;
     private CollisionChecker ballChecker;
 
+    private boolean isRunning;
+
     public void init() {
+        isRunning = false;
+
         Settings.readUserSettings("settings.txt");
-        // initializes the Model with default values(ball, paddle, buch o' blocks)
+        // initializes default model with a paddle, one ball and 4 rows of blocks
         model = new MainModel();
 
         ballChecker = new CollisionChecker(model.getBall(0));
 
         view = new MainView(this);
         view.init();
-        addMouseListeners();
+        view.refresh(model);
 
-        int[] speed = {2, 4};
-        model.getBall(0).setSpeed(speed);
+        addMouseListeners();
+        addKeyListeners();
     }
 
     /**
@@ -44,18 +49,29 @@ public class MainController extends GraphicsProgram {
     }
 
     public void run() {
-        view.refresh(model);
 
-        // Game Loop
-        boolean runGame = true;
+    }
+
+    private void startNewGame() {
+        System.out.println("I got executed!");
+        isRunning = true;
+        int[] speed = {2, 2};
+        model.getBall(0).setSpeed(speed);
+
+//        view.refresh(model);
+        gameLoop();
+        System.out.println("You lost! " + isRunning);
+    }
+
+    private void gameLoop() {
         long previousRefreshTime = System.currentTimeMillis();
-        while (runGame) {
+        while (isRunning) {
             long nextTime = System.currentTimeMillis();
 
             // 1s == 1000ms => 50fps == 1/50s == 20ms
             if (nextTime - previousRefreshTime > 20) {
                 ballChecker.handlePaddleCollision(model.getPaddle());
-                runGame = ballChecker.handleBorderCollision(this.getWidth(), model.getPaddle().getY());
+                isRunning = ballChecker.handleBorderCollision(this.getWidth(), model.getPaddle().getY());
                 BBlock[] hitBlocks = ballChecker.handleBlockCollision(model.getBlocks());
 
                 for (BBlock block : hitBlocks) {
@@ -63,14 +79,21 @@ public class MainController extends GraphicsProgram {
                 }
 
                 model.getBall(0).move();
+                System.out.println("X: " + model.getBall(0).getX() + " Y: " + model.getBall(0).getY());
                 view.refresh(model);
                 previousRefreshTime = nextTime;
             }
         }
-        System.out.println("You lost!");
     }
 
     public void mouseMoved(MouseEvent e) {
         model.movePaddle(e.getX() - model.getPaddle().getWith() / 2);
+    }
+
+    public void keyReleased(KeyEvent e) {
+        if (!isRunning && e.getKeyCode() == KeyEvent.VK_SPACE) {
+            System.out.println("Space was pressed");
+            startNewGame();
+        }
     }
 }
