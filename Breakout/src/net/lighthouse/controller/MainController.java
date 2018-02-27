@@ -87,7 +87,7 @@ public class MainController extends GraphicsProgram {
     }
 
     public void mouseMoved(MouseEvent e) {
-        model.movePaddle(e.getX() - model.getPaddle().getWith() / 2);
+        model.getPaddle().move(e.getX() - model.getPaddle().getWith() / 2);
     }
 
     public void keyReleased(KeyEvent e) {

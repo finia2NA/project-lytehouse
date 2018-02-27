@@ -97,8 +97,4 @@ public class MainModel {
 	public BPaddle getPaddle() {
 		return paddle;
 	}
-
-	public void movePaddle(int paddleNewX) {
-		paddle.setX(paddleNewX);
-	}
 }
