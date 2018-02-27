@@ -56,10 +56,10 @@ public class MainController extends GraphicsProgram {
             if (nextTime - previousRefreshTime > 20) {
                 ballChecker.handlePaddleCollision(model.getPaddle());
                 runGame = ballChecker.handleBorderCollision(this.getWidth(), model.getPaddle().getY());
-                BBlock[] blocksToHide = ballChecker.handleBlockCollision(model.getBlocks());
+                BBlock[] hitBlocks = ballChecker.handleBlockCollision(model.getBlocks());
 
-                for (BBlock block : blocksToHide) {
-                    block.setOpacity(0.00d);
+                for (BBlock block : hitBlocks) {
+                    model.getBlocks().remove(block);
                 }
 
                 model.getBall(0).move();
