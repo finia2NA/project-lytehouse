@@ -29,6 +29,7 @@ public class CollisionChecker {
 
     /**
      * Handles a collision with the paddle and changes the direction accordingly.
+     * Depending on where the ball hits the paddle the X direction will grow or shrink too.
      *
      * @param paddle Paddle we might collide with.
      */
@@ -36,20 +37,40 @@ public class CollisionChecker {
         boolean affectsPaddleY = ball.nextY() + ball.getHeight() >= paddle.getY();
         if (!affectsPaddleY) return;
 
-        int objectX = ball.nextX();
-        int objectWidth = objectX + ball.getWith();
+        int ballX = ball.nextX();
+        int ballWidth = ballX + ball.getWith();
         int paddleX = paddle.getX();
         int paddleWidth = paddleX + paddle.getWith();
 
-        boolean affectsPaddleXMiddle = objectX >= paddleX && objectWidth <= paddleWidth;
+        boolean affectsPaddleXMiddle = ballX >= paddleX && ballWidth <= paddleWidth;
         // Check of only some part of the ball will hit the paddle.
-        boolean affectsPaddleXEdges = (objectX < paddleX && objectWidth > paddleX) || (objectX < paddleWidth && objectWidth > paddleWidth);
+        boolean affectsPaddleXEdgeLeft = ballX < paddleX && ballWidth > paddleX;
+        boolean affectsPaddleXEdgeRight = ballX < paddleWidth && ballWidth > paddleWidth;
 
-        boolean affectsPaddle = affectsPaddleXMiddle || affectsPaddleXEdges;
-
-        if (affectsPaddle) {
-            int[] newBallSpeed = {ball.getSpeed()[0], ball.getSpeed()[1] * -1};
+        if (affectsPaddleXEdgeLeft) {
+            int[] newBallSpeed = {ball.getSpeed()[0] - 2, ball.getSpeed()[1] * -1};
             ball.setSpeed(newBallSpeed);
+
+        } else if (affectsPaddleXEdgeRight) {
+            int[] newBallSpeed = {ball.getSpeed()[0] + 2, ball.getSpeed()[1] * -1};
+            ball.setSpeed(newBallSpeed);
+
+        } else if (affectsPaddleXMiddle) {
+            int paddlePartLength = paddleWidth / 3;
+            int ballCenter = ballWidth / 2;
+
+            if (ballCenter <= paddlePartLength) {
+                int[] newBallSpeed = {ball.getSpeed()[0] - 2, ball.getSpeed()[1] * -1};
+                ball.setSpeed(newBallSpeed);
+
+            } else if (ballCenter <= paddlePartLength * 2) {
+                int[] newBallSpeed = {ball.getSpeed()[0], ball.getSpeed()[1] * -1};
+                ball.setSpeed(newBallSpeed);
+
+            } else if (ballCenter <= paddleWidth) {
+                int[] newBallSpeed = {ball.getSpeed()[0] + 2, ball.getSpeed()[1] * -1};
+                ball.setSpeed(newBallSpeed);
+            }
         }
     }
 
