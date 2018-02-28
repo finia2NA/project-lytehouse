@@ -56,9 +56,7 @@ public class MainController extends GraphicsProgram {
         int[] speed = {2, 2};
         model.getBall(0).setSpeed(speed);
 
-//        view.refresh(model);
         gameLoop();
-        System.out.println("You lost! " + isRunning);
     }
 
     private void gameLoop() {
@@ -83,6 +81,7 @@ public class MainController extends GraphicsProgram {
                 previousRefreshTime = nextTime;
             }
         }
+        stopGame();
     }
 
     private void stopGame() {
