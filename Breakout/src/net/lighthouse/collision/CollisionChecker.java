@@ -43,7 +43,7 @@ public class CollisionChecker {
         int paddleWidth = paddleX + paddle.getWith();
 
         boolean affectsPaddleXMiddle = ballX >= paddleX && ballWidth <= paddleWidth;
-        // Check of only some part of the ball will hit the paddle.
+        // Check if only some part of the ball will hit the paddle.
         boolean affectsPaddleXEdgeLeft = ballX < paddleX && ballWidth > paddleX;
         boolean affectsPaddleXEdgeRight = ballX < paddleWidth && ballWidth > paddleWidth;
 
@@ -76,30 +76,38 @@ public class CollisionChecker {
 
     /**
      * Checks if the ball will leave the borders if the window and changes the direction accordingly.
+     * <b>Warning:</b> Handle paddle collision has to be called before to make sure that the ball will bounce of
+     * the paddle if he would. Since we are always checking the next position, this makes sure, that the
+     * player does not loose even when he was able to block the ball.
      *
      * @param width   Width of the view.
      * @param paddleY Y position of the paddle. This is the line which decides between a lose or not.
      *
-     * @return True if the game still can run. False if the ball hits the lower border.
+     * @return True if the player was able to catch the ball and the game can keep
+     * running. False if the game might end since the ball passed the paddles Y position.
      */
     public boolean handleBorderCollision(int width, int paddleY) {
         boolean switchX = ball.nextX() <= 0 || ball.nextX() + ball.getWith() >= width;
         boolean switchY = ball.nextY() <= 0;
-        boolean endGame = ball.nextY() + ball.getHeight() >= paddleY;
+        boolean playerLost = ball.nextY() + ball.getHeight() >= paddleY;
 
         if (switchX) {
+            // Ball will hit the left or right border of the window.
             int[] newBallSpeed = {ball.getSpeed()[0] * -1, ball.getSpeed()[1]};
             ball.setSpeed(newBallSpeed);
             return true;
         } else if (switchY) {
+            // Ball will hit the top border of the window.
             int[] newBallSpeed = {ball.getSpeed()[0], ball.getSpeed()[1] * -1};
             ball.setSpeed(newBallSpeed);
             return true;
-        } else if (endGame) {
+        } else if (playerLost) {
+            // Ball will be passed the paddle.
             int[] newBallSpeed = {0, 0};
             ball.setSpeed(newBallSpeed);
             return false;
         } else {
+            // Ball will be somewhere in the middle of the window and the game can keep running.
             return true;
         }
     }
@@ -135,7 +143,7 @@ public class CollisionChecker {
 
         // Count is used to know how big the array with affected blocks will be.
         int count = 0;
-        // Change object speed depending on Collisions and count how many blocks are affected.
+        // Change object speed depending on collisions and count how many blocks are affected.
         for (int i = 0; i < blockList.length; i += 2) {
             if (blockList[i] != null || blockList[i + 1] != null) {
                 count = blockList[i] != null ? count + 1 : count;

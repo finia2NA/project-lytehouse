@@ -12,6 +12,8 @@ import java.awt.event.*;
 /**
  * Main Controller of the game. Keeps track of the game loop and game status.
  * It also handles user interactions with the game.
+ *
+ * @author Christoph Fricke
  */
 public class MainController extends GraphicsProgram {
     private MainView view;
@@ -21,8 +23,6 @@ public class MainController extends GraphicsProgram {
     private boolean isRunning;
 
     public void init() {
-        isRunning = false;
-
         Settings.readUserSettings("settings.txt");
         // initializes default model with a paddle, one ball and 4 rows of blocks
         model = new MainModel();
@@ -32,6 +32,8 @@ public class MainController extends GraphicsProgram {
         view = new MainView(this);
         view.init();
         view.refresh(model);
+
+        isRunning = false;
 
         addMouseListeners();
         addKeyListeners();
@@ -48,10 +50,6 @@ public class MainController extends GraphicsProgram {
         new MainController().start(args);
     }
 
-    public void run() {
-
-    }
-
     private void startNewGame() {
         System.out.println("I got executed!");
         isRunning = true;
@@ -64,14 +62,15 @@ public class MainController extends GraphicsProgram {
     }
 
     private void gameLoop() {
+        boolean playerLost = false;
         long previousRefreshTime = System.currentTimeMillis();
-        while (isRunning) {
+        while (!playerLost) {
             long nextTime = System.currentTimeMillis();
 
             // 1s == 1000ms => 50fps == 1/50s == 20ms
             if (nextTime - previousRefreshTime > 20) {
                 ballChecker.handlePaddleCollision(model.getPaddle());
-                isRunning = ballChecker.handleBorderCollision(this.getWidth(), model.getPaddle().getY());
+                playerLost = !ballChecker.handleBorderCollision(this.getWidth(), model.getPaddle().getY());
                 BBlock[] hitBlocks = ballChecker.handleBlockCollision(model.getBlocks());
 
                 for (BBlock block : hitBlocks) {
@@ -84,6 +83,13 @@ public class MainController extends GraphicsProgram {
                 previousRefreshTime = nextTime;
             }
         }
+    }
+
+    private void stopGame() {
+        model.getAllBalls().remove(0);
+        view.refresh(model);
+        isRunning = false;
+        System.out.println("You lost! " + isRunning);
     }
 
     public void mouseMoved(MouseEvent e) {

@@ -41,6 +41,7 @@ public class MainView {
 	 * @param model
 	 */
 	public void refresh(MainModel model) {
+		System.out.println("View refresh got called!");
 		// TODO: lighthouse refresh
 		if (Settings.getSetting("web-view").equals("true")) {
 			lighthouse.update(top);
