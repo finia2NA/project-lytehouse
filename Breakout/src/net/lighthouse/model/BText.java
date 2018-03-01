@@ -1,6 +1,6 @@
 package net.lighthouse.model;
 
-import java.awt.*;
+import java.awt.Color;
 
 /**
  * Stores information about text that can be displayed in the client view.
