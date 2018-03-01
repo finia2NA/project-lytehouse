@@ -89,4 +89,51 @@ public class BText implements Renderable {
     public double getOpacity() {
         return opacity;
     }
+
+    /**
+     * Get the x coordinate of the text.
+     *
+     * @return The x coordinate.
+     */
+    public int getX() {
+        return this.x;
+    }
+
+    /**
+     * Get the x coordinate of the text.
+     *
+     * @return The x coordinate.
+     */
+    public int getY() {
+        return this.y;
+    }
+
+    /**
+     * Sets the x coordinate of the text.
+     *
+     * @param x New x coordinate
+     */
+    public void setX(int x) {
+        if (x < 0) {
+            throw new IllegalArgumentException("Text can not be positioned on negative coordinates!" +
+                " Was: y: " + x);
+        }
+
+
+        this.x = x;
+    }
+
+    /**
+     * Sets the y coordinate of the text.
+     *
+     * @param y New y coordinate
+     */
+    public void setY(int y) {
+        if (y < 0) {
+            throw new IllegalArgumentException("Text can not be positioned on negative coordinates!" +
+                " Was: y: " + y);
+        }
+
+        this.y = y;
+    }
 }
