@@ -2,7 +2,7 @@ package net.lighthouse.model;
 
 import java.awt.Color;
 
-public class BExplosion extends BObject implements multiframe, renderable {
+public class BExplosion extends BObject implements Multiframe, Renderable {
 	private int numberOfFrame;
 	private double opacity;
 	private Color color;

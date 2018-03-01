@@ -17,7 +17,7 @@ public class MainModel {
 	// IDK, maybe one day we'll have a gamemode/powerup where we'll have multiple
 	// BBalls.
 	private ArrayList<BBall> balls;
-	private ArrayList<multiframe> effects;
+	private ArrayList<Multiframe> effects;
 
 	/**
 	 * Creates a Model with all custom data. but no starting explosions :(
@@ -66,8 +66,8 @@ public class MainModel {
 		} else if (object instanceof BBlock) {
 			blocks.add((BBlock) object);
 
-		} else if (object instanceof multiframe) {
-			effects.add((multiframe) object);
+		} else if (object instanceof Multiframe) {
+			effects.add((Multiframe) object);
 
 		} else if (object instanceof BPaddle) {
 			paddle = (BPaddle) object;

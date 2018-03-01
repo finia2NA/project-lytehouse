@@ -2,9 +2,7 @@ package net.lighthouse.model;
 
 import java.awt.Color;
 
-import net.lighthouse.view.BPixel;
-
-public class BPaddle extends BObject implements renderable {
+public class BPaddle extends BObject implements Renderable {
     private Color color;
     private double opacity;
 

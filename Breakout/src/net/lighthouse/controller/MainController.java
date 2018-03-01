@@ -31,12 +31,12 @@ public class MainController extends GraphicsProgram {
 
         view = new MainView(this);
         view.init();
+        System.out.println(this.getWidth() + " " + this.getHeight());
         view.refresh(model);
 
         isRunning = false;
 
         addMouseListeners();
-        addKeyListeners();
     }
 
     /**
@@ -62,7 +62,7 @@ public class MainController extends GraphicsProgram {
     private void gameLoop() {
         boolean playerLost = false;
         long previousRefreshTime = System.currentTimeMillis();
-        while (!playerLost) {
+        do {
             long nextTime = System.currentTimeMillis();
 
             // 1s == 1000ms => 50fps == 1/50s == 20ms
@@ -80,7 +80,7 @@ public class MainController extends GraphicsProgram {
                 view.refresh(model);
                 previousRefreshTime = nextTime;
             }
-        }
+        } while (!playerLost);
         stopGame();
     }
 
@@ -95,9 +95,9 @@ public class MainController extends GraphicsProgram {
         model.getPaddle().move(e.getX() - model.getPaddle().getWith() / 2);
     }
 
-    public void keyReleased(KeyEvent e) {
-        if (!isRunning && e.getKeyCode() == KeyEvent.VK_SPACE) {
-            System.out.println("Space was pressed");
+    public void mouseClicked(MouseEvent e) {
+        if (!isRunning) {
+            System.out.println("Mouse was clicked");
             startNewGame();
         }
     }
