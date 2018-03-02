@@ -2,19 +2,17 @@ package net.lighthouse.view;
 
 //JAVA
 import java.awt.Color;
-import java.awt.Image;
 import java.util.ArrayList;
 
 import acm.graphics.GImage;
 //ACM
-import acm.graphics.GOval;
 import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
 //OUR STUFF
 import net.lighthouse.model.BBall;
 import net.lighthouse.model.BBlock;
 import net.lighthouse.model.BPaddle;
-import net.lighthouse.model.BlockList;
+import net.lighthouse.util.BlockList;
 import net.lighthouse.model.MainModel;
 
 public class ClientView {
