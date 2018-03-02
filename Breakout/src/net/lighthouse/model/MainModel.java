@@ -110,7 +110,7 @@ public class MainModel implements Iterable<BObject> {
 	}
 
 	/**
-	 * @return the texts
+	 * @return the sacred texts!
 	 */
 	public ArrayList<BText> getTexts() {
 		return texts;
@@ -124,8 +124,9 @@ public class MainModel implements Iterable<BObject> {
 		this.texts = texts;
 	}
 
-	@Override
-	public Iterator<BObject> iterator() {
+	public ArrayList<BObject> toArrayList() {
+		// Maybe you schould cache the current arraylist in an object variable so all of
+		// this stuff doesn't have to be called for so often in main view.
 		ArrayList<BObject> objectList = new ArrayList<BObject>();
 		for (BBall ball : balls) {
 			objectList.add(ball);
@@ -137,8 +138,23 @@ public class MainModel implements Iterable<BObject> {
 		for (BExplosion explosion : effects) {
 			objectList.add(explosion);
 		}
-		for(BText text : texts) {
+		for (BText text : texts) {
 			objectList.add(text);
 		}
+		return objectList;
+	}
+
+	public boolean contains(BObject o) {
+		if (toArrayList().contains(o)) {
+			return true;
+		} else {
+			return false;
+		}
+
+	}
+
+	@Override
+	public Iterator<BObject> iterator() {
+		return toArrayList().iterator();
 	}
 }
