@@ -19,6 +19,8 @@ public class MainModel {
 	private ArrayList<BBall> balls;
 	private ArrayList<Multiframe> effects;
 
+	public int userScore;
+
 	/**
 	 * Creates a Model with all custom data. but no starting explosions :(
 	 * 
@@ -33,6 +35,8 @@ public class MainModel {
 		this.paddle = paddle;
 		balls.add(ball);
 		this.blocks = blocks;
+
+		this.userScore = 0;
 	}
 
 	/**

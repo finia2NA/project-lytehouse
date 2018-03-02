@@ -77,7 +77,7 @@ public class MainController extends GraphicsProgram {
     private void gameLoop() {
         boolean playerLost = false;
         long previousRefreshTime = System.currentTimeMillis();
-        do {
+        while (!playerLost) {
             long nextTime = System.currentTimeMillis();
 
             // 1s == 1000ms => 50fps == 1/50s == 20ms
@@ -87,6 +87,7 @@ public class MainController extends GraphicsProgram {
                 BBlock[] hitBlocks = ballChecker.handleBlockCollision(model.getBlocks());
 
                 for (BBlock block : hitBlocks) {
+                    model.userScore++;
                     model.getBlocks().remove(block);
                 }
 
@@ -94,7 +95,7 @@ public class MainController extends GraphicsProgram {
                 view.refresh(model);
                 previousRefreshTime = nextTime;
             }
-        } while (!playerLost);
+        }
         stopGame();
     }
 
@@ -102,7 +103,7 @@ public class MainController extends GraphicsProgram {
         model.getAllBalls().remove(0);
         view.refresh(model);
         isRunning = false;
-        System.out.println("You lost!");
+        System.out.println("You lost! Your score was: " + model.userScore);
         startGame = false;
     }
 
