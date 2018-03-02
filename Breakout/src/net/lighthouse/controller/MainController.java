@@ -7,6 +7,9 @@ import net.lighthouse.model.BBlock;
 import net.lighthouse.model.MainModel;
 import net.lighthouse.settings.Settings;
 import net.lighthouse.view.MainView;
+import net.lighthouse.view.View;
+import net.lighthouse.view.legacyClientView;
+import net.lighthouse.view.legacyMainView;
 
 import java.awt.event.*;
 
@@ -17,17 +20,21 @@ import java.awt.event.*;
  * @author Christoph Fricke
  */
 public class MainController extends GraphicsProgram {
-	private MainView view;
+	private View view;
 	private MainModel model;
 	private CollisionChecker ballChecker;
-
 	private boolean isRunning;
 	private boolean startGame;
 
 	public void init() {
 		Settings.readUserSettings("settings.txt");
 		// initializes default model with a paddle, one ball and 4 rows of blocks
-		view = new MainView(this);
+		if (Settings.getSetting("use_new_Viewport").equals("true")) {
+			view = new MainView(this);
+		} else {
+			view = new legacyMainView(this);
+		}
+
 		view.init();
 		System.out.println(this.getWidth() + " " + this.getHeight());
 
