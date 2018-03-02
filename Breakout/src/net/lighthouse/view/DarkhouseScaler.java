@@ -7,10 +7,12 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import acm.graphics.GCanvas;
 import acm.graphics.GImage;
 import acm.program.GraphicsProgram;
 import javafx.scene.shape.Rectangle;
 import net.lighthouse.model.MainModel;
+import net.lighthouse.settings.Settings;
 
 /**
  * I tried to do it properly. It was boring as h*ck.
@@ -18,40 +20,43 @@ import net.lighthouse.model.MainModel;
  * @author undif
  *
  */
-public class DarkhouseView {
+public class DarkhouseScaler {
 	LighthouseHandler handler;
 	// indicates wether scaled render outputs should be saved
-	private boolean saveAllTheStuff = false;
+	private boolean save_Framebuffer = false;
 	// the number of the frame to save, starts at 0, iterates so we don't overwrite
 	// stuff.
 	private static int imgNumber = 0;
 
-	public DarkhouseView(String username, String token) {
+	public DarkhouseScaler(String username, String token) {
 		handler = new LighthouseHandler(username, token);
 	}
 
 	public void init() {
 		handler.init();
+		if (Settings.getSetting("Save_Framebuffer").equals("true")) {
+			save_Framebuffer = true;
+		}
 	}
 
 	/**
-	 * updates the lighhouse by taking a screenshot of the Graphicsprogram, scalling
-	 * that down and sending the data.
+	 * Updates the lighhouse by taking a screenshot of the GCanvas, scalling that
+	 * down and sending the data.
 	 * 
 	 * @param top
-	 *            the GraphicsProgram.
+	 *            the GCanvas to screenshot.
 	 */
-	public void update(GraphicsProgram top) {
-		// System.out.println("Darkhouse update called");
+	public void update(GCanvas top) {
+
 		BufferedImage captureImage = new BufferedImage(560, 840, BufferedImage.TYPE_4BYTE_ABGR);
-		top.getGCanvas().paint(captureImage.getGraphics());
-		// the last int is a flag for what algorithm to use. We want bicubic. I have no
-		// idea what stands for what, so we'll have to experiment.
+		top.paint(captureImage.getGraphics());
+
 		Image downsample = captureImage.getScaledInstance(28, 14, Image.SCALE_SMOOTH);
 		GImage gDownsample = new GImage(downsample);
 
-		// start of dbug stuff
-		if (saveAllTheStuff)
+		// if save_Framebuffer == true speichern wir jeden gerenderten Frame als png in
+		// den bin ordner.
+		if (save_Framebuffer)
 			try {
 				BufferedImage iDownsample = new BufferedImage(28, 14, BufferedImage.TYPE_4BYTE_ABGR);
 				gDownsample.paint(iDownsample.getGraphics());
@@ -59,7 +64,6 @@ public class DarkhouseView {
 			} catch (IOException e) { // TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		// end of dbug stuff
 
 		handler.update(gDownsample);
 	}
