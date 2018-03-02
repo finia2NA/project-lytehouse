@@ -68,7 +68,7 @@ public class MainController extends GraphicsProgram {
 
         // Generates a random start speed
         RandomGenerator rnd = RandomGenerator.getInstance();
-        int[] speed = {rnd.nextInt(-4, 4), rnd.nextInt(2, 6)};
+        int[] speed = {rnd.nextInt(-4, 4), rnd.nextInt(4, 6)};
         model.getBall(0).setSpeed(speed);
 
         gameLoop();
@@ -86,13 +86,16 @@ public class MainController extends GraphicsProgram {
                 playerLost = !ballChecker.handleBorderCollision(this.getWidth(), model.getPaddle().getY());
                 BBlock[] hitBlocks = ballChecker.handleBlockCollision(model.getBlocks());
 
+                // Remove blocks that got hit in this frame
                 for (BBlock block : hitBlocks) {
-                    model.userScore++;
+                    model.userScore += 10;
                     model.getBlocks().remove(block);
                 }
 
                 model.getBall(0).move();
                 view.refresh(model);
+
+                model.userScore += 0.01;
                 previousRefreshTime = nextTime;
             }
         }
@@ -102,7 +105,7 @@ public class MainController extends GraphicsProgram {
     private void stopGame() {
         model.getAllBalls().remove(0);
         view.refresh(model);
-        System.out.println("You lost! Your score was: " + model.userScore);
+        System.out.println("You lost! Your score was: " + (int) model.userScore);
 
         isRunning = false;
         startGame = false;
