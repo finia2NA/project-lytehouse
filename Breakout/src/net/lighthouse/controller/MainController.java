@@ -27,19 +27,15 @@ public class MainController extends GraphicsProgram {
     public void init() {
         Settings.readUserSettings("settings.txt");
         // initializes default model with a paddle, one ball and 4 rows of blocks
-        model = new MainModel();
-
-        ballChecker = new CollisionChecker(model.getBall(0));
-
         view = new MainView(this);
         view.init();
         System.out.println(this.getWidth() + " " + this.getHeight());
-        view.refresh(model);
 
         isRunning = false;
         startGame = false;
 
         addMouseListeners();
+        addKeyListeners();
     }
 
     /**
@@ -65,6 +61,10 @@ public class MainController extends GraphicsProgram {
 
     private void startNewGame() {
         isRunning = true;
+
+        model = new MainModel();
+        ballChecker = new CollisionChecker(model.getBall(0));
+        view.refresh(model);
 
         // Generates a random start speed
         RandomGenerator rnd = RandomGenerator.getInstance();
@@ -102,17 +102,20 @@ public class MainController extends GraphicsProgram {
     private void stopGame() {
         model.getAllBalls().remove(0);
         view.refresh(model);
-        isRunning = false;
         System.out.println("You lost! Your score was: " + model.userScore);
+
+        isRunning = false;
         startGame = false;
     }
 
     public void mouseMoved(MouseEvent e) {
-        model.getPaddle().move(e.getX() - model.getPaddle().getWith() / 2);
+        if(model != null) {
+            model.getPaddle().move(e.getX() - model.getPaddle().getWith() / 2);
+        }
     }
 
-    public void mouseClicked(MouseEvent e) {
-        if (!isRunning) {
+    public void keyPressed(KeyEvent e) {
+        if (!isRunning && e.getKeyCode() == KeyEvent.VK_SPACE) {
             startGame = true;
         }
     }

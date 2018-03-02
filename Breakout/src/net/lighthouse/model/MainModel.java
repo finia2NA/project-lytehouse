@@ -19,6 +19,9 @@ public class MainModel {
 	private ArrayList<BBall> balls;
 	private ArrayList<Multiframe> effects;
 
+    /**
+     * Keeps track of the current userScore.
+     */
 	public int userScore;
 
 	/**
