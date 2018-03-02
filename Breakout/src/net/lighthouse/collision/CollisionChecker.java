@@ -116,16 +116,22 @@ public class CollisionChecker {
         // Format: XUpperLeft, XUpperRight, XLowerLeft, XLowerRight, YUpperLeft, YLowerLeft, YUpperRight, YLowerRight
         BBlock[] blockList = new BBlock[8];
 
-        // Check all corner situations.
-        blockList[0] = blocks.getBlockAtXY(ball.nextX() + 1, ball.nextY());
-        blockList[1] = blocks.getBlockAtXY(ball.nextX() + ball.getWith() - 1, ball.nextY());
-        blockList[2] = blocks.getBlockAtXY(ball.nextX() + 1, ball.nextY() + ball.getHeight());
-        blockList[3] = blocks.getBlockAtXY(ball.nextX() + ball.getWith() - 1, ball.nextY() + ball.getHeight());
+        // Extracted variables to optimize for performance
+        int ballX = ball.nextX();
+        int ballY = ball.nextY();
+        int ballWidth = ballX + ball.getWith();
+        int ballHeight = ballY + ball.getHeight();
 
-        blockList[4] = blocks.getBlockAtXY(ball.nextX(), ball.nextY() + 1);
-        blockList[5] = blocks.getBlockAtXY(ball.nextX(), ball.nextY() + ball.getHeight() - 1);
-        blockList[6] = blocks.getBlockAtXY(ball.nextX() + ball.getWith(), ball.nextY() + 1);
-        blockList[7] = blocks.getBlockAtXY(ball.nextX() + ball.getWith(), ball.nextY() + ball.getHeight() - 1);
+        // Check all corner situations.
+        blockList[0] = blocks.getBlockAtXY(ballX + 1, ballY);
+        blockList[1] = blocks.getBlockAtXY(ballWidth - 1, ballY);
+        blockList[2] = blocks.getBlockAtXY(ballX + 1, ballHeight);
+        blockList[3] = blocks.getBlockAtXY(ballWidth - 1, ballHeight);
+
+        blockList[4] = blocks.getBlockAtXY(ballX, ballY + 1);
+        blockList[5] = blocks.getBlockAtXY(ballX, ballHeight - 1);
+        blockList[6] = blocks.getBlockAtXY(ballWidth, ballY + 1);
+        blockList[7] = blocks.getBlockAtXY(ballWidth, ballHeight - 1);
 
         // Remove possible duplicates
         if (blockList[0] == blockList[1]) blockList[1] = null;
