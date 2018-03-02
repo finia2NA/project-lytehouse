@@ -1,6 +1,7 @@
 package net.lighthouse.controller;
 
 import acm.program.GraphicsProgram;
+import acm.util.RandomGenerator;
 import net.lighthouse.collision.CollisionChecker;
 import net.lighthouse.model.BBlock;
 import net.lighthouse.model.MainModel;
@@ -10,26 +11,35 @@ import net.lighthouse.view.MainView;
 import java.awt.event.*;
 
 /**
- * MainController ist das Oberste Ding.
+ * Main Controller of the game. Keeps track of the game loop and game status.
+ * It also handles user interactions with the game.
+ *
+ * @author Christoph Fricke
  */
 public class MainController extends GraphicsProgram {
     private MainView view;
     private MainModel model;
     private CollisionChecker ballChecker;
 
+    private boolean isRunning;
+    private boolean startGame;
+
     public void init() {
         Settings.readUserSettings("settings.txt");
-        // initializes the Model with default values(ball, paddle, buch o' blocks)
+        // initializes default model with a paddle, one ball and 4 rows of blocks
         model = new MainModel();
 
         ballChecker = new CollisionChecker(model.getBall(0));
 
         view = new MainView(this);
         view.init();
-        addMouseListeners();
+        System.out.println(this.getWidth() + " " + this.getHeight());
+        view.refresh(model);
 
-        int[] speed = {2, 4};
-        model.getBall(0).setSpeed(speed);
+        isRunning = false;
+        startGame = false;
+
+        addMouseListeners();
     }
 
     /**
@@ -44,18 +54,36 @@ public class MainController extends GraphicsProgram {
     }
 
     public void run() {
-        view.refresh(model);
+        while (true) {
+            if (startGame) {
+                startNewGame();
+            } else {
+                pause(20);
+            }
+        }
+    }
 
-        // Game Loop
-        boolean runGame = true;
+    private void startNewGame() {
+        isRunning = true;
+
+        // Generates a random start speed
+        RandomGenerator rnd = RandomGenerator.getInstance();
+        int[] speed = {rnd.nextInt(-4, 4), rnd.nextInt(2, 6)};
+        model.getBall(0).setSpeed(speed);
+
+        gameLoop();
+    }
+
+    private void gameLoop() {
+        boolean playerLost = false;
         long previousRefreshTime = System.currentTimeMillis();
-        while (runGame) {
+        do {
             long nextTime = System.currentTimeMillis();
 
             // 1s == 1000ms => 50fps == 1/50s == 20ms
             if (nextTime - previousRefreshTime > 20) {
                 ballChecker.handlePaddleCollision(model.getPaddle());
-                runGame = ballChecker.handleBorderCollision(this.getWidth(), model.getPaddle().getY());
+                playerLost = !ballChecker.handleBorderCollision(this.getWidth(), model.getPaddle().getY());
                 BBlock[] hitBlocks = ballChecker.handleBlockCollision(model.getBlocks());
 
                 for (BBlock block : hitBlocks) {
@@ -66,11 +94,25 @@ public class MainController extends GraphicsProgram {
                 view.refresh(model);
                 previousRefreshTime = nextTime;
             }
-        }
+        } while (!playerLost);
+        stopGame();
+    }
+
+    private void stopGame() {
+        model.getAllBalls().remove(0);
+        view.refresh(model);
+        isRunning = false;
         System.out.println("You lost!");
+        startGame = false;
     }
 
     public void mouseMoved(MouseEvent e) {
-        model.movePaddle(e.getX() - model.getPaddle().getWith() / 2);
+        model.getPaddle().move(e.getX() - model.getPaddle().getWith() / 2);
+    }
+
+    public void mouseClicked(MouseEvent e) {
+        if (!isRunning) {
+            startGame = true;
+        }
     }
 }

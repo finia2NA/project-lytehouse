@@ -1,12 +1,8 @@
 package net.lighthouse.model;
 
 import java.awt.Color;
-import java.awt.Rectangle;
-import java.awt.Shape;
 
-import net.lighthouse.view.BPixel;
-
-public class BBlock extends BObject implements renderable {
+public class BBlock extends BObject implements Renderable {
 	private Color color;
 	private double opacity;
 

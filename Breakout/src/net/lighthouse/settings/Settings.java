@@ -3,6 +3,7 @@ package net.lighthouse.settings;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.nio.file.FileSystem;
 import java.util.HashMap;
 import java.util.regex.Pattern;
 
@@ -34,7 +35,8 @@ public final class Settings {
         userSettings = defaultSettings.getSettings();
 
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(settingsFile));
+
+            BufferedReader reader = new BufferedReader(new FileReader("./" + settingsFile));
 
             while (true) {
                 String setting = reader.readLine();
@@ -57,7 +59,7 @@ public final class Settings {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Could not read user settings! Will use default settings.");
+            System.out.println("Could not read user settings! Will use default settings." + e.getMessage());
         }
     }
 
