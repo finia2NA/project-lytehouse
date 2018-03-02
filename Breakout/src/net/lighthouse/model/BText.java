@@ -13,8 +13,12 @@ public class BText implements Renderable {
     private double opacity;
     private String text;
     private Color color;
+    //Indicates wether the lighthouse will render the text.
+	private boolean clientOnly = true;;
 
-    /**
+
+
+	/**
      * Creates a new text object which can be rendered on the screen.
      * The default color is white and opacity 1.
      *
@@ -136,4 +140,18 @@ public class BText implements Renderable {
 
         this.y = y;
     }
+    
+    /**
+	 * @return the clientOnly
+	 */
+	public boolean isClientOnly() {
+		return clientOnly;
+	}
+
+	/**
+	 * @param clientOnly the clientOnly to set
+	 */
+	public void setClientOnly(boolean clientOnly) {
+		this.clientOnly = clientOnly;
+	}
 }
