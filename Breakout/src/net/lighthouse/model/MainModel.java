@@ -52,7 +52,7 @@ public class MainModel implements Iterable<BObject> {
 	 */
 	public MainModel() {
 		balls = new ArrayList<BBall>();
-		balls.add(new BBall(560 / 2, 840 / 2, Color.BLUE, 1, 1, 1));
+		balls.add(new BBall(560 / 2, 840 / 2, Color.BLUE, 1, 1));
 
 		paddle = new BPaddle(560 / 2 - 80, 840 - 60, Color.CYAN, 1);
 

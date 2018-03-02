@@ -2,34 +2,17 @@ package net.lighthouse.model;
 
 import java.awt.Color;
 
-public class BBlock extends BObject implements Renderable {
-	private Color color;
-	private double opacity;
+public class BBlock extends BObject {
 
-	public BBlock(int x, int y, Color color, double opacity, int width, int height) {
+	BBlock(int x, int y, int width, int height) {
 		super(x, y, width, height);
-		this.opacity = opacity;
-		this.color = color;
+		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public void setColor(Color color) {
-		this.color = color;
+	BBlock(int x, int y, int width, int height, Color color) {
+		super(x, y, width, height, color);
+		// TODO Auto-generated constructor stub
 	}
 
-	@Override
-	public Color getColor() {
-		return color;
-	}
-
-	@Override
-	public void setOpacity(double opacity) {
-		assert opacity <= 1 && opacity >= 0;
-		this.opacity = opacity;
-	}
-
-	@Override
-	public double getOpacity() {
-		return opacity;
-	}
+	// Diese Klasse existiert nur damit die View instanceOf BBlock sagen kann.
 }
