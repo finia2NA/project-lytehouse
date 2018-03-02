@@ -4,7 +4,7 @@ import java.awt.Color;
 
 //UPDATE: Diese klasse ist doch nuetzlich.
 /**
- * A renderable BObject allways has one or more BPixels. Each of these Pixels
+ * A Renderable BObject allways has one or more BPixels. Each of these Pixels
  * has an Offset from the X/Y of the Object, a Color and an Opacity.
  * 
  * @author undif
