@@ -6,7 +6,7 @@ public class BBlock extends BObject implements Renderable {
 	private Color color;
 	private double opacity;
 
-	BBlock(int x, int y, Color color, double opacity, int width, int height) {
+	public BBlock(int x, int y, Color color, double opacity, int width, int height) {
 		super(x, y, width, height);
 		this.opacity = opacity;
 		this.color = color;
