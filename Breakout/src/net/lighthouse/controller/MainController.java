@@ -1,6 +1,7 @@
 package net.lighthouse.controller;
 
 import acm.program.GraphicsProgram;
+import acm.util.RandomGenerator;
 import net.lighthouse.collision.CollisionChecker;
 import net.lighthouse.model.BBlock;
 import net.lighthouse.model.MainModel;
@@ -21,6 +22,7 @@ public class MainController extends GraphicsProgram {
     private CollisionChecker ballChecker;
 
     private boolean isRunning;
+    private boolean startGame;
 
     public void init() {
         Settings.readUserSettings("settings.txt");
@@ -35,6 +37,7 @@ public class MainController extends GraphicsProgram {
         view.refresh(model);
 
         isRunning = false;
+        startGame = false;
 
         addMouseListeners();
     }
@@ -50,10 +53,22 @@ public class MainController extends GraphicsProgram {
         new MainController().start(args);
     }
 
+    public void run() {
+        while (true) {
+            if (startGame) {
+                startNewGame();
+            } else {
+                pause(20);
+            }
+        }
+    }
+
     private void startNewGame() {
-        System.out.println("I got executed!");
         isRunning = true;
-        int[] speed = {2, 2};
+
+        // Generates a random start speed
+        RandomGenerator rnd = RandomGenerator.getInstance();
+        int[] speed = {rnd.nextInt(-4, 4), rnd.nextInt(2, 6)};
         model.getBall(0).setSpeed(speed);
 
         gameLoop();
@@ -76,7 +91,6 @@ public class MainController extends GraphicsProgram {
                 }
 
                 model.getBall(0).move();
-                System.out.println("X: " + model.getBall(0).getX() + " Y: " + model.getBall(0).getY());
                 view.refresh(model);
                 previousRefreshTime = nextTime;
             }
@@ -88,7 +102,8 @@ public class MainController extends GraphicsProgram {
         model.getAllBalls().remove(0);
         view.refresh(model);
         isRunning = false;
-        System.out.println("You lost! " + isRunning);
+        System.out.println("You lost!");
+        startGame = false;
     }
 
     public void mouseMoved(MouseEvent e) {
@@ -97,8 +112,7 @@ public class MainController extends GraphicsProgram {
 
     public void mouseClicked(MouseEvent e) {
         if (!isRunning) {
-            System.out.println("Mouse was clicked");
-            startNewGame();
+            startGame = true;
         }
     }
 }
