@@ -31,8 +31,8 @@ final class DefaultSettings {
     DefaultSettings() {
         settings = new HashMap<>();
 
-        settings.put(validSettings[0], "stu209210");
-        settings.put(validSettings[1], "API-TOK_0Hup-ruQ4-/Vz2-YJTt-g1Jx");
+        settings.put(validSettings[0], "");
+        settings.put(validSettings[1], "");
         settings.put(validSettings[2], "false");
         settings.put(validSettings[3], "false");
     }
