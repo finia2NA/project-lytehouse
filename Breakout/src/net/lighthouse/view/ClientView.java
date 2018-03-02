@@ -69,7 +69,7 @@ public class ClientView {
 			Color color = ball.getColor();
 
 			// The ball is not a perfect circle because the lighthouse pixels are not round.
-	
+
 			GImage football = new GImage("FootballLQ.png", x, y);
 			top.add(football);
 		}

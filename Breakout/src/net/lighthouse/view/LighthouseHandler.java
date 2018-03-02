@@ -79,10 +79,8 @@ public class LighthouseHandler {
 	 *            the 28x14 2d int array containing the values of each pixel.
 	 */
 
-
 	public void update(GImage image) {
 		byte[] data = Converter.dataConverter(image);
-
 		try {
 			display.send(data);
 		} catch (IOException e) {
@@ -104,7 +102,6 @@ public class LighthouseHandler {
 			System.out.println("Connection failed: " + e.getMessage());
 			e.printStackTrace();
 		}
-		System.out.println("connected: " + display.isConnected());
 	}
 
 }
