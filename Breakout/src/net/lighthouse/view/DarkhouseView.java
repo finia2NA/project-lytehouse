@@ -50,12 +50,11 @@ public class DarkhouseView {
 		Image downsample = captureImage.getScaledInstance(28, 14, Image.SCALE_SMOOTH);
 		GImage gDownsample = new GImage(downsample);
 
-		BufferedImage iDownsample = new BufferedImage(28, 14, BufferedImage.TYPE_4BYTE_ABGR);
-		gDownsample.paint(iDownsample.getGraphics());
-
 		// start of dbug stuff
 		if (saveAllTheStuff)
 			try {
+				BufferedImage iDownsample = new BufferedImage(28, 14, BufferedImage.TYPE_4BYTE_ABGR);
+				gDownsample.paint(iDownsample.getGraphics());
 				ImageIO.write(iDownsample, "png", new File("img" + imgNumber++ + ".png"));
 			} catch (IOException e) { // TODO Auto-generated catch block
 				e.printStackTrace();
