@@ -5,6 +5,7 @@ import net.lighthouse.util.BlockList;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 /**
  * the main Model holding all blocks, balls the paddle and all effects.
@@ -13,14 +14,14 @@ import java.util.ArrayList;
  *
  */
 
-public class MainModel {
+public class MainModel implements Iterable<BObject> {
 	private BlockList blocks;
 	// We'll definitly one have one paddle so this is not an ArrayList.
 	private BPaddle paddle;
 	// IDK, maybe one day we'll have a gamemode/powerup where we'll have multiple
 	// BBalls.
 	private ArrayList<BBall> balls;
-	private ArrayList<Multiframe> effects;
+	private ArrayList<BExplosion> effects;
 	private ArrayList<BText> texts;
 
 	/**
@@ -76,8 +77,8 @@ public class MainModel {
 		} else if (object instanceof BBlock) {
 			blocks.add((BBlock) object);
 
-		} else if (object instanceof Multiframe) {
-			effects.add((Multiframe) object);
+		} else if (object instanceof BExplosion) {
+			effects.add((BExplosion) object);
 
 		} else if (object instanceof BPaddle) {
 			paddle = (BPaddle) object;
@@ -116,9 +117,28 @@ public class MainModel {
 	}
 
 	/**
-	 * @param texts the texts to set
+	 * @param texts
+	 *            the texts to set
 	 */
 	public void setTexts(ArrayList<BText> texts) {
 		this.texts = texts;
+	}
+
+	@Override
+	public Iterator<BObject> iterator() {
+		ArrayList<BObject> objectList = new ArrayList<BObject>();
+		for (BBall ball : balls) {
+			objectList.add(ball);
+		}
+		objectList.add(paddle);
+		for (BBlock block : blocks) {
+			objectList.add(block);
+		}
+		for (BExplosion explosion : effects) {
+			objectList.add(explosion);
+		}
+		for(BText text : texts) {
+			objectList.add(text);
+		}
 	}
 }
