@@ -16,7 +16,7 @@ import net.lighthouse.model.MainModel;
  * @author undif
  *
  */
-public class MainView {
+public class MainView implements View{
 
 	private DarkhouseScaler darkhouse;
 	private GraphicsProgram top;
