@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * the main Model holding all blocks, balls the paddle and all effects.
+ * the main Model holding all blocks, balls, the paddle,texts and all effects.
  * 
  * @author finite
  *

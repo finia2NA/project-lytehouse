@@ -4,12 +4,12 @@ import java.awt.Color;
 
 public class BBlock extends BObject {
 
-	BBlock(int x, int y, int width, int height) {
+	public BBlock(int x, int y, int width, int height) {
 		super(x, y, width, height);
 		// TODO Auto-generated constructor stub
 	}
 
-	BBlock(int x, int y, int width, int height, Color color) {
+	public BBlock(int x, int y, int width, int height, Color color) {
 		super(x, y, width, height, color);
 		// TODO Auto-generated constructor stub
 	}
