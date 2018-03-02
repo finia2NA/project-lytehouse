@@ -36,7 +36,7 @@ public final class Settings {
 
         try {
 
-            BufferedReader reader = new BufferedReader(new FileReader(settingsFile));
+            BufferedReader reader = new BufferedReader(new FileReader("./" + settingsFile));
 
             while (true) {
                 String setting = reader.readLine();
@@ -59,7 +59,7 @@ public final class Settings {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Could not read user settings! Will use default settings.");
+            System.out.println("Could not read user settings! Will use default settings." + e.getMessage());
         }
     }
 
