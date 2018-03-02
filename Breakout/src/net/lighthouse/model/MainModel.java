@@ -21,10 +21,11 @@ public class MainModel {
 	// BBalls.
 	private ArrayList<BBall> balls;
 	private ArrayList<Multiframe> effects;
+	private ArrayList<BText> texts;
 
-    /**
-     * Keeps track of the current userScore.
-     */
+	/**
+	 * Keeps track of the current userScore.
+	 */
 	public double userScore;
 
 	/**
@@ -105,5 +106,19 @@ public class MainModel {
 
 	public BPaddle getPaddle() {
 		return paddle;
+	}
+
+	/**
+	 * @return the texts
+	 */
+	public ArrayList<BText> getTexts() {
+		return texts;
+	}
+
+	/**
+	 * @param texts the texts to set
+	 */
+	public void setTexts(ArrayList<BText> texts) {
+		this.texts = texts;
 	}
 }
