@@ -1,5 +1,8 @@
 package net.lighthouse.model;
 
+import net.lighthouse.levels.LevelManager;
+import net.lighthouse.util.BlockList;
+
 import java.awt.Color;
 import java.util.ArrayList;
 
@@ -18,6 +21,12 @@ public class MainModel {
 	// BBalls.
 	private ArrayList<BBall> balls;
 	private ArrayList<Multiframe> effects;
+	private ArrayList<BText> texts;
+
+	/**
+	 * Keeps track of the current userScore.
+	 */
+	public double userScore;
 
 	/**
 	 * Creates a Model with all custom data. but no starting explosions :(
@@ -33,6 +42,8 @@ public class MainModel {
 		this.paddle = paddle;
 		balls.add(ball);
 		this.blocks = blocks;
+
+		this.userScore = 0;
 	}
 
 	/**
@@ -44,8 +55,7 @@ public class MainModel {
 
 		paddle = new BPaddle(560 / 2 - 80, 840 - 60, Color.CYAN, 1);
 
-		blocks = new BlockList();
-		blocks.defaultFill();
+		blocks = LevelManager.getRandomLevel();
 	}
 
 	public void addExplosion(int x, int y, Color color) {
@@ -96,5 +106,19 @@ public class MainModel {
 
 	public BPaddle getPaddle() {
 		return paddle;
+	}
+
+	/**
+	 * @return the texts
+	 */
+	public ArrayList<BText> getTexts() {
+		return texts;
+	}
+
+	/**
+	 * @param texts the texts to set
+	 */
+	public void setTexts(ArrayList<BText> texts) {
+		this.texts = texts;
 	}
 }
