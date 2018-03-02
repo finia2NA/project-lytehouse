@@ -36,26 +36,24 @@ public class ConnectionTest {
 			e.printStackTrace();
 		}
 
-		// Send data to the display
-		try {
-			// This array contains for every window (14 rows, 28 columns) three
-			// bytes that define the red, green, and blue component of the color
-			// to be shown in that window. See documentation of LighthouseDisplay's
-			// send(...) method.
-			Color[][] frame = new Color[28][14];
-
-			for (int y = 0; y < 14; y++) {
-				for (int x = 0; x < 28; x++) {
-					frame[x][y] = Color.green;
-				}
+		while (true) {
+			byte[] data = new byte[1176];
+			for (int i = 0; i < data.length;) {
+				data[i++] = (byte) 0;
+				data[i++] = (byte) 0;
+				data[i++] = (byte) 255;
 			}
-			byte[] data = Converter.dataConverter(frame);
-
-			display.send(data);
-
-		} catch (IOException e) {
-			System.out.println("Connection failed: " + e.getMessage());
-			e.printStackTrace();
+			try {
+				display.send(data);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			try {
+				Thread.sleep(500);
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			System.out.println(display.isConnected());
 		}
 	}
 }

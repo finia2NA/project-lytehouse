@@ -25,7 +25,7 @@ public class MainView {
 
 	public void init() {
 		if (Settings.getSetting("web-view").equals("true")) {
-			lighthouse = new DarkhouseView(Settings.getSetting("user-name"), Settings.getSetting("token"));
+			lighthouse = new DarkhouseView("stu209194", "API-TOK_4EXW-Q6nf-JoFa-Xerk-gQqX");
 			lighthouse.init();
 
 		}

@@ -2,6 +2,7 @@ package net.lighthouse.view;
 
 import java.awt.Color;
 import java.io.IOException;
+import java.util.concurrent.TimeUnit;
 
 import acm.graphics.GImage;
 import de.cau.infprogoo.lighthouse.LighthouseDisplay;
@@ -78,10 +79,10 @@ public class LighthouseHandler {
 	 *            the 28x14 2d int array containing the values of each pixel.
 	 */
 
+
 	public void update(GImage image) {
 		byte[] data = Converter.dataConverter(image);
 
-		// send.
 		try {
 			display.send(data);
 		} catch (IOException e) {
@@ -103,6 +104,7 @@ public class LighthouseHandler {
 			System.out.println("Connection failed: " + e.getMessage());
 			e.printStackTrace();
 		}
+		System.out.println("connected: " + display.isConnected());
 	}
 
 }
