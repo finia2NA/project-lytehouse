@@ -25,9 +25,15 @@ public class MainController extends GraphicsProgram {
 	private CollisionChecker ballChecker;
 	private boolean isRunning;
 	private boolean startGame;
+	private boolean print_frametimes = false;
+	private int frametime = 30;
 
 	public void init() {
 		Settings.readUserSettings("settings.txt");
+		frametime = Integer.parseInt(Settings.getSetting("frametime"));
+		if (Settings.getSetting("print-frametimes").equals("true")) {
+			print_frametimes = true;
+		}
 		if (Settings.getSetting("use_new_Viewport").equals("true")) {
 			view = new MainView(this);
 		} else {
@@ -88,7 +94,12 @@ public class MainController extends GraphicsProgram {
 			long nextTime = System.currentTimeMillis();
 
 			// 1s == 1000ms => 50fps == 1/50s == 20ms
-			if (nextTime - previousRefreshTime > 20) {
+			if (nextTime - previousRefreshTime > frametime) {
+				if (print_frametimes) {
+					System.out.println(nextTime - previousRefreshTime);
+				}
+
+				System.out.println(nextTime - previousRefreshTime);
 				ballChecker.handlePaddleCollision(model.getPaddle());
 				playerLost = !ballChecker.handleBorderCollision(this.getWidth(), model.getPaddle().getY());
 				BBlock[] hitBlocks = ballChecker.handleBlockCollision(model.getBlocks());

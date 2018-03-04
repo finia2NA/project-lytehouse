@@ -7,6 +7,7 @@ import java.io.IOException;
 
 import javax.imageio.ImageIO;
 
+import acm.graphics.GCanvas;
 import acm.graphics.GImage;
 import acm.program.GraphicsProgram;
 import javafx.scene.shape.Rectangle;
@@ -42,13 +43,13 @@ public class DarkhouseView {
 	 * updates the lighhouse by taking a screenshot of the Graphicsprogram, scalling
 	 * that down and sending the data.
 	 * 
-	 * @param top
+	 * @param gCanvas
 	 *            the GraphicsProgram.
 	 */
-	public void update(GraphicsProgram top) {
+	public void update(GCanvas gCanvas) {
 		// System.out.println("Darkhouse update called");
 		BufferedImage captureImage = new BufferedImage(560, 840, BufferedImage.TYPE_4BYTE_ABGR);
-		top.getGCanvas().paint(captureImage.getGraphics());
+		gCanvas.paint(captureImage.getGraphics());
 		// the last int is a flag for what algorithm to use. We want bicubic. I have no
 		// idea what stands for what, so we'll have to experiment.
 		Image downsample = captureImage.getScaledInstance(28, 14, Image.SCALE_SMOOTH);

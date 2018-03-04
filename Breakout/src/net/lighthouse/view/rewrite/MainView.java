@@ -20,13 +20,13 @@ import net.lighthouse.model.MainModel;
 //SETTINGS
 import net.lighthouse.settings.Settings;
 //VIEW
-import net.lighthouse.view.DarkhouseScaler;
+import net.lighthouse.view.DarkhouseView;
 import net.lighthouse.view.View;
 import net.lighthouse.view.rewrite.BLink;
 
 /**
  * The main View. Controlls what goes on in the client and lighthouse views. The
- * window for the client view gets provided by the Graphicsprogram that
+ * window for the client view gets provided by the GraphicsProgram that
  * constructs this view.
  * 
  * @author finite
@@ -34,19 +34,20 @@ import net.lighthouse.view.rewrite.BLink;
  */
 public class MainView implements View {
 
-	private DarkhouseScaler darkhouse;
+	private DarkhouseView darkhouse;
 	private GraphicsProgram top;
 	private MainModel model;
 	private BLinkList links;
 
 	public MainView(GraphicsProgram top) {
+		assert top != null;
 		this.top = top;
 
 	}
 
 	public void init() {
 		if (Settings.getSetting("web-view").equals("true")) {
-			darkhouse = new DarkhouseScaler();
+			darkhouse = new DarkhouseView();
 			darkhouse.init();
 		}
 		top.setSize(560, 840);
@@ -73,7 +74,6 @@ public class MainView implements View {
 		if (Settings.getSetting("web-view").equals("true")) {
 			darkhouse.update(top.getGCanvas());
 		}
-		addText();
 		top.repaint();
 		;
 	}
@@ -85,7 +85,8 @@ public class MainView implements View {
 			g = new GImage("FootballLQ.png", o.getX(), o.getY());
 
 		} else if (o instanceof BText) {
-			// text wird erst später geadded.
+			g = new GLabel(((BText) o).getText(), o.getX(), o.getY());
+			g.setColor(o.getColor());
 			return;
 		} else if (o instanceof BExplosion) {
 			g = new GLabel("hier sollte eine Explosion sein xD", o.getX(), o.getY());
