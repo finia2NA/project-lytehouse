@@ -35,7 +35,7 @@ final class DefaultSettings {
         settings.put(validSettings[1], "");
         settings.put(validSettings[2], "false");
         settings.put(validSettings[3], "false");
-        settings.put(validSettings[4], "false");
+        settings.put(validSettings[4], "true");
     }
 
     /**

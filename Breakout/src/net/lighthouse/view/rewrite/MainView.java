@@ -65,8 +65,8 @@ public class MainView implements View {
 			return;
 		}
 		deleted();
-		moveConditional();
 		added();
+		moved();
 
 		if (Settings.getSetting("web-view").equals("true")) {
 			darkhouse.update(top.getGCanvas());
@@ -106,12 +106,16 @@ public class MainView implements View {
 	}
 
 	private void added() {
-
+		for (BObject o : model) {
+			if (!links.containsBObject(o)) {
+				addObject(o);
+			}
+		}
 	}
 
 	private void deleted() {
-		// a link cannot be removed while iterating through links. Workaround: save which
-		// links to remove and remove them outside of the loop.
+		// a link cannot be removed while iterating through links. Workaround: save
+		// which links to remove and remove them outside of the loop.
 		ArrayList<BLink> toDelete = new ArrayList<BLink>();
 		for (BLink link : links) {
 			if (!(model.contains(link.getB()))) {
@@ -124,20 +128,19 @@ public class MainView implements View {
 		}
 	}
 
-	private void deleteObject(BObject o) {
-		// TODO Auto-generated method stub
-
-	}
-
 	/**
 	 * looks if the representations of a in the view have different coordinates than
 	 * the concept in the model. if yes, the view needs to be updated.
 	 * 
 	 * @param concept
 	 */
-	public void moveConditional() {
-		for (BObject o : model) {
-
+	public void moved() {
+		for (BLink link : links) {
+			if (link.hasMoved()) {
+				int moveX = (int) (link.getB().getX() - link.getG().getX());
+				int moveY = (int) (link.getB().getY() - link.getG().getY());
+				link.getG().move(moveX, moveY);
+			}
 		}
 	}
 }
