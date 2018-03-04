@@ -16,7 +16,7 @@ public class BLinkList extends ArrayList<BLink> {
 	public boolean containsBObject(BObject o) {
 		for (BLink b : this) {
 			// this is actually supposed to be == and not equals.
-			if (b.getO() == o) {
+			if (b.getB() == o) {
 				return true;
 			}
 		}
@@ -26,7 +26,7 @@ public class BLinkList extends ArrayList<BLink> {
 	public GObject getGraphics(BObject o) {
 		for (BLink b : this) {
 			// this is actually supposed to be == and not equals.
-			if (b.getO() == o) {
+			if (b.getB() == o) {
 				return b.getG();
 			}
 		}

@@ -10,27 +10,27 @@ import net.lighthouse.model.BObject;
  *
  */
 public class BLink {
-	private BObject o;
+	private BObject b;
 	private GObject g;
 
 	public BLink(BObject o, GObject g) {
-		this.o = o;
+		this.b = o;
 		this.g = g;
 	}
 
 	/**
-	 * @return the o
+	 * @return the b
 	 */
-	public BObject getO() {
-		return o;
+	public BObject getB() {
+		return b;
 	}
 
 	/**
-	 * @param o
-	 *            the o to set
+	 * @param b
+	 *            the b to set
 	 */
-	public void setO(BObject o) {
-		this.o = o;
+	public void setB(BObject b) {
+		this.b = b;
 	}
 
 	/**
@@ -59,7 +59,7 @@ public class BLink {
 	public boolean hasMoved() {
 		int[] atm = { (int) g.getX(), (int) g.getY() };
 
-		if (o.getXY().equals(atm)) {
+		if (b.getXY().equals(atm)) {
 			return false;
 		} else {
 			return true;
