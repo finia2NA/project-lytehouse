@@ -14,14 +14,14 @@ import net.lighthouse.model.MainModel;
 import net.lighthouse.view.LighthouseHandler;
 
 /**
- * @deprecated Updates the lighhouse by taking a screenshot of the
- *             Graphicsprogram, scaling that down and sending the data. It can
- *             save every frame produces as a png for debug purposes.
+ * Updates the lighhouse by taking a screenshot of the Graphicsprogram, scaling
+ * that down and sending the data. It can save every frame produces as a png for
+ * debug purposes.
  * 
  * @author finite
  *
  */
-public class legacyDarkhouseView {
+public class DarkhouseView {
 	LighthouseHandler handler;
 	// indicates wether scaled render outputs should be saved
 	// TODO: maybe this should be a setting?
@@ -30,7 +30,7 @@ public class legacyDarkhouseView {
 	// stuff.
 	private static int imgNumber = 0;
 
-	public legacyDarkhouseView() {
+	public DarkhouseView() {
 		handler = new LighthouseHandler();
 	}
 

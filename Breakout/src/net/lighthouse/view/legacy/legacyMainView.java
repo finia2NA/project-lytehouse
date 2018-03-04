@@ -5,7 +5,7 @@ import net.lighthouse.controller.MainController;
 import net.lighthouse.model.MainModel;
 import net.lighthouse.settings.Settings;
 import net.lighthouse.view.View;
-import net.lighthouse.view.legacyDarkhouseView;
+import net.lighthouse.view.DarkhouseView;
 
 /**
  * @deprecated updates the client and lighthouse view in an extremely ineficient
@@ -16,7 +16,7 @@ import net.lighthouse.view.legacyDarkhouseView;
  */
 public class legacyMainView implements View {
 
-	private legacyDarkhouseView lighthouse;
+	private DarkhouseView lighthouse;
 	private legacyClientView client;
 	private GraphicsProgram top;
 
@@ -35,7 +35,7 @@ public class legacyMainView implements View {
 	 */
 	public void init() {
 		if (Settings.getSetting("web-view").equals("true")) {
-			lighthouse = new legacyDarkhouseView();
+			lighthouse = new DarkhouseView();
 			lighthouse.init();
 
 		}
