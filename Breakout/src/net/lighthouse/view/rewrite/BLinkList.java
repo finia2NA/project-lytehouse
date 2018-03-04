@@ -13,6 +13,13 @@ import net.lighthouse.model.BObject;
  *
  */
 public class BLinkList extends ArrayList<BLink> {
+
+	/**
+	 * 
+	 * @param o
+	 *            the BObject to look for.
+	 * @return {@code true} if the List contains a link to the BObject.
+	 */
 	public boolean containsBObject(BObject o) {
 		for (BLink b : this) {
 			// this is actually supposed to be == and not equals.
@@ -23,7 +30,14 @@ public class BLinkList extends ArrayList<BLink> {
 		return false;
 	}
 
-	public GObject getGraphics(BObject o) {
+	/**
+	 * returns the GObject linked to a BObject.
+	 * 
+	 * @param o
+	 *            the BObject linked to the GObject that is returned
+	 * @return the GObject linked to the given BObject.
+	 */
+	public GObject getGObject(BObject o) {
 		for (BLink b : this) {
 			// this is actually supposed to be == and not equals.
 			if (b.getB() == o) {

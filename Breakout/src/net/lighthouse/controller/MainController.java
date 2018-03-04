@@ -99,7 +99,6 @@ public class MainController extends GraphicsProgram {
 					System.out.println(nextTime - previousRefreshTime);
 				}
 
-				System.out.println(nextTime - previousRefreshTime);
 				ballChecker.handlePaddleCollision(model.getPaddle());
 				playerLost = !ballChecker.handleBorderCollision(this.getWidth(), model.getPaddle().getY());
 				BBlock[] hitBlocks = ballChecker.handleBlockCollision(model.getBlocks());
