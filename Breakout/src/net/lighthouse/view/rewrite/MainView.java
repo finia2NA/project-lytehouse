@@ -9,6 +9,7 @@ import acm.graphics.GFillable;
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
+import acm.graphics.GOval;
 import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
 //MODEL
@@ -46,6 +47,7 @@ public class MainView implements View {
 	}
 
 	public void init() {
+		System.out.println("using new Viewport");
 		if (Settings.getSetting("web-view").equals("true")) {
 			darkhouse = new DarkhouseView();
 			darkhouse.init();

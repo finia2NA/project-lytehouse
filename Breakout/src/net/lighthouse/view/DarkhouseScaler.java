@@ -53,7 +53,7 @@ public class DarkhouseScaler {
 		BufferedImage captureImage = new BufferedImage(560, 840, BufferedImage.TYPE_4BYTE_ABGR);
 		top.paint(captureImage.getGraphics());
 
-		Image downsample = captureImage.getScaledInstance(28, 14, Image.SCALE_SMOOTH);
+		Image downsample = captureImage.getScaledInstance(28, 14, Image.SCALE_FAST);
 		GImage gDownsample = new GImage(downsample);
 
 		// if save_Framebuffer == true speichern wir jeden gerenderten Frame als png in

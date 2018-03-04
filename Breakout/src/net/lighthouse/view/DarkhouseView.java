@@ -9,9 +9,6 @@ import javax.imageio.ImageIO;
 
 import acm.graphics.GCanvas;
 import acm.graphics.GImage;
-import acm.program.GraphicsProgram;
-import javafx.scene.shape.Rectangle;
-import net.lighthouse.model.MainModel;
 import net.lighthouse.view.LighthouseHandler;
 
 /**
@@ -23,6 +20,7 @@ import net.lighthouse.view.LighthouseHandler;
  *
  */
 public class DarkhouseView {
+
 	LighthouseHandler handler;
 	// indicates wether scaled render outputs should be saved
 	// TODO: maybe this should be a setting?
