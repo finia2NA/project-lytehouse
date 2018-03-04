@@ -1,4 +1,6 @@
-package net.lighthouse.view;
+package net.lighthouse.view.rewrite;
+
+import java.util.ArrayList;
 
 import acm.graphics.GCanvas;
 import acm.graphics.GObject;
@@ -7,6 +9,9 @@ import acm.program.GraphicsProgram;
 import net.lighthouse.model.BBall;
 import net.lighthouse.model.BObject;
 import net.lighthouse.model.MainModel;
+import net.lighthouse.view.DarkhouseScaler;
+import net.lighthouse.view.View;
+import net.lighthouse.view.rewrite.BLink;
 
 /**
  * the main View. Controlls what goes on in the client and lighthouse views. The
@@ -16,12 +21,12 @@ import net.lighthouse.model.MainModel;
  * @author undif
  *
  */
-public class MainView implements View{
+public class MainView implements View {
 
 	private DarkhouseScaler darkhouse;
 	private GraphicsProgram top;
 	private MainModel model;
-	private MainModel lastModel;
+	private ArrayList<BLink> links;
 
 	public MainView(GraphicsProgram top) {
 		this.top = top;
@@ -33,7 +38,7 @@ public class MainView implements View{
 
 	public void update(MainModel model) {
 		this.model = model;
-		if (lastModel == null) {
+		if (links == null) {
 			// initial fill.
 			for (BObject o : model) {
 				addObject(o);
@@ -43,7 +48,7 @@ public class MainView implements View{
 		deleted();
 		moveConditional();
 		added();
-		lastModel = model;
+
 		darkhouse.update(top.getGCanvas());
 		addText();
 	}
@@ -54,12 +59,6 @@ public class MainView implements View{
 	}
 
 	private void added() {
-		for (BObject o : model) {
-			if (!lastModel.contains(o)) {
-				addObject(o);
-			}
-
-		}
 
 	}
 
@@ -69,11 +68,7 @@ public class MainView implements View{
 	}
 
 	private void deleted() {
-		for (BObject o : lastModel) {
-			if (!model.contains(o)) {
-				deleteObject(o);
-			}
-		}
+
 	}
 
 	private void deleteObject(BObject o) {
@@ -89,7 +84,7 @@ public class MainView implements View{
 	 */
 	public void moveConditional() {
 		for (BObject o : model) {
-			
+
 		}
 	}
 }
