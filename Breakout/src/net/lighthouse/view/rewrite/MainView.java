@@ -103,11 +103,10 @@ public class MainView implements View {
 
 	}
 
-	private void addText() {
-		// TODO Auto-generated method stub
-
-	}
-
+	/**
+	 * looks if there are any Objects in the model that have not jet been added to
+	 * the screen. If yes, adds those objects to the screen and the links.
+	 */
 	private void added() {
 		for (BObject o : model) {
 			if (!links.containsBObject(o)) {
@@ -116,6 +115,10 @@ public class MainView implements View {
 		}
 	}
 
+	/**
+	 * looks if there are any Objects on the screen that have been removed from the
+	 * model. if yes, removes those objects from the screen and the links.
+	 */
 	private void deleted() {
 		// a link cannot be removed while iterating through links. Workaround: save
 		// which links to remove and remove them outside of the loop.
