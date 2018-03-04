@@ -5,7 +5,7 @@ import java.awt.Color;
 /**
  * Stores information about text that can be displayed in the client view.
  *
- * @author Christoph Fricke
+ * @author Christoph Fricke, finite
  */
 public class BText extends BObject {
 	private String text;
@@ -51,5 +51,19 @@ public class BText extends BObject {
 	 */
 	public void setClientOnly(boolean clientOnly) {
 		this.clientOnly = clientOnly;
+	}
+
+	/**
+	 * @return the text
+	 */
+	public String getText() {
+		return text;
+	}
+
+	/**
+	 * @param text the text to set
+	 */
+	public void setText(String text) {
+		this.text = text;
 	}
 }
