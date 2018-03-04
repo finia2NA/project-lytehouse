@@ -20,9 +20,12 @@ public class MainModel implements Iterable<BObject> {
 	private BPaddle paddle;
 	// IDK, maybe one day we'll have a gamemode/powerup where we'll have multiple
 	// BBalls.
-	private ArrayList<BBall> balls;
-	private ArrayList<BExplosion> effects;
-	private ArrayList<BText> texts;
+
+	// TODO: this could be a BlockList, since BBall is a type of BBlock. I don't
+	// know if it needs to be though. -finite
+	private ArrayList<BBall> balls = new ArrayList<BBall>();
+	private ArrayList<BExplosion> effects = new ArrayList<BExplosion>();
+	private ArrayList<BText> texts = new ArrayList<BText>();
 
 	/**
 	 * Keeps track of the current userScore.

@@ -3,7 +3,7 @@ package net.lighthouse.model;
 import java.awt.Color;
 
 //Extended BBlock weil ich die beiden Klassen geschrieben habe und dann bemerkt habe dass ein BBall alle Methoden von BBlock braucht + die speedmethoden.
-public class BBall extends BObject {
+public class BBall extends BBlock {
 	// index 0->x-Speed, index 1->y-Speed
 	private int[] speed;
 
