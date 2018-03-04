@@ -132,10 +132,10 @@ public class CollisionChecker {
         int ballHeight = ballY + ball.getHeight();
 
         // Check all corner situations.
-        blockList[0] = blocks.getBlockAtXY(ballX + 1, ballY);
-        blockList[1] = blocks.getBlockAtXY(ballWidth - 1, ballY);
-        blockList[2] = blocks.getBlockAtXY(ballX + 1, ballHeight);
-        blockList[3] = blocks.getBlockAtXY(ballWidth - 1, ballHeight);
+        blockList[0] = blocks.getBlockAtXY(ballX, ballY);
+        blockList[1] = blocks.getBlockAtXY(ballWidth, ballY);
+        blockList[2] = blocks.getBlockAtXY(ballX, ballHeight);
+        blockList[3] = blocks.getBlockAtXY(ballWidth, ballHeight);
 
         blockList[4] = blocks.getBlockAtXY(ballX, ballY + 1);
         blockList[5] = blocks.getBlockAtXY(ballX, ballHeight - 1);
