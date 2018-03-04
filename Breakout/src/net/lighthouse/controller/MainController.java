@@ -6,10 +6,10 @@ import net.lighthouse.collision.CollisionChecker;
 import net.lighthouse.model.BBlock;
 import net.lighthouse.model.MainModel;
 import net.lighthouse.settings.Settings;
-import net.lighthouse.view.MainView;
+import net.lighthouse.view.rewrite.MainView;
 import net.lighthouse.view.View;
-import net.lighthouse.view.legacyClientView;
-import net.lighthouse.view.legacyMainView;
+import net.lighthouse.view.legacy.legacyClientView;
+import net.lighthouse.view.legacy.legacyMainView;
 
 import java.awt.event.*;
 

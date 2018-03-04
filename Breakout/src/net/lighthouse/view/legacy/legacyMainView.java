@@ -1,9 +1,10 @@
-package net.lighthouse.view;
+package net.lighthouse.view.legacy;
 
 import acm.program.GraphicsProgram;
 import net.lighthouse.controller.MainController;
 import net.lighthouse.model.MainModel;
 import net.lighthouse.settings.Settings;
+import net.lighthouse.view.View;
 
 /**
  * Legacy Main View. Will be replaced by the new MainView shortly.

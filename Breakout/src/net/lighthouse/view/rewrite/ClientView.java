@@ -1,4 +1,4 @@
-package net.lighthouse.view;
+package net.lighthouse.view.rewrite;
 
 //JAVA
 import java.awt.Color;
@@ -15,10 +15,10 @@ import net.lighthouse.model.BPaddle;
 import net.lighthouse.util.BlockList;
 import net.lighthouse.model.MainModel;
 
-public class legacyClientView {
+public class ClientView {
 	GraphicsProgram top;
 
-	public legacyClientView(GraphicsProgram top) {
+	public ClientView(GraphicsProgram top) {
 		this.top = top;
 	}
 

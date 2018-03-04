@@ -1,4 +1,4 @@
-package net.lighthouse.view;
+package net.lighthouse.view.legacy;
 
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -11,6 +11,7 @@ import acm.graphics.GImage;
 import acm.program.GraphicsProgram;
 import javafx.scene.shape.Rectangle;
 import net.lighthouse.model.MainModel;
+import net.lighthouse.view.LighthouseHandler;
 
 /**
  * I tried to do it properly. It was boring as h*ck.
