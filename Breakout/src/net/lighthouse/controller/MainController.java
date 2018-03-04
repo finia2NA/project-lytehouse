@@ -28,7 +28,6 @@ public class MainController extends GraphicsProgram {
 
 	public void init() {
 		Settings.readUserSettings("settings.txt");
-		// initializes default model with a paddle, one ball and 4 rows of blocks
 		if (Settings.getSetting("use_new_Viewport").equals("true")) {
 			view = new MainView(this);
 		} else {
