@@ -15,6 +15,13 @@ import net.lighthouse.model.BPaddle;
 import net.lighthouse.util.BlockList;
 import net.lighthouse.model.MainModel;
 
+/**
+ * @deprecated Extremely inefficient implementation of client view refreshs. no
+ *             support for explosions or text or endblock.
+ * 
+ * @author finite
+ *
+ */
 public class legacyClientView {
 	GraphicsProgram top;
 
@@ -22,6 +29,9 @@ public class legacyClientView {
 		this.top = top;
 	}
 
+	/**
+	 * initializes the Client View.
+	 */
 	public void init() {
 		top.setSize(560, 840);
 		// TODO: this doesn't work. it's not essential, but it would be kinda cool.
@@ -31,8 +41,9 @@ public class legacyClientView {
 	}
 
 	/**
-	 * completely redraws a Panel from a model. Maybe this is not the way to do it
-	 * since we target a refresh rate of 50hz. We'll see.
+	 * completely redraws a Panel from a model. This is not the way to do it since
+	 * we target a refresh rate of 50hz and the image will flicker at that
+	 * framerate.
 	 * 
 	 * @param model
 	 *            the model to draw.
@@ -47,18 +58,30 @@ public class legacyClientView {
 		top.repaint();
 	}
 
+	/**
+	 * draws the paddle.
+	 * 
+	 * @param paddle
+	 *            to draw.
+	 */
 	private void drawPaddle(BPaddle paddle) {
 		// gets all the info we need from the paddle.
 		int x = paddle.getX();
 		int y = paddle.getY();
 		Color color = paddle.getColor();
 
-		GRect paddleRect = new GRect(x, y, 160, 60);
+		GRect paddleRect = new GRect(x, y, paddle.getWith(), paddle.getHeight());
 		paddleRect.setFilled(true);
 		paddleRect.setFillColor(color);
 		top.add(paddleRect);
 	}
 
+	/**
+	 * draws the balls
+	 * 
+	 * @param balls
+	 *            to draw.
+	 */
 	private void drawBalls(ArrayList<BBall> balls) {
 		for (BBall ball : balls) {
 			// gets all the info we need from the ball.
@@ -73,6 +96,12 @@ public class legacyClientView {
 		}
 	}
 
+	/**
+	 * draws the blocks.
+	 * 
+	 * @param blocks
+	 *            to draw.
+	 */
 	private void drawBlocks(BlockList blocks) {
 		for (BBlock block : blocks) {
 			// gets all the info we need from the block.
@@ -85,6 +114,5 @@ public class legacyClientView {
 			blockRect.setFillColor(color);
 			top.add(blockRect);
 		}
-		// TODO: drawExplosions
 	}
 }

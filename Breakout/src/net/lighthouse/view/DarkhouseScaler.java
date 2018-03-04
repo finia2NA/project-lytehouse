@@ -15,21 +15,23 @@ import net.lighthouse.model.MainModel;
 import net.lighthouse.settings.Settings;
 
 /**
- * I tried to do it properly. It was boring as h*ck.
+ * This class handles scaling GCanvasas to lighthouse Format. It is used by both
+ * Viewport 2 and the legacy Viewport.
  * 
- * @author undif
+ * @author finite
  *
  */
 public class DarkhouseScaler {
 	LighthouseHandler handler;
+	
 	// indicates wether scaled render outputs should be saved
 	private boolean save_Framebuffer = false;
 	// the number of the frame to save, starts at 0, iterates so we don't overwrite
-	// stuff.
+	// previous frames.
 	private static int imgNumber = 0;
 
-	public DarkhouseScaler(String username, String token) {
-		handler = new LighthouseHandler(username, token);
+	public DarkhouseScaler() {
+		handler = new LighthouseHandler();
 	}
 
 	public void init() {

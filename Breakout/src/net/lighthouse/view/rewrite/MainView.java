@@ -1,8 +1,9 @@
 package net.lighthouse.view.rewrite;
 
+//JAVA
 import java.awt.Color;
 import java.util.ArrayList;
-
+//ACM
 import acm.graphics.GCanvas;
 import acm.graphics.GFillable;
 import acm.graphics.GImage;
@@ -10,16 +11,17 @@ import acm.graphics.GLabel;
 import acm.graphics.GObject;
 import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
-
+//MODEL
 import net.lighthouse.model.BBall;
 import net.lighthouse.model.BExplosion;
 import net.lighthouse.model.BObject;
 import net.lighthouse.model.BText;
 import net.lighthouse.model.MainModel;
+//SETTINGS
 import net.lighthouse.settings.Settings;
+//VIEW
 import net.lighthouse.view.DarkhouseScaler;
 import net.lighthouse.view.View;
-import net.lighthouse.view.legacy.legacyDarkhouseView;
 import net.lighthouse.view.rewrite.BLink;
 
 /**
@@ -44,7 +46,7 @@ public class MainView implements View {
 
 	public void init() {
 		if (Settings.getSetting("web-view").equals("true")) {
-			darkhouse = new DarkhouseScaler(Settings.getSetting("user-name"), Settings.getSetting("token"));
+			darkhouse = new DarkhouseScaler();
 			darkhouse.init();
 		}
 		top.setSize(560, 840);

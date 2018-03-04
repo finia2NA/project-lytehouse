@@ -6,43 +6,33 @@ import java.util.concurrent.TimeUnit;
 
 import acm.graphics.GImage;
 import de.cau.infprogoo.lighthouse.LighthouseDisplay;
+import net.lighthouse.settings.Settings;
 import net.lighthouse.util.Converter;
 
 /**
- * this class is responsible for sending data to the lighthouse.
+ * This class is responsible for sending data to the lighthouse.
  * 
  * @author finite
  *
  */
 public class LighthouseHandler {
-
-	// Bleeding Edge security going on in this class.
-	// #TheyCan'tHackYourEncryptionWhenYouDon'tHaveAny
 	private String username;
 	private String token;
-
-	// Brightness scales from 0 to 1. Right now it's just stuck on 1, i'll do some
-	// stuff with it later.
-	private double brightness;
 
 	LighthouseDisplay display;
 
 	/**
-	 * constructs a lighthouse view with brightness = 1 and tries to connect to the
-	 * web display.
+	 * Constructs a lighthouse view and determines its username and password.
 	 * 
-	 * @param username
-	 * @param token
 	 */
-	public LighthouseHandler(String username, String token) {
-		this.username = username;
-		this.token = token;
-		this.brightness = 1;
+	public LighthouseHandler() {
+		this.username = Settings.getSetting("user-name");
+		this.token = Settings.getSetting("token");
 
 	}
 
 	/**
-	 * initializes the lighthouse display and tries to connect.
+	 * Initializes the lighthouse display and tries to connect.
 	 */
 	public void init() {
 		assert !username.isEmpty() : "assert on LighthouseView: username is empty.";
@@ -54,7 +44,7 @@ public class LighthouseHandler {
 	}
 
 	/**
-	 * updates to display with pixel data.
+	 * Updates to display with pixel data.
 	 * 
 	 * @param pixels
 	 *            the 28x14 2d Color array containing the values of each pixel.
@@ -73,13 +63,14 @@ public class LighthouseHandler {
 	}
 
 	/**
-	 * updates the display with pixel data
+	 * Updates the display with pixel data
 	 * 
-	 * @param pixelArray
-	 *            the 28x14 2d int array containing the values of each pixel.
+	 * @param image
+	 *            the 28x14 GImage containing the current frame.
 	 */
 
 	public void update(GImage image) {
+		assert image != null;
 		byte[] data = Converter.dataConverter(image);
 		try {
 			display.send(data);
@@ -90,7 +81,7 @@ public class LighthouseHandler {
 	}
 
 	/**
-	 * tries to connect to the web display.
+	 * Tries to connect to the web display.
 	 */
 	private void connect() {
 		System.out.println(
