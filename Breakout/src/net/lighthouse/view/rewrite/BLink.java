@@ -3,6 +3,12 @@ package net.lighthouse.view.rewrite;
 import acm.graphics.GObject;
 import net.lighthouse.model.BObject;
 
+/**
+ * A class that links an Object in the Model to a representation in the view.
+ * 
+ * @author finite
+ *
+ */
 public class BLink {
 	private BObject o;
 	private GObject g;
@@ -45,7 +51,11 @@ public class BLink {
 	/**
 	 * @return the xy
 	 */
-
+	/**
+	 * indicates wether o and g are out of sync in terms of coordinates.
+	 * 
+	 * @return {@code true} g needs to be moved, {@code false} g and o are in sync.
+	 */
 	public boolean hasMoved() {
 		int[] atm = { (int) g.getX(), (int) g.getY() };
 
