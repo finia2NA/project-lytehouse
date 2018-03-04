@@ -4,11 +4,15 @@ import acm.program.GraphicsProgram;
 import acm.util.RandomGenerator;
 import net.lighthouse.collision.CollisionChecker;
 import net.lighthouse.model.BBlock;
+import net.lighthouse.model.BBoss;
+import net.lighthouse.model.BText;
 import net.lighthouse.model.MainModel;
 import net.lighthouse.settings.Settings;
 import net.lighthouse.view.MainView;
 
+import java.awt.Color;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 /**
  * Main Controller of the game. Keeps track of the game loop and game status.
@@ -20,8 +24,10 @@ public class MainController extends GraphicsProgram {
     private MainView view;
     private MainModel model;
     private CollisionChecker ballChecker;
+    private BBossController bossController;
 
     private boolean isRunning;
+    private boolean isBossFight;
     private boolean startGame;
 
     public void init() {
@@ -33,6 +39,11 @@ public class MainController extends GraphicsProgram {
 
         isRunning = false;
         startGame = false;
+
+        ArrayList<BText> messages = new ArrayList<>();
+        messages.add(new BText(100, 100, "BREAKOUT"));
+        messages.add(new BText(100, 200, "press SPACE to start"));
+        model = new MainModel(messages);
 
         addMouseListeners();
         addKeyListeners();
@@ -61,6 +72,7 @@ public class MainController extends GraphicsProgram {
 
     private void startNewGame() {
         isRunning = true;
+        isBossFight = false;
 
         model = new MainModel();
         ballChecker = new CollisionChecker(model.getBall(0));
@@ -82,14 +94,26 @@ public class MainController extends GraphicsProgram {
 
             // 1s == 1000ms => 50fps == 1/50s == 20ms
             if (nextTime - previousRefreshTime > 20) {
+                if (!isBossFight && model.getBlocks().size() == 0) {
+                    initBossFight();
+                }
+
                 ballChecker.handlePaddleCollision(model.getPaddle());
                 playerLost = !ballChecker.handleBorderCollision(this.getWidth(), model.getPaddle().getY());
-                BBlock[] hitBlocks = ballChecker.handleBlockCollision(model.getBlocks());
 
-                // Remove blocks that got hit in this frame
-                for (BBlock block : hitBlocks) {
-                    model.userScore += 10;
-                    model.getBlocks().remove(block);
+                if (!isBossFight) {
+                    BBlock[] hitBlocks = ballChecker.handleBlockCollision(model.getBlocks());
+
+                    // Remove blocks that got hit in this frame
+                    for (BBlock block : hitBlocks) {
+                        model.userScore += 10;
+                        model.getBlocks().remove(block);
+                    }
+                } else {
+                    assert isBossFight && model.getBoss() != null: "Wops looks like it is not a boss fight";
+
+                    ballChecker.handleBossCollision(model.getBoss());
+                    bossController.playBossMove();
                 }
 
                 model.getBall(0).move();
@@ -111,8 +135,16 @@ public class MainController extends GraphicsProgram {
         startGame = false;
     }
 
+    private void initBossFight() {
+        BBoss boss = new BBoss(10, Color.GREEN);
+        model.addObject(boss);
+        bossController = new BBossController(boss);
+
+        isBossFight = true;
+    }
+
     public void mouseMoved(MouseEvent e) {
-        if(model != null) {
+        if (model.getPaddle() != null) {
             model.getPaddle().move(e.getX() - model.getPaddle().getWith() / 2);
         }
     }

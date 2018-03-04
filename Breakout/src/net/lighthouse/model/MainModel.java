@@ -8,117 +8,124 @@ import java.util.ArrayList;
 
 /**
  * the main Model holding all blocks, balls the paddle and all effects.
- * 
- * @author finite
  *
+ * @author finite
  */
 
 public class MainModel {
-	private BlockList blocks;
-	// We'll definitly one have one paddle so this is not an ArrayList.
-	private BPaddle paddle;
-	// IDK, maybe one day we'll have a gamemode/powerup where we'll have multiple
-	// BBalls.
-	private ArrayList<BBall> balls;
-	private ArrayList<Multiframe> effects;
-	private ArrayList<BText> texts;
+    private BlockList blocks;
+    // We'll definitly one have one paddle so this is not an ArrayList.
+    private BPaddle paddle;
+    // IDK, maybe one day we'll have a gamemode/powerup where we'll have multiple
+    // BBalls.
+    private ArrayList<BBall> balls;
+    private ArrayList<Multiframe> effects;
+    private ArrayList<BText> texts;
+    private BBoss boss;
 
-	/**
-	 * Keeps track of the current userScore.
-	 */
-	public double userScore;
+    /**
+     * Keeps track of the current userScore.
+     */
+    public double userScore;
 
-	/**
-	 * Creates a Model with all custom data. but no starting explosions :(
-	 * 
-	 * @param paddle
-	 *            the paddle.
-	 * @param ball
-	 *            the ball.
-	 * @param blocks
-	 *            the blocks.
-	 */
-	public MainModel(BPaddle paddle, BBall ball, BlockList blocks) {
-		this.paddle = paddle;
-		balls.add(ball);
-		this.blocks = blocks;
+    /**
+     * Creates a Model with all custom data. but no starting explosions :(
+     *
+     * @param paddle the paddle.
+     * @param ball   the ball.
+     * @param blocks the blocks.
+     */
+    public MainModel(BPaddle paddle, BBall ball, BlockList blocks) {
+        this.paddle = paddle;
+        balls.add(ball);
+        this.blocks = blocks;
 
-		this.userScore = 0;
-	}
+        this.userScore = 0;
+    }
 
-	/**
-	 * Creates a MainModel with preconfigured Blocks, paddle and blocks.
-	 */
-	public MainModel() {
-		balls = new ArrayList<BBall>();
-		balls.add(new BBall(560 / 2, 840 / 2, Color.BLUE, 1, 1, 1));
+    /**
+     * Creates a MainModel with preconfigured Blocks, paddle and blocks.
+     */
+    public MainModel() {
+        balls = new ArrayList<BBall>();
+        balls.add(new BBall(560 / 2, 840 / 2, Color.BLUE, 1, 1, 1));
 
-		paddle = new BPaddle(560 / 2 - 80, 840 - 60, Color.CYAN, 1);
+        paddle = new BPaddle(560 / 2 - 80, 840 - 60, Color.CYAN, 1);
 
-		blocks = LevelManager.getRandomLevel();
-	}
+        blocks = LevelManager.getRandomLevel();
+    }
 
-	public void addExplosion(int x, int y, Color color) {
-		effects.add(new BExplosion(x, y, color, 1));
+    public MainModel(ArrayList<BText> text) {
+        this.texts = text;
+    }
 
-	}
+    public void addExplosion(int x, int y, Color color) {
+        effects.add(new BExplosion(x, y, color, 1));
 
-	/**
-	 * adds an object to the model.
-	 * 
-	 * @param object
-	 *            the object to add.
-	 */
-	public void addObject(BObject object) {
-		if (object instanceof BBall) {
-			balls.add((BBall) object);
+    }
 
-		} else if (object instanceof BBlock) {
-			blocks.add((BBlock) object);
+    /**
+     * adds an object to the model.
+     *
+     * @param object the object to add.
+     */
+    public void addObject(BObject object) {
+        if (object instanceof BBall) {
+            balls.add((BBall) object);
 
-		} else if (object instanceof Multiframe) {
-			effects.add((Multiframe) object);
+        } else if (object instanceof BBoss) {
+            boss = (BBoss) object;
 
-		} else if (object instanceof BPaddle) {
-			paddle = (BPaddle) object;
+        } else if (object instanceof BBlock) {
+            blocks.add((BBlock) object);
 
-			// Ich glaube nicht dass es einen usecase gibt wo man absichtlich das paddle
-			// durch ein neues ersetzt, deshalb die Warnung.
-			System.out.println("Warning on addObject: paddle has just been replaced.");
-		}
-	}
+        } else if (object instanceof Multiframe) {
+            effects.add((Multiframe) object);
 
-	public BlockList getBlocks() {
-		return blocks;
-	}
+        } else if (object instanceof BPaddle) {
+            paddle = (BPaddle) object;
 
-	public int getNumberOfBalls() {
-		return balls.size();
-	}
+            // Ich glaube nicht dass es einen usecase gibt wo man absichtlich das paddle
+            // durch ein neues ersetzt, deshalb die Warnung.
+            System.out.println("Warning on addObject: paddle has just been replaced.");
+        }
+    }
 
-	public ArrayList<BBall> getAllBalls() {
-		return balls;
-	}
+    public BlockList getBlocks() {
+        return blocks;
+    }
 
-	public BBall getBall(int ballIndex) {
-		return balls.get(ballIndex);
-	}
+    public int getNumberOfBalls() {
+        return balls.size();
+    }
 
-	public BPaddle getPaddle() {
-		return paddle;
-	}
+    public ArrayList<BBall> getAllBalls() {
+        return balls;
+    }
 
-	/**
-	 * @return the texts
-	 */
-	public ArrayList<BText> getTexts() {
-		return texts;
-	}
+    public BBall getBall(int ballIndex) {
+        return balls.get(ballIndex);
+    }
 
-	/**
-	 * @param texts the texts to set
-	 */
-	public void setTexts(ArrayList<BText> texts) {
-		this.texts = texts;
-	}
+    public BPaddle getPaddle() {
+        return paddle;
+    }
+
+    public BBoss getBoss() {
+        return boss;
+    }
+
+    /**
+     * @return the texts
+     */
+    public ArrayList<BText> getTexts() {
+        return texts;
+    }
+
+    /**
+     * @param texts the texts to set
+     */
+    public void setTexts(ArrayList<BText> texts) {
+        this.texts = texts;
+    }
 }

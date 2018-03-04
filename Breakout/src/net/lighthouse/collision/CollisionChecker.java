@@ -178,4 +178,35 @@ public class CollisionChecker {
 
         return affectedBlocks;
     }
+
+    public void handleBossCollision(BBoss boss) {
+        int ballX = ball.nextX();
+        int ballY = ball.nextY();
+        int ballWidth = ballX + ball.getWith();
+        int ballHeight = ballY + ball.getHeight();
+        int bossX = boss.getX();
+        int bossY = boss.getY();
+        int bossWidth = bossX + boss.getWith();
+        int bossHeight = bossY + boss.getHeight();
+
+        boolean hitsBossX = ballX >= bossX && ballWidth <= bossWidth;
+        boolean hitsBossY = ballY >= bossY && ballHeight <= bossHeight;
+        // Check if only some part of the ball will hit the boss.
+        boolean hitsBossEdgeXLeft = ballX < bossX && ballWidth > bossX;
+        boolean hitsBossEdgeXRight = ballX < bossWidth && ballWidth > bossWidth;
+        boolean hitsBossEdgeYUpper = ballY < bossY && ballHeight > bossY;
+        boolean hitsBossEdgeYLower = ballY < bossHeight && ballHeight > bossHeight;
+
+        // Change paddle direction and deal damage to the boss accordingly
+        if (hitsBossX || hitsBossEdgeXLeft || hitsBossEdgeXRight) {
+            int[] newBallSpeed = {ball.getSpeed()[0], ball.getSpeed()[1] * -1};
+            ball.setSpeed(newBallSpeed);
+            boss.reduceHealth(1);
+
+        } else if (hitsBossY || hitsBossEdgeYUpper || hitsBossEdgeYLower) {
+            int[] newBallSpeed = {ball.getSpeed()[0] * -1, ball.getSpeed()[1]};
+            ball.setSpeed(newBallSpeed);
+            boss.reduceHealth(1);
+        }
+    }
 }
