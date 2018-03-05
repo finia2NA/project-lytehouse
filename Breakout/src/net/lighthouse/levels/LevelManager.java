@@ -56,7 +56,7 @@ public final class LevelManager {
         for (int y = 0; y < 5; y++) {
             for (int x = 0; x < 7; x++) {
                 if (level[(y * 7) + x] != null) {
-                    BBlock block = new BBlock(x * 80, y * 60, level[(y * 7) + x], 1, 80, 60);
+                    BBlock block = new BBlock(x * 80, y * 60, 80, 60, level[(y * 7) + x]);
                     list.add(block);
                 }
             }

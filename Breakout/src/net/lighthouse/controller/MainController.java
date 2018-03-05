@@ -5,37 +5,51 @@ import acm.util.RandomGenerator;
 import net.lighthouse.collision.CollisionChecker;
 import net.lighthouse.model.*;
 import net.lighthouse.settings.Settings;
-import net.lighthouse.view.MainView;
+import net.lighthouse.view.rewrite.MainView;
+import net.lighthouse.view.View;
+import net.lighthouse.view.legacy.legacyClientView;
+import net.lighthouse.view.legacy.legacyMainView;
 
 import java.awt.Color;
 import java.awt.event.*;
 import java.util.ArrayList;
 
 /**
- * Main Controller of the game. Keeps track of the game loop and game status.
- * It also handles user interactions with the game.
+ * Main Controller of the game. Keeps track of the game loop and game status. It
+ * also handles user interactions with the game.
  *
  * @author Christoph Fricke
  */
 public class MainController extends GraphicsProgram {
-    private MainView view;
-    private MainModel model;
-    private CollisionChecker ballChecker;
+	private View view;
+	private MainModel model;
+	private CollisionChecker ballChecker;
     private BBossController bossController;
 
-    private boolean isRunning;
+	private boolean isRunning;
     private boolean isBossFight;
-    private boolean startGame;
+	private boolean startGame;
 
-    public void init() {
-        Settings.readUserSettings("settings.txt");
-        // initializes default model with a paddle, one ball and 4 rows of blocks
-        view = new MainView(this);
-        view.init();
-        System.out.println(this.getWidth() + " " + this.getHeight());
+	private boolean print_frametimes = false;
+	private int frametime = 30;
 
-        isRunning = false;
-        startGame = false;
+	public void init() {
+		Settings.readUserSettings("settings.txt");
+		frametime = Integer.parseInt(Settings.getSetting("frametime"));
+		if (Settings.getSetting("print-frametimes").equals("true")) {
+			print_frametimes = true;
+		}
+		if (Settings.getSetting("use_new_Viewport").equals("true")) {
+			view = new MainView(this);
+		} else {
+			view = new legacyMainView(this);
+		}
+
+		view.init();
+		System.out.println(this.getWidth() + " " + this.getHeight());
+
+		isRunning = false;
+		startGame = false;
 
         ArrayList<BText> messages = new ArrayList<>();
         messages.add(new BText(100, 100, "BREAKOUT"));
@@ -71,17 +85,17 @@ public class MainController extends GraphicsProgram {
         isRunning = true;
         isBossFight = false;
 
-        model = new MainModel();
-        ballChecker = new CollisionChecker(model.getBall(0));
-        view.refresh(model);
+		model = new MainModel();
+		ballChecker = new CollisionChecker(model.getBall(0));
+		view.update(model);
 
-        // Generates a random start speed
-        RandomGenerator rnd = RandomGenerator.getInstance();
-        int[] speed = {rnd.nextInt(-4, 4), rnd.nextInt(4, 6)};
-        model.getBall(0).setSpeed(speed);
+		// Generates a random start speed
+		RandomGenerator rnd = RandomGenerator.getInstance();
+		int[] speed = { rnd.nextInt(-4, 4), rnd.nextInt(4, 6) };
+		model.getBall(0).setSpeed(speed);
 
-        gameLoop();
-    }
+		gameLoop();
+	}
 
     private void gameLoop() {
         boolean playerLost = false;
@@ -92,7 +106,10 @@ public class MainController extends GraphicsProgram {
             long nextTime = System.currentTimeMillis();
 
             // 1s == 1000ms => 50fps == 1/50s == 20ms
-            if (nextTime - previousRefreshTime > 20) {
+            if (nextTime - previousRefreshTime > frametime) {
+                if (print_frametimes) {
+                    System.out.println(nextTime - previousRefreshTime);
+                }
                 if (!isBossFight && model.getBlocks().size() == 0) {
                     initBossFight();
                 }
@@ -128,7 +145,7 @@ public class MainController extends GraphicsProgram {
                 }
 
                 model.getBall(0).move();
-                view.refresh(model);
+                view.update(model);
 
                 model.userScore += 0.01;
                 previousRefreshTime = nextTime;
@@ -143,7 +160,7 @@ public class MainController extends GraphicsProgram {
 
     private void stopGame() {
         model.getAllBalls().remove(0);
-        view.refresh(model);
+        view.update(model);
         System.out.println("You lost! Your score was: " + (int) model.userScore);
 
         isRunning = false;
@@ -152,7 +169,7 @@ public class MainController extends GraphicsProgram {
 
     private void winScreen() {
 
-        view.refresh(model);
+        view.update(model);
         System.out.println("You lost! Your score was: " + (int) model.userScore);
 
         isRunning = false;
