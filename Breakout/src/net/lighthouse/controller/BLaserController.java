@@ -31,11 +31,12 @@ public final class BLaserController {
                     model.getLasers().remove(laser);
                 }
                 laser.move();
-                return false;
             } else {
                 model.getLasers().remove(laser);
                 return true;
             }
         }
+
+        return false;
     }
 }
