@@ -3,10 +3,7 @@ package net.lighthouse.controller;
 import acm.program.GraphicsProgram;
 import acm.util.RandomGenerator;
 import net.lighthouse.collision.CollisionChecker;
-import net.lighthouse.model.BBlock;
-import net.lighthouse.model.BBoss;
-import net.lighthouse.model.BText;
-import net.lighthouse.model.MainModel;
+import net.lighthouse.model.*;
 import net.lighthouse.settings.Settings;
 import net.lighthouse.view.MainView;
 
@@ -88,8 +85,10 @@ public class MainController extends GraphicsProgram {
 
     private void gameLoop() {
         boolean playerLost = false;
+        boolean playerWon = false;
+
         long previousRefreshTime = System.currentTimeMillis();
-        while (!playerLost) {
+        while (!playerLost && !playerWon) {
             long nextTime = System.currentTimeMillis();
 
             // 1s == 1000ms => 50fps == 1/50s == 20ms
@@ -102,6 +101,7 @@ public class MainController extends GraphicsProgram {
                 playerLost = !ballChecker.handleBorderCollision(this.getWidth(), model.getPaddle().getY());
 
                 if (!isBossFight) {
+                    // Logic when now boss fight is happening
                     BBlock[] hitBlocks = ballChecker.handleBlockCollision(model.getBlocks());
 
                     // Remove blocks that got hit in this frame
@@ -110,10 +110,21 @@ public class MainController extends GraphicsProgram {
                         model.getBlocks().remove(block);
                     }
                 } else {
-                    assert isBossFight && model.getBoss() != null: "Wops looks like it is not a boss fight";
+                    // Logic during a boss fight
+                    assert isBossFight && model.getBoss() != null : "Wops looks like it is not a boss fight";
 
                     ballChecker.handleBossCollision(model.getBoss());
-                    bossController.playBossMove();
+                    if (model.getBoss().getHealth() > 0) {
+                        BLaser laser = bossController.playBossMove();
+
+                        if (laser != null) {
+                            model.addObject(laser);
+                        }
+
+                         playerLost = BLaserController.updateLasers(model, this.getWidth());
+                    } else {
+                        playerWon = true;
+                    }
                 }
 
                 model.getBall(0).move();
@@ -123,11 +134,24 @@ public class MainController extends GraphicsProgram {
                 previousRefreshTime = nextTime;
             }
         }
-        stopGame();
+        if(playerLost) {
+            stopGame();
+        } else if (playerWon) {
+            winScreen();
+        }
     }
 
     private void stopGame() {
         model.getAllBalls().remove(0);
+        view.refresh(model);
+        System.out.println("You lost! Your score was: " + (int) model.userScore);
+
+        isRunning = false;
+        startGame = false;
+    }
+
+    private void winScreen() {
+
         view.refresh(model);
         System.out.println("You lost! Your score was: " + (int) model.userScore);
 

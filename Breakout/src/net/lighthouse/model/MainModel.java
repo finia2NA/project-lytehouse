@@ -21,6 +21,7 @@ public class MainModel {
     private ArrayList<BBall> balls;
     private ArrayList<Multiframe> effects;
     private ArrayList<BText> texts;
+    private ArrayList<BLaser> lasers;
     private BBoss boss;
 
     /**
@@ -76,6 +77,9 @@ public class MainModel {
         } else if (object instanceof BBoss) {
             boss = (BBoss) object;
 
+        }else if(object instanceof  BLaser) {
+            lasers.add((BLaser) object);
+
         } else if (object instanceof BBlock) {
             blocks.add((BBlock) object);
 
@@ -113,6 +117,10 @@ public class MainModel {
 
     public BBoss getBoss() {
         return boss;
+    }
+
+    public ArrayList<BLaser> getLasers() {
+        return lasers;
     }
 
     /**

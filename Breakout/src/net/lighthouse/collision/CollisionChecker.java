@@ -33,10 +33,12 @@ public class CollisionChecker {
      * Depending on where the ball hits the paddle the X direction will grow or shrink too.
      *
      * @param paddle Paddle we might collide with.
+     *
+     * @return True if the ball hit the paddle.
      */
-    public void handlePaddleCollision(BPaddle paddle) {
+    public boolean handlePaddleCollision(BPaddle paddle) {
         boolean affectsPaddleY = ball.nextY() + ball.getHeight() >= paddle.getY();
-        if (!affectsPaddleY) return;
+        if (!affectsPaddleY) return false;
 
         int ballX = ball.nextX();
         int ballWidth = ballX + ball.getWith();
@@ -51,10 +53,12 @@ public class CollisionChecker {
         if (affectsPaddleXEdgeLeft) {
             int[] newBallSpeed = {ball.getSpeed()[0] - 2, ball.getSpeed()[1] * -1};
             ball.setSpeed(newBallSpeed);
+            return true;
 
         } else if (affectsPaddleXEdgeRight) {
             int[] newBallSpeed = {ball.getSpeed()[0] + 2, ball.getSpeed()[1] * -1};
             ball.setSpeed(newBallSpeed);
+            return true;
 
         } else if (affectsPaddleXMiddle) {
             int paddlePartLength = paddleWidth / 3;
@@ -72,6 +76,10 @@ public class CollisionChecker {
                 int[] newBallSpeed = {ball.getSpeed()[0] + 2, ball.getSpeed()[1] * -1};
                 ball.setSpeed(newBallSpeed);
             }
+
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -84,7 +92,7 @@ public class CollisionChecker {
      * @param width   Width of the view.
      * @param paddleY Y position of the paddle. This is the line which decides between a lose or not.
      *
-     * @return True if the player was able to catch the ball and the game can keep
+     * @return True if the ball did not passed the paddle and the game can keep
      * running. False if the game might end since the ball passed the paddles Y position.
      */
     public boolean handleBorderCollision(int width, int paddleY) {
