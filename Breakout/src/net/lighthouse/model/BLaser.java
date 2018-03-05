@@ -7,6 +7,6 @@ import java.awt.*;
  */
 public class BLaser extends BBall{
     public BLaser(int x, int y, int[] speed) {
-        super(x, y, Color.RED, 1, speed);
+        super(x, y, Color.RED, speed);
     }
 }

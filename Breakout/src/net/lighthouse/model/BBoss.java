@@ -10,7 +10,7 @@ public class BBoss extends BBlock {
     private int health;
 
     public BBoss(int health, Color color) {
-        super(80, 60, color, 1.0, 400, 240);
+        super(80, 60, 400, 240, color);
         this.health = health;
     }
 

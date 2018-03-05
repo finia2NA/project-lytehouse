@@ -22,11 +22,10 @@ public class MainModel implements Iterable<BObject> {
 
 	// TODO: this could be a BlockList, since BBall is a type of BBlock. I don't
 	// know if it needs to be though. -finite
-	private ArrayList<BBall> balls = new ArrayList<BBall>();
-	private ArrayList<BExplosion> effects = new ArrayList<BExplosion>();
-	private ArrayList<BText> texts = new ArrayList<BText>();
-	private ArrayList<BText> texts;
-	private ArrayList<BLaser> lasers;
+	private ArrayList<BBall> balls = new ArrayList<>();
+	private ArrayList<BExplosion> effects = new ArrayList<>();
+	private ArrayList<BText> texts = new ArrayList<>();
+	private ArrayList<BLaser> lasers = new ArrayList<>();
 	private BBoss boss;
 
     /**
