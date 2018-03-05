@@ -22,7 +22,7 @@ final class DefaultSettings {
      * Array with all valid setting keys.
      */
     final String[] validSettings = {
-        "user-name", "token", "web-view", "particles", "use_new_Viewport", "frametime", "print-frametimes"
+        "user-name", "token", "web-view", "particles"
     };
 
     /**
@@ -33,12 +33,8 @@ final class DefaultSettings {
 
         settings.put(validSettings[0], "");
         settings.put(validSettings[1], "");
-        settings.put(validSettings[2], "true");
+        settings.put(validSettings[2], "false");
         settings.put(validSettings[3], "false");
-        settings.put(validSettings[4], "true");
-        settings.put(validSettings[5], "30");
-        settings.put(validSettings[6], "false");
-        
     }
 
     /**

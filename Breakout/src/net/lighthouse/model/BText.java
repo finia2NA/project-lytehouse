@@ -5,7 +5,7 @@ import java.awt.Color;
 /**
  * Stores information about text that can be displayed in the client view.
  *
- * @author Christoph Fricke, finite
+ * @author Christoph Fricke
  */
 public class BText implements Renderable {
     private int x;
@@ -153,19 +153,5 @@ public class BText implements Renderable {
 	 */
 	public void setClientOnly(boolean clientOnly) {
 		this.clientOnly = clientOnly;
-	}
-
-	/**
-	 * @return the text
-	 */
-	public String getText() {
-		return text;
-	}
-
-	/**
-	 * @param text the text to set
-	 */
-	public void setText(String text) {
-		this.text = text;
 	}
 }
