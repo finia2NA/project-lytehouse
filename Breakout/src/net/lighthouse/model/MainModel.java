@@ -63,6 +63,11 @@ public class MainModel implements Iterable<BObject> {
 		blocks = LevelManager.getRandomLevel();
 	}
 
+	/**
+	 * creates a new Mainmodel with just a text.
+	 * 
+	 * @param text
+	 */
 	public MainModel(ArrayList<BText> text) {
 		this.texts = text;
 	}
