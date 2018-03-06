@@ -8,6 +8,7 @@ import java.io.IOException;
 import javax.imageio.ImageIO;
 
 import acm.graphics.GCanvas;
+import acm.graphics.GCompound;
 import acm.graphics.GImage;
 import acm.program.GraphicsProgram;
 import javafx.scene.shape.Rectangle;
@@ -42,7 +43,7 @@ public class DarkhouseScaler {
 	 */
 	public void init() {
 		handler.init();
-		if (Settings.getSetting("Save_Framebuffer").equals("true")) {
+		if (Settings.getSetting("save-framebuffer").equals("true")) {
 			save_Framebuffer = true;
 		}
 	}
@@ -59,7 +60,34 @@ public class DarkhouseScaler {
 		BufferedImage captureImage = new BufferedImage(560, 840, BufferedImage.TYPE_4BYTE_ABGR);
 		top.paint(captureImage.getGraphics());
 
-		Image downsample = captureImage.getScaledInstance(28, 14, Image.SCALE_SMOOTH);
+		Image downsample = captureImage.getScaledInstance(28, 14, Image.SCALE_FAST);
+		GImage gDownsample = new GImage(downsample);
+
+		// if save_Framebuffer == true speichern wir jeden gerenderten Frame als png in
+		// den bin ordner.
+		handler.update(gDownsample);
+		if (save_Framebuffer)
+			try {
+				BufferedImage iDownsample = new BufferedImage(28, 14, BufferedImage.TYPE_4BYTE_ABGR);
+				gDownsample.paint(iDownsample.getGraphics());
+				ImageIO.write(iDownsample, "png", new File("img" + imgNumber++ + ".png"));
+			} catch (IOException e) { // TODO Auto-generated catch block
+				System.out.println("framebuffer save frame " + imgNumber + " failed!");
+			}
+	}
+
+	/**
+	 * Updates the lighthouse by painting the given GComound to an image, scaling
+	 * that down and sending the data.
+	 * 
+	 * @param top
+	 */
+	public void update(GCompound top) {
+
+		BufferedImage captureImage = new BufferedImage(560, 840, BufferedImage.TYPE_4BYTE_ABGR);
+		top.paint(captureImage.getGraphics());
+
+		Image downsample = captureImage.getScaledInstance(28, 14, Image.SCALE_FAST);
 		GImage gDownsample = new GImage(downsample);
 
 		// if save_Framebuffer == true speichern wir jeden gerenderten Frame als png in
