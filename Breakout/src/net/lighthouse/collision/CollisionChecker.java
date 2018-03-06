@@ -216,19 +216,16 @@ public class CollisionChecker {
             // Hit Bottom
             int[] newBallSpeed = {ball.getSpeed()[0], ball.getSpeed()[1] * -1};
             ball.setSpeed(newBallSpeed);
-            boss.reduceHealth(1);
 
         } else if (hitsBossEdgeXLeft && (hitsBossY || hitsBossEdgeYUpper || hitsBossEdgeYLower)) {
             // Hit Left
             int[] newBallSpeed = {ball.getSpeed()[0] * -1, ball.getSpeed()[1]};
             ball.setSpeed(newBallSpeed);
-            boss.reduceHealth(1);
 
         }else if (hitsBossEdgeXRight && (hitsBossY || hitsBossEdgeYUpper || hitsBossEdgeYLower)) {
             // Hit Right
             int[] newBallSpeed = {ball.getSpeed()[0] * -1, ball.getSpeed()[1]};
             ball.setSpeed(newBallSpeed);
-            boss.reduceHealth(1);
         }
     }
 }

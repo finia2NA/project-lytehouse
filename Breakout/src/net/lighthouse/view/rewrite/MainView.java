@@ -118,6 +118,8 @@ public class MainView implements View {
 	 *            the BObject to represent.
 	 */
 	private void addObject(BObject o) {
+	    if(o==null) return;
+
 		GObject g;
 		if (o instanceof BLaser) {
 			g = new GOval(o.getX(),o.getY(),o.getWith(),o.getHeight());
