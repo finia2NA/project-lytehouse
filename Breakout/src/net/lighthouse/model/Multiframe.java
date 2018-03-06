@@ -4,7 +4,7 @@ package net.lighthouse.model;
  * BObjects that implement Multiframe have intrinsic animations. When they are
  * Renderable and getShape is called they return the shape of the current frame.
  * 
- * @author undif
+ * @author finite
  *
  */
 public interface Multiframe {

@@ -5,18 +5,19 @@ import net.lighthouse.controller.MainController;
 import net.lighthouse.model.MainModel;
 import net.lighthouse.settings.Settings;
 import net.lighthouse.view.View;
-import net.lighthouse.view.DarkhouseView;
+import net.lighthouse.view.DarkhouseScaler;
 
 /**
- * @deprecated updates the client and lighthouse view in an extremely ineficient
- *             way. Has been replaced by the rewrite.
+ * @deprecated updates the client and lighthouse view in an extremely simple
+ *             way. Has been replaced by the rewrite. To use the old View, set
+ *             use_new_Viewport to false in the Settings.
  * 
  * @author finite
  *
  */
 public class legacyMainView implements View {
 
-	private DarkhouseView lighthouse;
+	private DarkhouseScaler lighthouse;
 	private legacyClientView client;
 	private GraphicsProgram top;
 
@@ -35,7 +36,7 @@ public class legacyMainView implements View {
 	 */
 	public void init() {
 		if (Settings.getSetting("web-view").equals("true")) {
-			lighthouse = new DarkhouseView();
+			lighthouse = new DarkhouseScaler();
 			lighthouse.init();
 
 		}

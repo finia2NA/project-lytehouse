@@ -20,7 +20,7 @@ import net.lighthouse.model.MainModel;
 //SETTINGS
 import net.lighthouse.settings.Settings;
 //VIEW
-import net.lighthouse.view.DarkhouseView;
+import net.lighthouse.view.DarkhouseScaler;
 import net.lighthouse.view.View;
 import net.lighthouse.view.rewrite.BLink;
 
@@ -34,10 +34,13 @@ import net.lighthouse.view.rewrite.BLink;
  */
 public class MainView implements View {
 
-	private DarkhouseView darkhouse;
+	private DarkhouseScaler darkhouse;
 	private GraphicsProgram top;
 	private MainModel model;
 	private BLinkList links;
+	
+	//stored as a variable so we don't have to lookup settings each update.
+	private boolean use_darkhouse;
 
 	public MainView(GraphicsProgram top) {
 		assert top != null;
@@ -45,17 +48,31 @@ public class MainView implements View {
 
 	}
 
+	/**
+	 * initializes the client with a size and the lighthouse if settings say so.
+	 */
 	public void init() {
 		if (Settings.getSetting("web-view").equals("true")) {
-			darkhouse = new DarkhouseView();
+			use_darkhouse = true;
+			darkhouse = new DarkhouseScaler();
 			darkhouse.init();
+		}else {
+			use_darkhouse = false;
 		}
 		top.setSize(560, 840);
 		// TODO: this doesn't work. it's not essential, but it would be kinda cool.
 		top.setTitle("Breakout pre-release");
+		
 		top.getGCanvas().setAutoRepaintFlag(false);
 		top.setBackground(Color.BLACK);
 	}
+
+	/**
+	 * updates Client and lighthouse (if setting says so) to reflect a model.
+	 * 
+	 * @param model
+	 *            the base model.
+	 */
 
 	public void update(MainModel model) {
 		this.model = model;
@@ -71,13 +88,16 @@ public class MainView implements View {
 		added();
 		moved();
 
-		if (Settings.getSetting("web-view").equals("true")) {
+		if (use_darkhouse) {
 			darkhouse.update(top.getGCanvas());
 		}
 		top.repaint();
 		;
 	}
-
+/**
+ * Adds a GObject representing a given BObject to the view.
+ * @param o the BObject to represent.
+ */
 	private void addObject(BObject o) {
 		GObject g;
 		if (o instanceof BBall) {
@@ -141,9 +161,7 @@ public class MainView implements View {
 	public void moved() {
 		for (BLink link : links) {
 			if (link.hasMoved()) {
-				int moveX = (int) (link.getB().getX() - link.getG().getX());
-				int moveY = (int) (link.getB().getY() - link.getG().getY());
-				link.getG().move(moveX, moveY);
+				link.getG().setLocation(link.getB().getX(), link.getB().getY());
 			}
 		}
 	}

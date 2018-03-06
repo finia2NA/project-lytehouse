@@ -3,7 +3,7 @@ package net.lighthouse.view;
 import net.lighthouse.model.MainModel;
 
 /**
- * wether you're using the legacy view or the new view, you can count on being
+ * Wether you're using the legacy view or the new view, you can count on being
  * abled to use these methods!
  * 
  * @author finite

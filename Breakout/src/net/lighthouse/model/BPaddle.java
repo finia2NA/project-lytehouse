@@ -1,7 +1,11 @@
 package net.lighthouse.model;
 
 import java.awt.Color;
-
+/**
+ * A Model representation for the paddle.
+ * @author undif
+ *
+ */
 public class BPaddle extends BObject {
 	private double opacity;
 
