@@ -37,7 +37,7 @@ public final class LevelManager {
     };
 
     private static Color[] level3 = {
-        Color.GREEN,null, null, null, null, null, null,
+        null, null, null, Color.GREEN, null, null, null,
         null, null, null, null, null, null, null,
         null, null, null, null, null, null, null,
         null, null, null, null, null, null, null,

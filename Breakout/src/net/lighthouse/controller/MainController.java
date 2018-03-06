@@ -90,8 +90,9 @@ public class MainController extends GraphicsProgram {
 		view.update(model);
 
 		// Generates a random start speed
-		RandomGenerator rnd = RandomGenerator.getInstance();
-		int[] speed = { rnd.nextInt(-4, 4), rnd.nextInt(4, 6) };
+//		RandomGenerator rnd = RandomGenerator.getInstance();
+//		int[] speed = { rnd.nextInt(-4, 4), rnd.nextInt(4, 6) };
+		int[] speed = { 0, 6};
 		model.getBall(0).setSpeed(speed);
 
 		gameLoop();
@@ -150,6 +151,7 @@ public class MainController extends GraphicsProgram {
                 previousRefreshTime = nextTime;
             }
         }
+
         if(playerLost) {
             stopGame();
         } else if (playerWon) {
@@ -176,7 +178,7 @@ public class MainController extends GraphicsProgram {
     }
 
     private void initBossFight() {
-        BBoss boss = new BBoss(10, Color.GREEN);
+        BBoss boss = new BBoss(10, Color.MAGENTA);
         model.addObject(boss);
         bossController = new BBossController(boss);
 
