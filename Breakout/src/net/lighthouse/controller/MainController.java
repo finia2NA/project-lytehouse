@@ -30,7 +30,7 @@ public class MainController extends GraphicsProgram {
     private boolean startGame;
 
     private boolean printFrametimes = false;
-    private int frametime = 30;
+    private int frametime = 40;
 
     public void init() {
         Settings.readUserSettings("settings.txt");
