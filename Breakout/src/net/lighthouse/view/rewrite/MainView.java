@@ -4,7 +4,6 @@ package net.lighthouse.view.rewrite;
 import java.awt.Color;
 import java.util.ArrayList;
 //ACM
-import acm.graphics.GCanvas;
 import acm.graphics.GFillable;
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
@@ -13,6 +12,7 @@ import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
 //MODEL
 import net.lighthouse.model.BBall;
+import net.lighthouse.model.BBoss;
 import net.lighthouse.model.BExplosion;
 import net.lighthouse.model.BObject;
 import net.lighthouse.model.BText;
@@ -91,6 +91,10 @@ public class MainView implements View {
 		} else if (o instanceof BExplosion) {
 			g = new GLabel("hier sollte eine Explosion sein xD", o.getX(), o.getY());
 			g.setColor(o.getColor());
+		} else if (o instanceof BBoss) {
+			g = new GRect(o.getX(), o.getHeight(), o.getWith(), o.getHeight());
+			((GFillable) g).setFilled(true);
+			((GFillable) g).setFillColor(o.getColor());
 		} else {
 			g = new GRect(o.getX(), o.getY(), o.getWith(), o.getHeight());
 			((GFillable) g).setFilled(true);
