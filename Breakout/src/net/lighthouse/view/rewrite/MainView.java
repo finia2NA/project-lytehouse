@@ -10,12 +10,14 @@ import acm.graphics.GFillable;
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
+import acm.graphics.GOval;
 import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
 //MODEL
 import net.lighthouse.model.BBall;
 import net.lighthouse.model.BBoss;
 import net.lighthouse.model.BExplosion;
+import net.lighthouse.model.BLaser;
 import net.lighthouse.model.BObject;
 import net.lighthouse.model.BText;
 import net.lighthouse.model.MainModel;
@@ -77,7 +79,7 @@ public class MainView implements View {
 
 		top.add(sharedCompound);
 
-		//top.getGCanvas().setAutoRepaintFlag(false);
+		// top.getGCanvas().setAutoRepaintFlag(false);
 		top.setBackground(Color.BLACK);
 	}
 
@@ -117,6 +119,11 @@ public class MainView implements View {
 	 */
 	private void addObject(BObject o) {
 		GObject g;
+		if (o instanceof BLaser) {
+			g = new GOval(o.getX(),o.getY(),o.getWith(),o.getHeight());
+			((GFillable) g).setFilled(true);
+			((GFillable) g).setFillColor(o.getColor());
+		}
 		if (o instanceof BBall) {
 			// TODO: width and height scaling.
 			g = new GImage("FootballLQ.png", o.getX(), o.getY());
