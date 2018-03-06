@@ -7,11 +7,12 @@ import net.lighthouse.model.BObject;
 
 /**
  * An ArrayList for BLinks with additional BLink specific methods. Despite the
- * confusing name this class extends ArrayList and not linkedList.
+ * confusing name this class extends ArrayList and not LinkedList.
  * 
  * @author finite
  *
  */
+// TODO: could this be a Hashmap?
 public class BLinkList extends ArrayList<BLink> {
 
 	/**

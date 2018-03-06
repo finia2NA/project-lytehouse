@@ -3,9 +3,9 @@ package net.lighthouse.model;
 import java.awt.Color;
 
 /**
- * the most basic Breakout Object. Has a position.
+ * The most basic Breakout Object. Has a position.
  *
- * @author undif
+ * @author finite
  */
 public class BObject {
 	private int x;

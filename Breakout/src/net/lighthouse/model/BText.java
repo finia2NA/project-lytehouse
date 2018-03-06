@@ -10,7 +10,7 @@ import java.awt.Color;
 public class BText extends BObject {
 	private String text;
 	// Indicates wether the lighthouse will render the text.
-	private boolean clientOnly = true;;
+	private boolean clientOnly = true;
 
 	/**
 	 * Creates a new text object which can be rendered on the screen. The default
@@ -39,21 +39,6 @@ public class BText extends BObject {
 	}
 
 	/**
-	 * @return the clientOnly
-	 */
-	public boolean isClientOnly() {
-		return clientOnly;
-	}
-
-	/**
-	 * @param clientOnly
-	 *            the clientOnly to set
-	 */
-	public void setClientOnly(boolean clientOnly) {
-		this.clientOnly = clientOnly;
-	}
-
-	/**
 	 * @return the text
 	 */
 	public String getText() {
@@ -61,7 +46,8 @@ public class BText extends BObject {
 	}
 
 	/**
-	 * @param text the text to set
+	 * @param text
+	 *            the text to set
 	 */
 	public void setText(String text) {
 		this.text = text;

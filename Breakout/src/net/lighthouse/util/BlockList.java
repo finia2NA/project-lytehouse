@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 /**
  * BlockList is an ArrayList for Blocks with some Block-specific methods.
+ * @author finite
  */
 
 public class BlockList extends ArrayList<BBlock> {

@@ -4,6 +4,12 @@ import java.awt.Color;
 
 import acm.graphics.GImage;
 
+/**
+ * provides Converters between different View Formats.
+ * 
+ * @author finite
+ *
+ */
 public final class Converter {
 	private Converter() {
 
@@ -74,7 +80,7 @@ public final class Converter {
 	}
 
 	/**
-	 * Converts a GImage to the byte array format the lighthosue APE requires.
+	 * Converts a GImage to the byte array format the lighthosue API requires.
 	 * 
 	 * @param image
 	 *            the GImage.
@@ -83,8 +89,6 @@ public final class Converter {
 	public static byte[] dataConverter(GImage image) {
 		byte[] data = new byte[1176];
 		int[][] pixelArray = image.getPixelArray();
-		// TODO: x und y sind nicht so wie beim anderen dataconverter (vertauscht).
-		// koennte probleme machen. keep an eye on it.
 		for (int y = 0; y < 14; y++) {
 			for (int x = 0; x < 28; x++) {
 				int pixel = pixelArray[y][x];

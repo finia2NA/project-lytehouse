@@ -105,7 +105,7 @@ public class MainController extends GraphicsProgram {
         while (!playerLost && !playerWon) {
             long nextTime = System.currentTimeMillis();
 
-            if (nextTime - previousRefreshTime > frametime) {
+            if (nextTime - previousRefreshTime >= frametime) {
                 if (printFrametimes) {
                     System.out.println(nextTime - previousRefreshTime);
                 }

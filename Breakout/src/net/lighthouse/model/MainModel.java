@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 /**
- * the main Model holding all blocks, balls, the paddle,texts and all effects.
+ * The main Model holding all blocks, balls, the paddle,texts and all effects.
  * 
  * @author finite
  */
@@ -17,9 +17,9 @@ public class MainModel implements Iterable<BObject> {
 	private BlockList blocks;
 	// We'll definitly one have one paddle so this is not an ArrayList.
 	private BPaddle paddle;
+
 	// IDK, maybe one day we'll have a gamemode/powerup where we'll have multiple
 	// BBalls.
-
 	// TODO: this could be a BlockList, since BBall is a type of BBlock. I don't
 	// know if it needs to be though. -finite
 	private ArrayList<BBall> balls = new ArrayList<>();
@@ -63,9 +63,8 @@ public class MainModel implements Iterable<BObject> {
     public MainModel(ArrayList<BText> text) {
         this.texts = text;
     }
-
-    public void addExplosion(int x, int y, Color color) {
-        effects.add(new BExplosion(x, y, color, 1));
+	public void addExplosion(int x, int y, Color color) {
+		effects.add(new BExplosion(x, y, color));
 
     }
 
@@ -99,25 +98,62 @@ public class MainModel implements Iterable<BObject> {
         }
     }
 
-    public BlockList getBlocks() {
-        return blocks;
-    }
+	/**
+	 * Gets all Blocks currently in the model.
+	 *
+	 * @return all Blocks currently in the model.
+	 */
+	public BlockList getBlocks() {
+		return blocks;
+	}
 
-    public int getNumberOfBalls() {
-        return balls.size();
-    }
+	/**
+	 * returns how many balls there are in the model right now.
+	 *
+	 * @return how many balls there are in the model right now.
+	 */
+	public int getNumberOfBalls() {
+		return balls.size();
+	}
 
-    public ArrayList<BBall> getAllBalls() {
-        return balls;
-    }
+	/**
+	 * returns an ArrayList containing all balls in the model rightn now.
+	 *
+	 * @returnan ArrayList containing all balls in the model rightn now.
+	 */
+	public ArrayList<BBall> getAllBalls() {
+		return balls;
+	}
 
-    public BBall getBall(int ballIndex) {
-        return balls.get(ballIndex);
-    }
+	/**
+	 * gets a specific ball.
+	 *
+	 * @param ballIndex
+	 *            the ball to get.
+	 * @return the ball.
+	 */
+	public BBall getBall(int ballIndex) {
+		assert ballIndex < balls.size();
+		return balls.get(ballIndex);
+	}
 
-    public BPaddle getPaddle() {
-        return paddle;
-    }
+	/**
+	 * gets the first ball in the model.
+	 *
+	 * @return the first ball in the model.
+	 */
+	public BBall getBall() {
+		return balls.get(0);
+	}
+
+	/**
+	 * gets the paddle.
+	 *
+	 * @return the paddle.
+	 */
+	public BPaddle getPaddle() {
+		return paddle;
+	}
 
     public BBoss getBoss() {
         return boss;
@@ -131,21 +167,30 @@ public class MainModel implements Iterable<BObject> {
         return lasers;
     }
 
-    /**
-     * @return the texts
-     */
+	/**
+	 * returns all text objects in the model.
+	 *
+	 * @return the sacred texts!
+	 */
     public ArrayList<BText> getTexts() {
         return texts;
     }
 
 	/**
+	 * sets the list of texts in the model.
+	 *
 	 * @param texts
-	 *            the texts to set
+	 *            the texts to set.
 	 */
 	public void setTexts(ArrayList<BText> texts) {
 		this.texts = texts;
 	}
 
+	/**
+	 * returns an ArrayList of all BObjects in the model.
+	 *
+	 * @returnan ArrayList of all BObjects in the model.
+	 */
 	public ArrayList<BObject> toArrayList() {
 		// Maybe you schould cache the current arraylist in an object variable so all of
 		// this stuff doesn't have to be called for so often in main view.
@@ -166,6 +211,15 @@ public class MainModel implements Iterable<BObject> {
 		return objectList;
 	}
 
+	/**
+	 * Checks if a BObject is in the model.
+	 *
+	 * @param o
+	 *            the Object to look for.
+	 * @return {@code true} the object is in the model, {@code false} the object is
+	 *         not in the model.
+	 */
+	// TODO: could be obtimized to not use the ArrayList contain.
 	public boolean contains(BObject o) {
 		if (toArrayList().contains(o)) {
 			return true;
@@ -175,6 +229,9 @@ public class MainModel implements Iterable<BObject> {
 
 	}
 
+	/**
+	 * returns an Iterator that iterates though all BObjects in the Model.
+	 */
 	@Override
 	public Iterator<BObject> iterator() {
 		return toArrayList().iterator();

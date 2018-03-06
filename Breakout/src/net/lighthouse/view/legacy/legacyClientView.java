@@ -16,8 +16,10 @@ import net.lighthouse.util.BlockList;
 import net.lighthouse.model.MainModel;
 
 /**
- * @deprecated Extremely inefficient implementation of client view refreshs. no
- *             support for explosions or text or endblock.
+ * @deprecated Extremely simple implementation of client view refreshs. no
+ *             support for explosions or text or endblock. It runs a bit faster
+ *             than the new implementation, but because every block gets removed
+ *             and re-added each frame, the view flickers.
  * 
  * @author finite
  *
