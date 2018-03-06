@@ -133,7 +133,9 @@ public class MainView implements View {
 			System.out.println("addObject text! (remove this print when it works)");
 			g = new GLabel(((BText) o).getText(), o.getX(), o.getY());
 			g.setColor(o.getColor());
+			((GLabel) g).setFont("*-*-40");
 			top.add(g);
+			links.add(new BLink(o, g));
 			return;
 		} else if (o instanceof BExplosion) {
 			g = new GLabel("hier sollte eine Explosion sein xD", o.getX(), o.getY());
