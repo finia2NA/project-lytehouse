@@ -40,7 +40,6 @@ public class MainView implements View {
 
 	// things in this Compound get added to both canvases.
 	private GCompound sharedCompound;
-	private GCanvas lhCanvas;
 
 	private MainModel model;
 	private BLinkList links;
@@ -52,6 +51,10 @@ public class MainView implements View {
 		assert top != null;
 		this.top = top;
 		sharedCompound = new GCompound();
+		GRect backGround = new GRect(600, 900);
+		backGround.setFilled(true);
+		backGround.setFillColor(Color.black);
+		sharedCompound.add(backGround);
 	}
 
 	/**
@@ -64,8 +67,6 @@ public class MainView implements View {
 			darkhouse = new DarkhouseScaler();
 			darkhouse.init();
 			// TODO: repaintflag?
-			lhCanvas = new GCanvas();
-			lhCanvas.add(sharedCompound);
 		} else {
 			use_darkhouse = false;
 		}
@@ -75,7 +76,7 @@ public class MainView implements View {
 
 		top.add(sharedCompound);
 
-		top.getGCanvas().setAutoRepaintFlag(false);
+		//top.getGCanvas().setAutoRepaintFlag(false);
 		top.setBackground(Color.BLACK);
 	}
 
@@ -101,7 +102,7 @@ public class MainView implements View {
 		moved();
 
 		if (use_darkhouse) {
-			darkhouse.update(lhCanvas);
+			darkhouse.update(sharedCompound);
 		}
 		top.repaint();
 		;
