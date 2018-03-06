@@ -22,7 +22,7 @@ final class DefaultSettings {
      * Array with all valid setting keys.
      */
     final String[] validSettings = {
-        "user-name", "token", "web-view", "particles", "use_new_Viewport", "frametime", "print-frametimes", "save_framebuffer"
+        "user-name", "token", "web-view", "particles", "use_new_Viewport", "frametime", "print-frametimes", "save-framebuffer"
     };
 
     /**

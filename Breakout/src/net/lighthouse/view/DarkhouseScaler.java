@@ -42,7 +42,7 @@ public class DarkhouseScaler {
 	 */
 	public void init() {
 		handler.init();
-		if (Settings.getSetting("save_framebuffer").equals("true")) {
+		if (Settings.getSetting("save-framebuffer").equals("true")) {
 			save_Framebuffer = true;
 		}
 	}
