@@ -75,7 +75,13 @@ public class DarkhouseScaler {
 				System.out.println("framebuffer save frame " + imgNumber + " failed!");
 			}
 	}
-	
+
+	/**
+	 * Updates the lighthouse by painting the given GComound to an image, scaling
+	 * that down and sending the data.
+	 * 
+	 * @param top
+	 */
 	public void update(GCompound top) {
 
 		BufferedImage captureImage = new BufferedImage(560, 840, BufferedImage.TYPE_4BYTE_ABGR);
