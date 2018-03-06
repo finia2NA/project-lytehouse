@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.util.ArrayList;
 //ACM
 import acm.graphics.GCanvas;
+import acm.graphics.GCompound;
 import acm.graphics.GFillable;
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
@@ -36,33 +37,44 @@ public class MainView implements View {
 
 	private DarkhouseScaler darkhouse;
 	private GraphicsProgram top;
+
+	// things in this Compound get added to both canvases.
+	private GCompound sharedCompound;
+	private GCanvas lhCanvas;
+
 	private MainModel model;
 	private BLinkList links;
-	
-	//stored as a variable so we don't have to lookup settings each update.
+
+	// stored as a variable so we don't have to lookup settings each update.
 	private boolean use_darkhouse;
 
 	public MainView(GraphicsProgram top) {
 		assert top != null;
 		this.top = top;
-
+		sharedCompound = new GCompound();
 	}
 
 	/**
 	 * initializes the client with a size and the lighthouse if settings say so.
 	 */
 	public void init() {
+		System.out.println("Viewport info : Using new Viewport");
 		if (Settings.getSetting("web-view").equals("true")) {
 			use_darkhouse = true;
 			darkhouse = new DarkhouseScaler();
 			darkhouse.init();
-		}else {
+			// TODO: repaintflag?
+			lhCanvas = new GCanvas();
+			lhCanvas.add(sharedCompound);
+		} else {
 			use_darkhouse = false;
 		}
 		top.setSize(560, 840);
 		// TODO: this doesn't work. it's not essential, but it would be kinda cool.
 		top.setTitle("Breakout pre-release");
-		
+
+		top.add(sharedCompound);
+
 		top.getGCanvas().setAutoRepaintFlag(false);
 		top.setBackground(Color.BLACK);
 	}
@@ -89,15 +101,18 @@ public class MainView implements View {
 		moved();
 
 		if (use_darkhouse) {
-			darkhouse.update(top.getGCanvas());
+			darkhouse.update(lhCanvas);
 		}
 		top.repaint();
 		;
 	}
-/**
- * Adds a GObject representing a given BObject to the view.
- * @param o the BObject to represent.
- */
+
+	/**
+	 * Adds a GObject representing a given BObject to the view.
+	 * 
+	 * @param o
+	 *            the BObject to represent.
+	 */
 	private void addObject(BObject o) {
 		GObject g;
 		if (o instanceof BBall) {
@@ -107,6 +122,7 @@ public class MainView implements View {
 		} else if (o instanceof BText) {
 			g = new GLabel(((BText) o).getText(), o.getX(), o.getY());
 			g.setColor(o.getColor());
+			top.add(g);
 			return;
 		} else if (o instanceof BExplosion) {
 			g = new GLabel("hier sollte eine Explosion sein xD", o.getX(), o.getY());
@@ -116,9 +132,8 @@ public class MainView implements View {
 			((GFillable) g).setFilled(true);
 			((GFillable) g).setFillColor(o.getColor());
 		}
-		top.add(g);
+		sharedCompound.add(g);
 		links.add(new BLink(o, g));
-
 	}
 
 	/**
@@ -147,7 +162,11 @@ public class MainView implements View {
 			}
 		}
 		for (BLink link : toDelete) {
-			top.remove(link.getG());
+			if (link.getB() instanceof BText) {
+				top.remove(link.getG());
+			} else {
+				sharedCompound.remove(link.getG());
+			}
 			links.remove(link);
 		}
 	}

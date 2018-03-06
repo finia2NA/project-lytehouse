@@ -35,6 +35,7 @@ public class legacyMainView implements View {
 	 * Initializes the views.
 	 */
 	public void init() {
+		System.out.println("Viewport info : Using legacy Viewport");
 		if (Settings.getSetting("web-view").equals("true")) {
 			lighthouse = new DarkhouseScaler();
 			lighthouse.init();
