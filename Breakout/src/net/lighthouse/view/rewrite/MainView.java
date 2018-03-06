@@ -120,7 +120,7 @@ public class MainView implements View {
 	private void addObject(BObject o) {
 		GObject g;
 		if (o instanceof BLaser) {
-			g = new GOval(o.getX(),o.getY(),o.getWith(),o.getHeight());
+			g = new GOval(o.getX(), o.getY(), o.getWith(), o.getHeight());
 			((GFillable) g).setFilled(true);
 			((GFillable) g).setFillColor(o.getColor());
 		} else if (o instanceof BBall) {
@@ -128,6 +128,7 @@ public class MainView implements View {
 			g = new GImage("FootballLQ.png", o.getX(), o.getY());
 
 		} else if (o instanceof BText) {
+			System.out.println("addObject text! (remove this print when it works)");
 			g = new GLabel(((BText) o).getText(), o.getX(), o.getY());
 			g.setColor(o.getColor());
 			top.add(g);
