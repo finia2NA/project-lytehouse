@@ -52,7 +52,7 @@ public class MainController extends GraphicsProgram {
         startGame = false;
 
         ArrayList<BText> messages = new ArrayList<>();
-        messages.add(new BText(100, 100, "BREAKOUT"));
+        messages.add(new BText(150, 100, "BREAKOUT"));
         messages.add(new BText(100, 200, "press SPACE to start"));
         model = new MainModel(messages);
         view.update(model);
@@ -117,6 +117,9 @@ public class MainController extends GraphicsProgram {
 
                 ballChecker.handlePaddleCollision(model.getPaddle());
                 playerLost = !ballChecker.handleBorderCollision(this.getWidth(), model.getPaddle().getY());
+                if (playerLost) {
+                    break;
+                }
 
                 if (!isBossFight) {
                     // Logic when no boss fight is happening
@@ -161,27 +164,24 @@ public class MainController extends GraphicsProgram {
     }
 
     private void stopGame() {
-        if (model.getBoss() != null) {
-            model.removeBoss();
-        }
-
-        if (model.getLasers().size() != 0) {
-            model.getLasers().clear();
-        }
-        model.getAllBalls().remove(0);
+        ArrayList<BText> messages = new ArrayList<>();
+        messages.add(new BText(200, 100, "YOU LOST!"));
+        messages.add(new BText(200, 200, "Your score is: " + (int) model.userScore));
+        messages.add(new BText(200, 300, "press SPACE to start again"));
+        model = new MainModel(messages);
         view.update(model);
-        System.out.println("You lost! Your score was: " + (int) model.userScore);
 
         isRunning = false;
         startGame = false;
     }
 
     private void winScreen() {
-        model.getAllBalls().remove(0);
-        model.getLasers().clear();
-        model.removeBoss();
+        ArrayList<BText> messages = new ArrayList<>();
+        messages.add(new BText(200, 100, "YOU WON!"));
+        messages.add(new BText(200, 200, "Your score is: " + (int) model.userScore));
+        messages.add(new BText(200, 300, "press SPACE to start again"));
+        model = new MainModel(messages);
         view.update(model);
-        System.out.println("You won! Hoorray! Your score was: " + (int) model.userScore);
 
         isRunning = false;
         startGame = false;

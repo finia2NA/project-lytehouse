@@ -11,7 +11,7 @@ public class BBoss extends BBlock {
     private int oldHealth;
 
     public BBoss(int health, Color color) {
-        super(160, 120, 240, 180, color);
+        super(160, 180, 240, 180, color);
         this.health = health;
         this.oldHealth = health;
     }
