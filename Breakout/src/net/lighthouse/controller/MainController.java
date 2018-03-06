@@ -180,11 +180,17 @@ public class MainController extends GraphicsProgram {
         model.addObject(boss);
         bossController = new BBossController(boss);
 
+        model.getBall(0).setX(560 / 2);
+        model.getBall(0).setY(840 / 2);
+        RandomGenerator rnd = RandomGenerator.getInstance();
+        int[] speed = { rnd.nextInt(-4, 4), rnd.nextInt(4, 6) };
+        model.getBall(0).setSpeed(speed);
+
         isBossFight = true;
     }
 
     public void mouseMoved(MouseEvent e) {
-        if (model.getPaddle() != null) {
+        if (model != null && model.getPaddle() != null) {
             model.getPaddle().move(e.getX() - model.getPaddle().getWith() / 2);
         }
     }

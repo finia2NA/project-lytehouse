@@ -206,12 +206,26 @@ public class CollisionChecker {
         boolean hitsBossEdgeYLower = ballY < bossHeight && ballHeight > bossHeight;
 
         // Change paddle direction and deal damage to the boss accordingly
-        if (hitsBossX || hitsBossEdgeXLeft || hitsBossEdgeXRight) {
+        if (hitsBossEdgeYUpper && (hitsBossX || hitsBossEdgeXLeft || hitsBossEdgeXRight)) {
+            // Hit Top
             int[] newBallSpeed = {ball.getSpeed()[0], ball.getSpeed()[1] * -1};
             ball.setSpeed(newBallSpeed);
             boss.reduceHealth(1);
 
-        } else if (hitsBossY || hitsBossEdgeYUpper || hitsBossEdgeYLower) {
+        } else if (hitsBossEdgeYLower && (hitsBossX || hitsBossEdgeXLeft || hitsBossEdgeXRight)) {
+            // Hit Bottom
+            int[] newBallSpeed = {ball.getSpeed()[0], ball.getSpeed()[1] * -1};
+            ball.setSpeed(newBallSpeed);
+            boss.reduceHealth(1);
+
+        } else if (hitsBossEdgeXLeft && (hitsBossY || hitsBossEdgeYUpper || hitsBossEdgeYLower)) {
+            // Hit Left
+            int[] newBallSpeed = {ball.getSpeed()[0] * -1, ball.getSpeed()[1]};
+            ball.setSpeed(newBallSpeed);
+            boss.reduceHealth(1);
+
+        }else if (hitsBossEdgeXRight && (hitsBossY || hitsBossEdgeYUpper || hitsBossEdgeYLower)) {
+            // Hit Right
             int[] newBallSpeed = {ball.getSpeed()[0] * -1, ball.getSpeed()[1]};
             ball.setSpeed(newBallSpeed);
             boss.reduceHealth(1);
