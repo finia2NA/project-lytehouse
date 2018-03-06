@@ -8,10 +8,12 @@ import java.awt.*;
 public class BBoss extends BBlock {
 
     private int health;
+    private int oldHealth;
 
     public BBoss(int health, Color color) {
         super(80, 60, 400, 240, color);
         this.health = health;
+        this.oldHealth = health;
     }
 
     /**
@@ -23,15 +25,17 @@ public class BBoss extends BBlock {
         if (damage < 0) {
             throw new IllegalArgumentException("You can not deal negative damage!");
         }
+        oldHealth = health;
         health -= damage;
     }
 
     /**
      * Heal the boss by a certain amount.
      *
-     * @param healingPoints Amount of heal the boss recieves.
+     * @param healingPoints Amount of heal the boss receives.
      */
     public void heal(int healingPoints) {
+        oldHealth = health;
         health += healingPoints;
     }
 
@@ -42,5 +46,22 @@ public class BBoss extends BBlock {
      */
     public int getHealth() {
         return health;
+    }
+
+    /**
+     * Returns the old boss health.
+     *
+     * @return Health of the boss
+     */
+    public int getOldHealth() {
+        return oldHealth;
+    }
+
+    /**
+     * Updates the oldHealth to allow it to be the same as the current health.
+     * This is allows you to remove the white blinking of the boss after he has taken damage.
+     */
+    public void evenOldHealth() {
+        oldHealth = health;
     }
 }

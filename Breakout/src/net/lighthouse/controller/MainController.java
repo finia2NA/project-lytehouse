@@ -7,7 +7,6 @@ import net.lighthouse.model.*;
 import net.lighthouse.settings.Settings;
 import net.lighthouse.view.rewrite.MainView;
 import net.lighthouse.view.View;
-import net.lighthouse.view.legacy.legacyClientView;
 import net.lighthouse.view.legacy.legacyMainView;
 
 import java.awt.Color;
@@ -30,14 +29,15 @@ public class MainController extends GraphicsProgram {
     private boolean isBossFight;
 	private boolean startGame;
 
-	private boolean print_frametimes = false;
+	private boolean printFrametimes = false;
 	private int frametime = 30;
 
 	public void init() {
 		Settings.readUserSettings("settings.txt");
 		frametime = Integer.parseInt(Settings.getSetting("frametime"));
+
 		if (Settings.getSetting("print-frametimes").equals("true")) {
-			print_frametimes = true;
+			printFrametimes = true;
 		}
 		if (Settings.getSetting("use_new_Viewport").equals("true")) {
 			view = new MainView(this);
@@ -51,10 +51,10 @@ public class MainController extends GraphicsProgram {
 		isRunning = false;
 		startGame = false;
 
-        ArrayList<BText> messages = new ArrayList<>();
-        messages.add(new BText(100, 100, "BREAKOUT"));
-        messages.add(new BText(100, 200, "press SPACE to start"));
-        model = new MainModel(messages);
+//        ArrayList<BText> messages = new ArrayList<>();
+//        messages.add(new BText(100, 100, "BREAKOUT"));
+//        messages.add(new BText(100, 200, "press SPACE to start"));
+//        model = new MainModel(messages);
 
         addMouseListeners();
         addKeyListeners();
@@ -105,9 +105,8 @@ public class MainController extends GraphicsProgram {
         while (!playerLost && !playerWon) {
             long nextTime = System.currentTimeMillis();
 
-            // 1s == 1000ms => 50fps == 1/50s == 20ms
             if (nextTime - previousRefreshTime > frametime) {
-                if (print_frametimes) {
+                if (printFrametimes) {
                     System.out.println(nextTime - previousRefreshTime);
                 }
                 if (!isBossFight && model.getBlocks().size() == 0) {
@@ -118,7 +117,7 @@ public class MainController extends GraphicsProgram {
                 playerLost = !ballChecker.handleBorderCollision(this.getWidth(), model.getPaddle().getY());
 
                 if (!isBossFight) {
-                    // Logic when now boss fight is happening
+                    // Logic when no boss fight is happening
                     BBlock[] hitBlocks = ballChecker.handleBlockCollision(model.getBlocks());
 
                     // Remove blocks that got hit in this frame
@@ -168,9 +167,9 @@ public class MainController extends GraphicsProgram {
     }
 
     private void winScreen() {
-
+        model.removeBoss();
         view.update(model);
-        System.out.println("You lost! Your score was: " + (int) model.userScore);
+        System.out.println("You won! Hoorray! Your score was: " + (int) model.userScore);
 
         isRunning = false;
         startGame = false;

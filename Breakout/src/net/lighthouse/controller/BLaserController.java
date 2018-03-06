@@ -22,6 +22,9 @@ public final class BLaserController {
      * @return True if a laser hit the paddle.
      */
     public static boolean updateLasers(MainModel model, int windowWidth) {
+        if (model == null) {
+           throw new IllegalArgumentException("Model can not be null!");
+        }
         for (BLaser laser : model.getLasers()) {
             CollisionChecker checker = new CollisionChecker(laser);
 

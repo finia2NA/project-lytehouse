@@ -123,6 +123,10 @@ public class MainModel implements Iterable<BObject> {
         return boss;
     }
 
+    public void removeBoss() {
+        boss = null;
+    }
+
     public ArrayList<BLaser> getLasers() {
         return lasers;
     }

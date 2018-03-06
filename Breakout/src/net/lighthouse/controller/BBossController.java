@@ -4,6 +4,8 @@ import acm.util.RandomGenerator;
 import net.lighthouse.model.BBoss;
 import net.lighthouse.model.BLaser;
 
+import java.awt.*;
+
 /**
  * @author Christoph Fricke
  */
@@ -23,6 +25,19 @@ public class BBossController {
     public BLaser playBossMove() {
         if (boss.getHealth() <= 0) {
             throw new IllegalStateException("Boss should be death by now!");
+        }
+
+        // Changes the color of the boss for one frame if damage was dealt.
+        if (boss.getHealth() != boss.getOldHealth()) {
+            boss.setColor(Color.WHITE);
+            boss.evenOldHealth();
+        } else {
+            boss.setColor(Color.GREEN);
+        }
+
+        // Indicates that the boss is nearly dead.
+        if (boss.getHealth() == 1) {
+            boss.setColor(Color.RED);
         }
 
         BLaser laser = null;
