@@ -70,6 +70,7 @@ public class MainModel implements Iterable<BObject> {
 	 */
 	public MainModel(ArrayList<BText> text) {
 		this.texts = text;
+		this.blocks = new BlockList();
 	}
 
 	public void addExplosion(int x, int y, Color color) {

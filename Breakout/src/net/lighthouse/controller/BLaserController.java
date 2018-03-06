@@ -25,19 +25,26 @@ public final class BLaserController {
         if (model == null) {
            throw new IllegalArgumentException("Model can not be null!");
         }
+        ArrayList<BLaser> laserToDelete = new ArrayList<>();
+
         for (BLaser laser : model.getLasers()) {
             CollisionChecker checker = new CollisionChecker(laser);
 
             if (!checker.handlePaddleCollision(model.getPaddle())) {
                 if (!checker.handleBorderCollision(windowWidth, model.getPaddle().getY())) {
                     // Laser has passed the paddle so it is gone
-                    model.getLasers().remove(laser);
+                    laserToDelete.add(laser);
                 }
                 laser.move();
             } else {
-                model.getLasers().remove(laser);
+                laserToDelete.add(laser);
                 return true;
             }
+        }
+
+        // Remove lasers which are out of bounds
+        for (BLaser killMePls : laserToDelete) {
+            model.getLasers().remove(killMePls);
         }
 
         return false;
