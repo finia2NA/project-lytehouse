@@ -36,27 +36,26 @@ public final class LevelManager {
         Color.GREEN, null, Color.GREEN, null, Color.GREEN, null, Color.GREEN,
     };
 
-    private static Color[] level3 = {
-        null, null, null, Color.GREEN, null, null, null,
-        null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null,
-    };
+//    private static Color[] level3 = {
+//        null, null, null, Color.GREEN, null, null, null,
+//        null, null, null, null, null, null, null,
+//        null, null, null, null, null, null, null,
+//        null, null, null, null, null, null, null,
+//        null, null, null, null, null, null, null,
+//    };
 
     public static BlockList getRandomLevel() {
-//        RandomGenerator rnd = RandomGenerator.getInstance();
-//        switch (rnd.nextInt(3)) {
-//            case 0:
-//                return makeBlockList(level0);
-//            case 1:
-//                return makeBlockList(level1);
-//            case 2:
-//                return makeBlockList(level2);
-//            default:
-//                return makeBlockList(level0);
-//        }
-        return makeBlockList(level3);
+        RandomGenerator rnd = RandomGenerator.getInstance();
+        switch (rnd.nextInt(3)) {
+            case 0:
+                return makeBlockList(level0);
+            case 1:
+                return makeBlockList(level1);
+            case 2:
+                return makeBlockList(level2);
+            default:
+                return makeBlockList(level0);
+        }
     }
 
     private static BlockList makeBlockList(Color[] level) {

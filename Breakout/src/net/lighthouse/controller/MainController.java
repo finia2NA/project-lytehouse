@@ -91,9 +91,8 @@ public class MainController extends GraphicsProgram {
         view.update(model);
 
         // Generates a random start speed
-//		RandomGenerator rnd = RandomGenerator.getInstance();
-//		int[] speed = { rnd.nextInt(-4, 4), rnd.nextInt(4, 6) };
-        int[] speed = {0, 6};
+        RandomGenerator rnd = RandomGenerator.getInstance();
+        int[] speed = {rnd.nextInt(-4, 4), 6};
         model.getBall(0).setSpeed(speed);
 
         gameLoop();
@@ -165,9 +164,9 @@ public class MainController extends GraphicsProgram {
 
     private void stopGame() {
         ArrayList<BText> messages = new ArrayList<>();
-        messages.add(new BText(200, 100, "YOU LOST!"));
-        messages.add(new BText(200, 200, "Your score is: " + (int) model.userScore));
-        messages.add(new BText(200, 300, "press SPACE to start again"));
+        messages.add(new BText(150, 100, "YOU LOST!"));
+        messages.add(new BText(100, 200, "Your score is: " + (int) model.userScore));
+        messages.add(new BText(100, 300, "press SPACE to start"));
         model = new MainModel(messages);
         view.update(model);
 
@@ -177,9 +176,9 @@ public class MainController extends GraphicsProgram {
 
     private void winScreen() {
         ArrayList<BText> messages = new ArrayList<>();
-        messages.add(new BText(200, 100, "YOU WON!"));
-        messages.add(new BText(200, 200, "Your score is: " + (int) model.userScore));
-        messages.add(new BText(200, 300, "press SPACE to start again"));
+        messages.add(new BText(150, 100, "YOU WON!"));
+        messages.add(new BText(100, 200, "Your score is: " + (int) model.userScore));
+        messages.add(new BText(100, 300, "press SPACE to start"));
         model = new MainModel(messages);
         view.update(model);
 
@@ -195,7 +194,7 @@ public class MainController extends GraphicsProgram {
         model.getBall(0).setX(560 / 2);
         model.getBall(0).setY(840 / 2);
         RandomGenerator rnd = RandomGenerator.getInstance();
-        int[] speed = {rnd.nextInt(-4, 4), rnd.nextInt(4, 6)};
+        int[] speed = {rnd.nextInt(-4, 4), 6};
         model.getBall(0).setSpeed(speed);
 
         isBossFight = true;
