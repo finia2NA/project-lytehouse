@@ -51,10 +51,10 @@ public class MainController extends GraphicsProgram {
 		isRunning = false;
 		startGame = false;
 
-//        ArrayList<BText> messages = new ArrayList<>();
-//        messages.add(new BText(100, 100, "BREAKOUT"));
-//        messages.add(new BText(100, 200, "press SPACE to start"));
-//        model = new MainModel(messages);
+        ArrayList<BText> messages = new ArrayList<>();
+        messages.add(new BText(100, 100, "BREAKOUT"));
+        messages.add(new BText(100, 200, "press SPACE to start"));
+        model = new MainModel(messages);
 
         addMouseListeners();
         addKeyListeners();
