@@ -123,8 +123,7 @@ public class MainView implements View {
 			g = new GOval(o.getX(),o.getY(),o.getWith(),o.getHeight());
 			((GFillable) g).setFilled(true);
 			((GFillable) g).setFillColor(o.getColor());
-		}
-		if (o instanceof BBall) {
+		} else if (o instanceof BBall) {
 			// TODO: width and height scaling.
 			g = new GImage("FootballLQ.png", o.getX(), o.getY());
 
