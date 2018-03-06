@@ -94,7 +94,7 @@ public class MainController extends GraphicsProgram {
 			long nextTime = System.currentTimeMillis();
 
 			// 1s == 1000ms => 50fps == 1/50s == 20ms
-			if (nextTime - previousRefreshTime > frametime) {
+			if (nextTime - previousRefreshTime >= frametime) {
 				if (print_frametimes) {
 					System.out.println(nextTime - previousRefreshTime);
 				}
