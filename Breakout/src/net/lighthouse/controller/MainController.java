@@ -92,7 +92,7 @@ public class MainController extends GraphicsProgram {
 
         // Generates a random start speed
         RandomGenerator rnd = RandomGenerator.getInstance();
-        int[] speed = {rnd.nextInt(-4, 4), 6};
+        int[] speed = {rnd.nextInt(-4, 4), 8};
         model.getBall(0).setSpeed(speed);
 
         gameLoop();
@@ -194,7 +194,7 @@ public class MainController extends GraphicsProgram {
         model.getBall(0).setX(560 / 2);
         model.getBall(0).setY(840 / 2);
         RandomGenerator rnd = RandomGenerator.getInstance();
-        int[] speed = {rnd.nextInt(-4, 4), 6};
+        int[] speed = {rnd.nextInt(-4, 4), 8};
         model.getBall(0).setSpeed(speed);
 
         isBossFight = true;
