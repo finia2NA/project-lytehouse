@@ -27,7 +27,7 @@ public class BText extends BObject {
 	 *             if the position is less than 0 or the text is null or empty.
 	 */
 	public BText(int x, int y, String text) {
-		super(x, y, 100, 100);
+		super(x, y, 100, 100, Color.WHITE);
 		if (x < 0 || y < 0) {
 			throw new IllegalArgumentException(
 					"Text can not be positioned on negative coordinates!" + " Was: x: " + x + " y: " + y);

@@ -11,7 +11,6 @@ import java.util.Iterator;
  * The main Model holding all blocks, balls, the paddle,texts and all effects.
  * 
  * @author finite
- *
  */
 
 public class MainModel implements Iterable<BObject> {
@@ -23,9 +22,11 @@ public class MainModel implements Iterable<BObject> {
 	// BBalls.
 	// TODO: this could be a BlockList, since BBall is a type of BBlock. I don't
 	// know if it needs to be though. -finite
-	private ArrayList<BBall> balls = new ArrayList<BBall>();
-	private ArrayList<BExplosion> effects = new ArrayList<BExplosion>();
-	private ArrayList<BText> texts = new ArrayList<BText>();
+	private ArrayList<BBall> balls = new ArrayList<>();
+	private ArrayList<BExplosion> effects = new ArrayList<>();
+	private ArrayList<BText> texts = new ArrayList<>();
+	private ArrayList<BLaser> lasers = new ArrayList<>();
+	private BBoss boss;
 
 	/**
 	 * Keeps track of the current userScore.
@@ -34,7 +35,7 @@ public class MainModel implements Iterable<BObject> {
 
 	/**
 	 * Creates a Model with all custom data. but no starting explosions :(
-	 * 
+	 *
 	 * @param paddle
 	 *            the paddle.
 	 * @param ball
@@ -62,6 +63,16 @@ public class MainModel implements Iterable<BObject> {
 		blocks = LevelManager.getRandomLevel();
 	}
 
+	/**
+	 * creates a new Mainmodel with just a text.
+	 * 
+	 * @param text
+	 */
+	public MainModel(ArrayList<BText> text) {
+		this.texts = text;
+		this.blocks = new BlockList();
+	}
+
 	public void addExplosion(int x, int y, Color color) {
 		effects.add(new BExplosion(x, y, color));
 
@@ -69,13 +80,19 @@ public class MainModel implements Iterable<BObject> {
 
 	/**
 	 * adds an object to the model.
-	 * 
+	 *
 	 * @param object
 	 *            the object to add.
 	 */
 	public void addObject(BObject object) {
-		if (object instanceof BBall) {
+		if (object instanceof BLaser) {
+			lasers.add((BLaser) object);
+
+		} else if (object instanceof BBall) {
 			balls.add((BBall) object);
+
+		} else if (object instanceof BBoss) {
+			boss = (BBoss) object;
 
 		} else if (object instanceof BBlock) {
 			blocks.add((BBlock) object);
@@ -85,16 +102,17 @@ public class MainModel implements Iterable<BObject> {
 
 		} else if (object instanceof BPaddle) {
 			paddle = (BPaddle) object;
-
 			// Ich glaube nicht dass es einen usecase gibt wo man absichtlich das paddle
 			// durch ein neues ersetzt, deshalb die Warnung.
 			System.out.println("Warning on addObject: paddle has just been replaced.");
+		} else if (object instanceof BText) {
+			texts.add((BText) object);
 		}
 	}
 
 	/**
 	 * Gets all Blocks currently in the model.
-	 * 
+	 *
 	 * @return all Blocks currently in the model.
 	 */
 	public BlockList getBlocks() {
@@ -103,7 +121,7 @@ public class MainModel implements Iterable<BObject> {
 
 	/**
 	 * returns how many balls there are in the model right now.
-	 * 
+	 *
 	 * @return how many balls there are in the model right now.
 	 */
 	public int getNumberOfBalls() {
@@ -112,7 +130,7 @@ public class MainModel implements Iterable<BObject> {
 
 	/**
 	 * returns an ArrayList containing all balls in the model rightn now.
-	 * 
+	 *
 	 * @returnan ArrayList containing all balls in the model rightn now.
 	 */
 	public ArrayList<BBall> getAllBalls() {
@@ -121,7 +139,7 @@ public class MainModel implements Iterable<BObject> {
 
 	/**
 	 * gets a specific ball.
-	 * 
+	 *
 	 * @param ballIndex
 	 *            the ball to get.
 	 * @return the ball.
@@ -133,7 +151,7 @@ public class MainModel implements Iterable<BObject> {
 
 	/**
 	 * gets the first ball in the model.
-	 * 
+	 *
 	 * @return the first ball in the model.
 	 */
 	public BBall getBall() {
@@ -142,16 +160,28 @@ public class MainModel implements Iterable<BObject> {
 
 	/**
 	 * gets the paddle.
-	 * 
+	 *
 	 * @return the paddle.
 	 */
 	public BPaddle getPaddle() {
 		return paddle;
 	}
 
+	public BBoss getBoss() {
+		return boss;
+	}
+
+	public void removeBoss() {
+		boss = null;
+	}
+
+	public ArrayList<BLaser> getLasers() {
+		return lasers;
+	}
+
 	/**
 	 * returns all text objects in the model.
-	 * 
+	 *
 	 * @return the sacred texts!
 	 */
 	public ArrayList<BText> getTexts() {
@@ -160,7 +190,7 @@ public class MainModel implements Iterable<BObject> {
 
 	/**
 	 * sets the list of texts in the model.
-	 * 
+	 *
 	 * @param texts
 	 *            the texts to set.
 	 */
@@ -170,7 +200,7 @@ public class MainModel implements Iterable<BObject> {
 
 	/**
 	 * returns an ArrayList of all BObjects in the model.
-	 * 
+	 *
 	 * @returnan ArrayList of all BObjects in the model.
 	 */
 	public ArrayList<BObject> toArrayList() {
@@ -179,6 +209,12 @@ public class MainModel implements Iterable<BObject> {
 		ArrayList<BObject> objectList = new ArrayList<BObject>();
 		for (BBall ball : balls) {
 			objectList.add(ball);
+		}
+		for (BLaser laser : lasers) {
+			objectList.add(laser);
+		}
+		if (boss != null) {
+			objectList.add(boss);
 		}
 		objectList.add(paddle);
 		for (BBlock block : blocks) {
@@ -190,12 +226,13 @@ public class MainModel implements Iterable<BObject> {
 		for (BText text : texts) {
 			objectList.add(text);
 		}
+
 		return objectList;
 	}
 
 	/**
 	 * Checks if a BObject is in the model.
-	 * 
+	 *
 	 * @param o
 	 *            the Object to look for.
 	 * @return {@code true} the object is in the model, {@code false} the object is

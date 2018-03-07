@@ -3,15 +3,15 @@ package net.lighthouse.controller;
 import acm.program.GraphicsProgram;
 import acm.util.RandomGenerator;
 import net.lighthouse.collision.CollisionChecker;
-import net.lighthouse.model.BBlock;
-import net.lighthouse.model.MainModel;
+import net.lighthouse.model.*;
 import net.lighthouse.settings.Settings;
 import net.lighthouse.view.rewrite.MainView;
 import net.lighthouse.view.View;
-import net.lighthouse.view.legacy.legacyClientView;
 import net.lighthouse.view.legacy.legacyMainView;
 
+import java.awt.Color;
 import java.awt.event.*;
+import java.util.ArrayList;
 
 /**
  * Main Controller of the game. Keeps track of the game loop and game status. It
@@ -20,92 +20,131 @@ import java.awt.event.*;
  * @author Christoph Fricke
  */
 public class MainController extends GraphicsProgram {
-	private View view;
-	private MainModel model;
-	private CollisionChecker ballChecker;
-	private boolean isRunning;
-	private boolean startGame;
-	private boolean print_frametimes = false;
-	private int frametime = 30;
+    private View view;
+    private MainModel model;
+    private CollisionChecker ballChecker;
+    private BBossController bossController;
 
-	public void init() {
-		Settings.readUserSettings("settings.txt");
-		frametime = Integer.parseInt(Settings.getSetting("frametime"));
-		if (Settings.getSetting("print-frametimes").equals("true")) {
-			print_frametimes = true;
-		}
-		if (Settings.getSetting("use_new_Viewport").equals("true")) {
-			view = new MainView(this);
-		} else {
-			view = new legacyMainView(this);
-		}
+    private boolean isRunning;
+    private boolean isBossFight;
+    private boolean startGame;
 
-		view.init();
-		System.out.println(this.getWidth() + " " + this.getHeight());
+    private boolean printFrametimes = false;
+    private int frametime = 40;
 
-		isRunning = false;
-		startGame = false;
+    public void init() {
+        Settings.readUserSettings("settings.txt");
+        frametime = Integer.parseInt(Settings.getSetting("frametime"));
 
-		addMouseListeners();
-		addKeyListeners();
-	}
+        if (Settings.getSetting("print-frametimes").equals("true")) {
+            printFrametimes = true;
+        }
+        if (Settings.getSetting("use_new_Viewport").equals("true")) {
+            view = new MainView(this);
+        } else {
+            view = new legacyMainView(this);
+        }
 
-	/**
-	 * I need this to attach a debugger with IntelliJ. Otherwise IntelliJ is not
-	 * able to find a main method while using the acm library. See more:
-	 * https://stackoverflow.com/questions/28058665/java-runtime-error-could-not-initialize-class-formpreviewframe
-	 *
-	 * @param args
-	 *            Runtime arguments
-	 */
-	public static void main(String[] args) {
-		new MainController().start(args);
-	}
+        view.init();
+        System.out.println(this.getWidth() + " " + this.getHeight());
 
-	public void run() {
-		while (true) {
-			if (startGame) {
-				startNewGame();
-			} else {
-				pause(20);
-			}
-		}
-	}
+        isRunning = false;
+        startGame = false;
 
-	private void startNewGame() {
-		isRunning = true;
+        ArrayList<BText> messages = new ArrayList<>();
+        messages.add(new BText(150, 100, "BREAKOUT"));
+        messages.add(new BText(100, 200, "press SPACE to start"));
+        model = new MainModel(messages);
+        view.update(model);
 
-		model = new MainModel();
-		ballChecker = new CollisionChecker(model.getBall(0));
-		view.update(model);
+        addMouseListeners();
+        addKeyListeners();
+    }
 
-		// Generates a random start speed
-		RandomGenerator rnd = RandomGenerator.getInstance();
-		int[] speed = { rnd.nextInt(-4, 4), rnd.nextInt(4, 6) };
-		model.getBall(0).setSpeed(speed);
+    /**
+     * I need this to attach a debugger with IntelliJ. Otherwise IntelliJ is not
+     * able to find a main method while using the acm library. See more:
+     * https://stackoverflow.com/questions/28058665/java-runtime-error-could-not-initialize-class-formpreviewframe
+     *
+     * @param args Runtime arguments
+     */
+    public static void main(String[] args) {
+        new MainController().start(args);
+    }
 
-		gameLoop();
-	}
+    public void run() {
+        while (true) {
+            if (startGame) {
+                startNewGame();
+            } else {
+                pause(20);
+            }
+        }
+    }
 
-	private void gameLoop() {
-		boolean playerLost = false;
-		long previousRefreshTime = System.currentTimeMillis();
-		while (!playerLost) {
-			long nextTime = System.currentTimeMillis();
+    private void startNewGame() {
+        isRunning = true;
+        isBossFight = false;
 
-			// 1s == 1000ms => 50fps == 1/50s == 20ms
-			if (nextTime - previousRefreshTime >= frametime) {
-				if (print_frametimes) {
-					System.out.println(nextTime - previousRefreshTime);
-				}
-				ballChecker.handlePaddleCollision(model.getPaddle());
+        model = new MainModel();
+        ballChecker = new CollisionChecker(model.getBall(0));
+        view.update(model);
+
+        // Generates a random start speed
+        RandomGenerator rnd = RandomGenerator.getInstance();
+        int[] speed = {rnd.nextInt(-4, 4), 8};
+        model.getBall(0).setSpeed(speed);
+
+        gameLoop();
+    }
+
+    private void gameLoop() {
+        boolean playerLost = false;
+        boolean playerWon = false;
+
+        long previousRefreshTime = System.currentTimeMillis();
+        while (!playerLost && !playerWon) {
+            long nextTime = System.currentTimeMillis();
+
+            if (nextTime - previousRefreshTime >= frametime) {
+                if (printFrametimes) {
+                    System.out.println(nextTime - previousRefreshTime);
+                }
+                if (!isBossFight && model.getBlocks().size() == 0) {
+                    initBossFight();
+                }
+
+                ballChecker.handlePaddleCollision(model.getPaddle());
                 playerLost = !ballChecker.handleBorderCollision(this.getWidth(), model.getPaddle().getY());
-                BBlock[] hitBlocks = ballChecker.handleBlockCollision(model.getBlocks());
+                if (playerLost) {
+                    break;
+                }
 
-                // Remove blocks that got hit in this frame
-                for (BBlock block : hitBlocks) {
-                    model.userScore += 10;
-                    model.getBlocks().remove(block);
+                if (!isBossFight) {
+                    // Logic when no boss fight is happening
+                    BBlock[] hitBlocks = ballChecker.handleBlockCollision(model.getBlocks());
+
+                    // Remove blocks that got hit in this frame
+                    for (BBlock block : hitBlocks) {
+                        model.userScore += 10;
+                        model.getBlocks().remove(block);
+                    }
+                } else {
+                    // Logic during a boss fight
+                    assert isBossFight && model.getBoss() != null : "Wops looks like it is not a boss fight";
+
+                    ballChecker.handleBossCollision(model.getBoss());
+                    if (model.getBoss().getHealth() > 0) {
+                        BLaser laser = bossController.playBossMove();
+
+                        if (laser != null) {
+                            model.addObject(laser);
+                        }
+
+                        playerLost = BLaserController.updateLasers(model, this.getWidth());
+                    } else {
+                        playerWon = true;
+                    }
                 }
 
                 model.getBall(0).move();
@@ -115,20 +154,54 @@ public class MainController extends GraphicsProgram {
                 previousRefreshTime = nextTime;
             }
         }
-        stopGame();
+
+        if (playerLost) {
+            stopGame();
+        } else if (playerWon) {
+            winScreen();
+        }
     }
 
     private void stopGame() {
-        model.getAllBalls().remove(0);
+        ArrayList<BText> messages = new ArrayList<>();
+        messages.add(new BText(150, 100, "YOU LOST!"));
+        messages.add(new BText(100, 200, "Your score is: " + (int) model.userScore));
+        messages.add(new BText(100, 300, "press SPACE to start"));
+        model = new MainModel(messages);
         view.update(model);
-        System.out.println("You lost! Your score was: " + (int) model.userScore);
 
         isRunning = false;
         startGame = false;
     }
 
+    private void winScreen() {
+        ArrayList<BText> messages = new ArrayList<>();
+        messages.add(new BText(150, 100, "YOU WON!"));
+        messages.add(new BText(100, 200, "Your score is: " + (int) model.userScore));
+        messages.add(new BText(100, 300, "press SPACE to start"));
+        model = new MainModel(messages);
+        view.update(model);
+
+        isRunning = false;
+        startGame = false;
+    }
+
+    private void initBossFight() {
+        BBoss boss = new BBoss(10, Color.MAGENTA);
+        model.addObject(boss);
+        bossController = new BBossController(boss);
+
+        model.getBall(0).setX(560 / 2);
+        model.getBall(0).setY(840 / 2);
+        RandomGenerator rnd = RandomGenerator.getInstance();
+        int[] speed = {rnd.nextInt(-4, 4), 8};
+        model.getBall(0).setSpeed(speed);
+
+        isBossFight = true;
+    }
+
     public void mouseMoved(MouseEvent e) {
-        if(model != null) {
+        if (model != null && model.getPaddle() != null) {
             model.getPaddle().move(e.getX() - model.getPaddle().getWith() / 2);
         }
     }
