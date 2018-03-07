@@ -130,7 +130,6 @@ public class MainView implements View {
 			g = new GImage("FootballLQ.png", o.getX(), o.getY());
 
 		} else if (o instanceof BText) {
-			System.out.println("addObject text! (remove this print when it works)");
 			g = new GLabel(((BText) o).getText(), o.getX(), o.getY());
 			g.setColor(o.getColor());
 			((GLabel) g).setFont("*-*-40");
