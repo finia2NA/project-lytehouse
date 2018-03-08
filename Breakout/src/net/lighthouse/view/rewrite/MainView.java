@@ -69,7 +69,6 @@ public class MainView implements View {
 			use_darkhouse = true;
 			darkhouse = new DarkhouseScaler();
 			darkhouse.init();
-			// TODO: repaintflag?
 		} else {
 			use_darkhouse = false;
 		}
@@ -79,7 +78,7 @@ public class MainView implements View {
 
 		top.add(sharedCompound);
 
-		// top.getGCanvas().setAutoRepaintFlag(false);
+		top.getGCanvas().setAutoRepaintFlag(false);
 		top.setBackground(Color.BLACK);
 	}
 
@@ -118,7 +117,8 @@ public class MainView implements View {
 	 *            the BObject to represent.
 	 */
 	private void addObject(BObject o) {
-	    if(o==null) return;
+		if (o == null)
+			return;
 
 		GObject g;
 		if (o instanceof BLaser) {
