@@ -10,11 +10,14 @@ import acm.graphics.GFillable;
 import acm.graphics.GImage;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
+import acm.graphics.GOval;
 import acm.graphics.GRect;
 import acm.program.GraphicsProgram;
 //MODEL
 import net.lighthouse.model.BBall;
+import net.lighthouse.model.BBoss;
 import net.lighthouse.model.BExplosion;
+import net.lighthouse.model.BLaser;
 import net.lighthouse.model.BObject;
 import net.lighthouse.model.BText;
 import net.lighthouse.model.MainModel;
@@ -66,7 +69,6 @@ public class MainView implements View {
 			use_darkhouse = true;
 			darkhouse = new DarkhouseScaler();
 			darkhouse.init();
-			// TODO: repaintflag?
 		} else {
 			use_darkhouse = false;
 		}
@@ -76,13 +78,13 @@ public class MainView implements View {
 
 		top.add(sharedCompound);
 
-		//top.getGCanvas().setAutoRepaintFlag(false);
+		top.getGCanvas().setAutoRepaintFlag(false);
 		top.setBackground(Color.BLACK);
 	}
 
 	/**
 	 * updates Client and lighthouse (if setting says so) to reflect a model.
-	 * 
+	 *
 	 * @param model
 	 *            the base model.
 	 */
@@ -110,24 +112,37 @@ public class MainView implements View {
 
 	/**
 	 * Adds a GObject representing a given BObject to the view.
-	 * 
+	 *
 	 * @param o
 	 *            the BObject to represent.
 	 */
 	private void addObject(BObject o) {
+		if (o == null)
+			return;
+
 		GObject g;
-		if (o instanceof BBall) {
+		if (o instanceof BLaser) {
+			g = new GOval(o.getX(), o.getY(), o.getWith(), o.getHeight());
+			((GFillable) g).setFilled(true);
+			((GFillable) g).setFillColor(o.getColor());
+		} else if (o instanceof BBall) {
 			// TODO: width and height scaling.
 			g = new GImage("FootballLQ.png", o.getX(), o.getY());
 
 		} else if (o instanceof BText) {
 			g = new GLabel(((BText) o).getText(), o.getX(), o.getY());
 			g.setColor(o.getColor());
+			((GLabel) g).setFont("*-*-40");
 			top.add(g);
+			links.add(new BLink(o, g));
 			return;
 		} else if (o instanceof BExplosion) {
 			g = new GLabel("hier sollte eine Explosion sein xD", o.getX(), o.getY());
 			g.setColor(o.getColor());
+		} else if (o instanceof BBoss) {
+			g = new GRect(o.getX(), o.getHeight(), o.getWith(), o.getHeight());
+			((GFillable) g).setFilled(true);
+			((GFillable) g).setFillColor(o.getColor());
 		} else {
 			g = new GRect(o.getX(), o.getY(), o.getWith(), o.getHeight());
 			((GFillable) g).setFilled(true);
@@ -175,8 +190,6 @@ public class MainView implements View {
 	/**
 	 * looks if the representations of a in the view have different coordinates than
 	 * the concept in the model. if yes, the view needs to be updated.
-	 * 
-	 * @param concept
 	 */
 	public void moved() {
 		for (BLink link : links) {

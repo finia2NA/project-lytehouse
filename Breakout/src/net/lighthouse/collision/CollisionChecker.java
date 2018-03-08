@@ -33,10 +33,12 @@ public class CollisionChecker {
      * Depending on where the ball hits the paddle the X direction will grow or shrink too.
      *
      * @param paddle Paddle we might collide with.
+     *
+     * @return True if the ball hit the paddle.
      */
-    public void handlePaddleCollision(BPaddle paddle) {
+    public boolean handlePaddleCollision(BPaddle paddle) {
         boolean affectsPaddleY = ball.nextY() + ball.getHeight() >= paddle.getY();
-        if (!affectsPaddleY) return;
+        if (!affectsPaddleY) return false;
 
         int ballX = ball.nextX();
         int ballWidth = ballX + ball.getWith();
@@ -51,10 +53,12 @@ public class CollisionChecker {
         if (affectsPaddleXEdgeLeft) {
             int[] newBallSpeed = {ball.getSpeed()[0] - 2, ball.getSpeed()[1] * -1};
             ball.setSpeed(newBallSpeed);
+            return true;
 
         } else if (affectsPaddleXEdgeRight) {
             int[] newBallSpeed = {ball.getSpeed()[0] + 2, ball.getSpeed()[1] * -1};
             ball.setSpeed(newBallSpeed);
+            return true;
 
         } else if (affectsPaddleXMiddle) {
             int paddlePartLength = paddleWidth / 3;
@@ -72,6 +76,10 @@ public class CollisionChecker {
                 int[] newBallSpeed = {ball.getSpeed()[0] + 2, ball.getSpeed()[1] * -1};
                 ball.setSpeed(newBallSpeed);
             }
+
+            return true;
+        } else {
+            return false;
         }
     }
 
@@ -84,7 +92,7 @@ public class CollisionChecker {
      * @param width   Width of the view.
      * @param paddleY Y position of the paddle. This is the line which decides between a lose or not.
      *
-     * @return True if the player was able to catch the ball and the game can keep
+     * @return True if the ball did not passed the paddle and the game can keep
      * running. False if the game might end since the ball passed the paddles Y position.
      */
     public boolean handleBorderCollision(int width, int paddleY) {
@@ -132,10 +140,10 @@ public class CollisionChecker {
         int ballHeight = ballY + ball.getHeight();
 
         // Check all corner situations.
-        blockList[0] = blocks.getBlockAtXY(ballX, ballY);
-        blockList[1] = blocks.getBlockAtXY(ballWidth, ballY);
-        blockList[2] = blocks.getBlockAtXY(ballX, ballHeight);
-        blockList[3] = blocks.getBlockAtXY(ballWidth, ballHeight);
+        blockList[0] = blocks.getBlockAtXY(ballX + 1, ballY);
+        blockList[1] = blocks.getBlockAtXY(ballWidth - 1, ballY);
+        blockList[2] = blocks.getBlockAtXY(ballX + 1, ballHeight);
+        blockList[3] = blocks.getBlockAtXY(ballWidth - 1, ballHeight);
 
         blockList[4] = blocks.getBlockAtXY(ballX, ballY + 1);
         blockList[5] = blocks.getBlockAtXY(ballX, ballHeight - 1);
@@ -177,5 +185,47 @@ public class CollisionChecker {
         }
 
         return affectedBlocks;
+    }
+
+    public void handleBossCollision(BBoss boss) {
+        int ballX = ball.nextX();
+        int ballY = ball.nextY();
+        int ballWidth = ballX + ball.getWith();
+        int ballHeight = ballY + ball.getHeight();
+        int bossX = boss.getX();
+        int bossY = boss.getY();
+        int bossWidth = bossX + boss.getWith();
+        int bossHeight = bossY + boss.getHeight();
+
+        boolean hitsBossX = ballX >= bossX && ballWidth <= bossWidth;
+        boolean hitsBossY = ballY >= bossY && ballHeight <= bossHeight;
+        // Check if only some part of the ball will hit the boss.
+        boolean hitsBossEdgeXLeft = ballX < bossX && ballWidth > bossX;
+        boolean hitsBossEdgeXRight = ballX < bossWidth && ballWidth > bossWidth;
+        boolean hitsBossEdgeYUpper = ballY < bossY && ballHeight > bossY;
+        boolean hitsBossEdgeYLower = ballY < bossHeight && ballHeight > bossHeight;
+
+        // Change paddle direction and deal damage to the boss accordingly
+        if (hitsBossEdgeXLeft && (hitsBossY || hitsBossEdgeYUpper || hitsBossEdgeYLower)) {
+            // Hit Left
+            int[] newBallSpeed = {ball.getSpeed()[0] * -1, ball.getSpeed()[1]};
+            ball.setSpeed(newBallSpeed);
+
+        } else if (hitsBossEdgeXRight && (hitsBossY || hitsBossEdgeYUpper || hitsBossEdgeYLower)) {
+            // Hit Right
+            int[] newBallSpeed = {ball.getSpeed()[0] * -1, ball.getSpeed()[1]};
+            ball.setSpeed(newBallSpeed);
+        } else if (hitsBossEdgeYUpper && (hitsBossX || hitsBossEdgeXLeft || hitsBossEdgeXRight)) {
+            // Hit Top
+            int[] newBallSpeed = {ball.getSpeed()[0], ball.getSpeed()[1] * -1};
+            ball.setSpeed(newBallSpeed);
+            boss.reduceHealth(1);
+
+        } else if (hitsBossEdgeYLower && (hitsBossX || hitsBossEdgeXLeft || hitsBossEdgeXRight)) {
+            // Hit Bottom
+            int[] newBallSpeed = {ball.getSpeed()[0], ball.getSpeed()[1] * -1};
+            ball.setSpeed(newBallSpeed);
+
+        }
     }
 }
