@@ -98,7 +98,7 @@ public class MainView implements View {
 		}
 		deleted();
 		added();
-		moved();
+		movedOrChameleon();
 
 		if (use_darkhouse) {
 			darkhouse.update(sharedCompound);
@@ -184,10 +184,13 @@ public class MainView implements View {
 	 * looks if the representations of a in the view have different coordinates than
 	 * the concept in the model. if yes, the view needs to be updated.
 	 */
-	public void moved() {
+	public void movedOrChameleon() {
 		for (BLink link : links) {
 			if (link.hasMoved()) {
 				link.getG().setLocation(link.getB().getX(), link.getB().getY());
+			}
+			if(link.hasChameleoned()) {
+				link.getG().setColor(link.getB().getColor());
 			}
 		}
 	}
