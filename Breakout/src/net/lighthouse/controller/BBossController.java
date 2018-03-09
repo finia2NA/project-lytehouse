@@ -16,6 +16,11 @@ public class BBossController {
     private BBoss boss;
 
     /**
+     * Determines how long a hit should be shown through a color change
+     */
+    private int remainingHitFrames;
+
+    /**
      * Creates a new controller.
      * @param boss Boss that should be controlled
      */
@@ -24,6 +29,7 @@ public class BBossController {
             throw new IllegalArgumentException("There is no possibility to control a null object");
         }
         this.boss = boss;
+        this.remainingHitFrames = 0;
     }
 
     /**
@@ -44,6 +50,7 @@ public class BBossController {
             // Damage was dealt
             boss.setColor(Color.WHITE);
             boss.evenOldHealth();
+            remainingHitFrames = 40;
 
             RandomGenerator rnd = RandomGenerator.getInstance();
             int[] speed = {rnd.nextInt(-4, 4), rnd.nextInt(4, 6)};
@@ -51,7 +58,11 @@ public class BBossController {
             // Spawns a new laser at the bottom center of the boss
             laser = new BLaser(boss.getX() + boss.getWith() / 2, boss.getY() + boss.getHeight(), speed);
         } else {
-            boss.setColor(Color.GREEN);
+            if(remainingHitFrames == 0) {
+                boss.setColor(Color.GREEN);
+            } else {
+                remainingHitFrames--;
+            }
         }
 
         // Indicates that the boss is nearly dead.
