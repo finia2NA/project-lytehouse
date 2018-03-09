@@ -6,6 +6,8 @@ import java.awt.Color;
  * BObject provides the basic for every game object that can exits.
  * Objects of every class that extends BObject can be rendered
  * in the view.
+ *
+ * @author finite, Christoph Fricke
  */
 public class BObject {
     // Instance variables
