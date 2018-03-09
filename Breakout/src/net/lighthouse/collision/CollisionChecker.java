@@ -4,8 +4,8 @@ import net.lighthouse.model.*;
 import net.lighthouse.model.BlockList;
 
 /**
- * Provide a various collision checks for a ball object.
- * Can check a collision withe the paddle, borders and blocks.
+ * Provide various collision checks for a ball object.
+ * Can check a collision with the paddle, borders and blocks.
  * It will update the speed of the given ball accordingly and
  * might provide some other useful information for further
  * game behaviour.
@@ -23,8 +23,13 @@ public class CollisionChecker {
      * Creates a new CollisionChecker.
      *
      * @param ball Object the Checker checks for.
+     *
+     * @throws IllegalArgumentException if ball is null
      */
     public CollisionChecker(BBall ball) {
+        if (ball == null) {
+            throw new IllegalArgumentException("Can not operate on a ball that is null!");
+        }
         this.ball = ball;
     }
 
@@ -35,11 +40,18 @@ public class CollisionChecker {
      * @param paddle Paddle we might collide with.
      *
      * @return True if the ball hit the paddle.
+     * @throws IllegalArgumentException if paddle is null
      */
     public boolean handlePaddleCollision(BPaddle paddle) {
+        if (paddle == null) {
+            throw new IllegalArgumentException("Paddle can not be null!");
+        }
+        // Checks if we are in the right y area for a collision to happen.
+        // If not we return and save calculation time.
         boolean affectsPaddleY = ball.nextY() + ball.getHeight() >= paddle.getY();
         if (!affectsPaddleY) return false;
 
+        // extracts needed variables
         int ballX = ball.nextX();
         int ballWidth = ballX + ball.getWith();
         int paddleX = paddle.getX();
@@ -79,6 +91,7 @@ public class CollisionChecker {
 
             return true;
         } else {
+            // We did not hit the paddle.
             return false;
         }
     }
@@ -96,8 +109,11 @@ public class CollisionChecker {
      * running. False if the game might end since the ball passed the paddles Y position.
      */
     public boolean handleBorderCollision(int width, int paddleY) {
+        // Collision with side borders
         boolean switchX = ball.nextX() <= 0 || ball.nextX() + ball.getWith() >= width;
+        // Collision with upper border
         boolean switchY = ball.nextY() <= 0;
+        // Collision with paddle y line => lower border
         boolean playerLost = ball.nextY() + ball.getHeight() >= paddleY;
 
         if (switchX) {
@@ -129,6 +145,9 @@ public class CollisionChecker {
      * @return Array of BBlocks that are hit by the ball.
      */
     public BBlock[] handleBlockCollision(BlockList blocks) {
+        if (blocks == null || blocks.size() == 0) {
+            throw new IllegalArgumentException("blocks can not be null or empty!");
+        }
         // Contains block that might have hit on a possible location.
         // Format: XUpperLeft, XUpperRight, XLowerLeft, XLowerRight, YUpperLeft, YLowerLeft, YUpperRight, YLowerRight
         BBlock[] blockList = new BBlock[8];
@@ -139,7 +158,8 @@ public class CollisionChecker {
         int ballWidth = ballX + ball.getWith();
         int ballHeight = ballY + ball.getHeight();
 
-        // Check all corner situations.
+        // Check all corner situations +/- 1 depending whether we want to check the x or y side. This allows
+        // us to distinguish the situations.
         blockList[0] = blocks.getBlockAtXY(ballX + 1, ballY);
         blockList[1] = blocks.getBlockAtXY(ballWidth - 1, ballY);
         blockList[2] = blocks.getBlockAtXY(ballX + 1, ballHeight);
@@ -150,7 +170,8 @@ public class CollisionChecker {
         blockList[6] = blocks.getBlockAtXY(ballWidth, ballY + 1);
         blockList[7] = blocks.getBlockAtXY(ballWidth, ballHeight - 1);
 
-        // Remove possible duplicates
+        // Remove possible duplicates since a ball can hit two blocks at once with one side
+        // or one block with both corners for that side
         if (blockList[0] == blockList[1]) blockList[1] = null;
         if (blockList[2] == blockList[3]) blockList[3] = null;
         if (blockList[4] == blockList[5]) blockList[5] = null;
@@ -160,6 +181,8 @@ public class CollisionChecker {
         int count = 0;
         // Change object speed depending on collisions and count how many blocks are affected.
         for (int i = 0; i < blockList.length; i += 2) {
+            // This iterates throw both corner situations at once every time since we only want
+            // to change the ball speed once if both corners of one side hit different blocks.
             if (blockList[i] != null || blockList[i + 1] != null) {
                 count = blockList[i] != null ? count + 1 : count;
                 count = blockList[i + 1] != null ? count + 1 : count;
@@ -188,6 +211,7 @@ public class CollisionChecker {
     }
 
     public void handleBossCollision(BBoss boss) {
+        // Extracts variables to reduce method executions.
         int ballX = ball.nextX();
         int ballY = ball.nextY();
         int ballWidth = ballX + ball.getWith();
