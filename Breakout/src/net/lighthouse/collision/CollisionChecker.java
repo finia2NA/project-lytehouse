@@ -210,6 +210,12 @@ public class CollisionChecker {
         return affectedBlocks;
     }
 
+    /**
+     * Checks if the ball collides with the boss and changes the direction accordingly. It also
+     * reduces the boss health if the ball hits on top.
+     *
+     * @param boss Boss the ball might collide with
+     */
     public void handleBossCollision(BBoss boss) {
         // Extracts variables to reduce method executions.
         int ballX = ball.nextX();
@@ -230,22 +236,22 @@ public class CollisionChecker {
         boolean hitsBossEdgeYLower = ballY < bossHeight && ballHeight > bossHeight;
 
         // Change paddle direction and deal damage to the boss accordingly
-        if (hitsBossEdgeXLeft && (hitsBossY || hitsBossEdgeYUpper || hitsBossEdgeYLower)) {
+        if ((hitsBossY || hitsBossEdgeYUpper || hitsBossEdgeYLower) && hitsBossEdgeXLeft) {
             // Hit Left
             int[] newBallSpeed = {ball.getSpeed()[0] * -1, ball.getSpeed()[1]};
             ball.setSpeed(newBallSpeed);
 
-        } else if (hitsBossEdgeXRight && (hitsBossY || hitsBossEdgeYUpper || hitsBossEdgeYLower)) {
+        } else if ((hitsBossY || hitsBossEdgeYUpper || hitsBossEdgeYLower) && hitsBossEdgeXRight) {
             // Hit Right
             int[] newBallSpeed = {ball.getSpeed()[0] * -1, ball.getSpeed()[1]};
             ball.setSpeed(newBallSpeed);
-        } else if (hitsBossEdgeYUpper && (hitsBossX || hitsBossEdgeXLeft || hitsBossEdgeXRight)) {
+        } else if ((hitsBossX || hitsBossEdgeXLeft || hitsBossEdgeXRight) && hitsBossEdgeYUpper) {
             // Hit Top
             int[] newBallSpeed = {ball.getSpeed()[0], ball.getSpeed()[1] * -1};
             ball.setSpeed(newBallSpeed);
             boss.reduceHealth(1);
 
-        } else if (hitsBossEdgeYLower && (hitsBossX || hitsBossEdgeXLeft || hitsBossEdgeXRight)) {
+        } else if ((hitsBossX || hitsBossEdgeXLeft || hitsBossEdgeXRight) && hitsBossEdgeYLower) {
             // Hit Bottom
             int[] newBallSpeed = {ball.getSpeed()[0], ball.getSpeed()[1] * -1};
             ball.setSpeed(newBallSpeed);
