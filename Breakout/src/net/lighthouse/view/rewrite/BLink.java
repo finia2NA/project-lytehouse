@@ -1,6 +1,7 @@
 package net.lighthouse.view.rewrite;
 
 import acm.graphics.GImage;
+import acm.graphics.GLabel;
 //ACM
 import acm.graphics.GObject;
 import acm.graphics.GFillable;
@@ -87,7 +88,7 @@ class BLink {
 	 *         sync.
 	 */
 	public boolean hasChameleoned() {
-		if (g instanceof GImage) {
+		if (g instanceof GImage||g instanceof GLabel) {
 			return false;
 		}
 		if (b.getColor().equals(((GFillable) g).getFillColor())) {
