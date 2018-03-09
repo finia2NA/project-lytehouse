@@ -51,7 +51,7 @@ public class legacyMainView implements View {
 	 * @param model
 	 */
 	public void update(MainModel model) {
-		// TODO: lighthouse refresh
+
 		if (Settings.getSetting("web-view").equals("true")) {
 			lighthouse.update(top.getGCanvas());
 		}

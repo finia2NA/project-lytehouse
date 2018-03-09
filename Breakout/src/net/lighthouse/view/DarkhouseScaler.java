@@ -96,7 +96,7 @@ public class DarkhouseScaler {
 				BufferedImage iDownsample = new BufferedImage(28, 14, BufferedImage.TYPE_4BYTE_ABGR);
 				gDownsample.paint(iDownsample.getGraphics());
 				ImageIO.write(iDownsample, "png", new File("img" + imgNumber++ + ".png"));
-			} catch (IOException e) { // TODO Auto-generated catch block
+			} catch (IOException e) {
 				System.out.println("framebuffer save frame " + imgNumber + " failed!");
 			}
 	}

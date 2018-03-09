@@ -36,7 +36,6 @@ class legacyClientView {
 	 */
 	void init() {
 		top.setSize(560, 840);
-		// TODO: this doesn't work. it's not essential, but it would be kinda cool.
 		top.setTitle("Breakout pre-release");
 		top.getGCanvas().setAutoRepaintFlag(false);
 		top.setBackground(Color.BLACK);

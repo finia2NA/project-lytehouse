@@ -20,8 +20,6 @@ public class MainModel implements Iterable<BObject> {
 
 	// IDK, maybe one day we'll have a gamemode/powerup where we'll have multiple
 	// BBalls.
-	// TODO: this could be a BlockList, since BBall is a type of BBlock. I don't
-	// know if it needs to be though. -finite
 	private ArrayList<BBall> balls = new ArrayList<>();
 	private ArrayList<BExplosion> effects = new ArrayList<>();
 	private ArrayList<BText> texts = new ArrayList<>();
@@ -238,7 +236,6 @@ public class MainModel implements Iterable<BObject> {
 	 * @return {@code true} the object is in the model, {@code false} the object is
 	 *         not in the model.
 	 */
-	// TODO: could be obtimized to not use the ArrayList contain.
 	public boolean contains(BObject o) {
 		if (toArrayList().contains(o)) {
 			return true;

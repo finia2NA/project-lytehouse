@@ -73,7 +73,6 @@ public class MainView implements View {
 			use_darkhouse = false;
 		}
 		top.setSize(560, 840);
-		// TODO: this doesn't work. it's not essential, but it would be kinda cool.
 		top.setTitle("Breakout pre-release");
 
 		top.add(sharedCompound);
@@ -126,7 +125,6 @@ public class MainView implements View {
 			((GFillable) g).setFilled(true);
 			((GFillable) g).setFillColor(o.getColor());
 		} else if (o instanceof BBall) {
-			// TODO: width and height scaling.
 			g = new GImage("FootballLQ.png", o.getX(), o.getY());
 
 		} else if (o instanceof BText) {

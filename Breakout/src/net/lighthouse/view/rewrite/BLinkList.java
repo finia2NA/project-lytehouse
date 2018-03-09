@@ -12,7 +12,6 @@ import net.lighthouse.model.BObject;
  * @author finite
  *
  */
-// TODO: could this be a Hashmap?
 class BLinkList extends ArrayList<BLink> {
 
 	/**
