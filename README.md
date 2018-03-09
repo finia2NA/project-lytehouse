@@ -1,6 +1,6 @@
 # Projekt Lytehouse
-### Umsetzung des MVC Patterns:
-Bitte lest hier für dieses [OnlineDokument](https://docs.google.com/document/d/1lHld3JRTxQEDvUQT-EbQq3uXhG5AVPHm4WmNfmF-orM/edit#heading=h.p8enj645vapx).
+### Umsetzung des MVC Patterns, Decomposition:
+Please Check out Documentation.pdf in the root Folder.
 
 <b>Hinweis:</b> Wenn die Jar zum spielen benutzt wird, muss sich eine settings.txt im selben Ordner wie die Jar befinden,
 damit diese gelesen wird. Um eine settings datei zu erstellen,
