@@ -16,7 +16,6 @@ import acm.program.GraphicsProgram;
 //MODEL
 import net.lighthouse.model.BBall;
 import net.lighthouse.model.BBoss;
-import net.lighthouse.model.BExplosion;
 import net.lighthouse.model.BLaser;
 import net.lighthouse.model.BObject;
 import net.lighthouse.model.BText;
@@ -134,9 +133,6 @@ public class MainView implements View {
 			top.add(g);
 			links.add(new BLink(o, g));
 			return;
-		} else if (o instanceof BExplosion) {
-			g = new GLabel("hier sollte eine Explosion sein xD", o.getX(), o.getY());
-			g.setColor(o.getColor());
 		} else if (o instanceof BBoss) {
 			g = new GRect(o.getX(), o.getHeight(), o.getWith(), o.getHeight());
 			((GFillable) g).setFilled(true);

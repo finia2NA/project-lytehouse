@@ -21,7 +21,6 @@ public class MainModel implements Iterable<BObject> {
 	// IDK, maybe one day we'll have a gamemode/powerup where we'll have multiple
 	// BBalls.
 	private ArrayList<BBall> balls = new ArrayList<>();
-	private ArrayList<BExplosion> effects = new ArrayList<>();
 	private ArrayList<BText> texts = new ArrayList<>();
 	private ArrayList<BLaser> lasers = new ArrayList<>();
 	private BBoss boss;
@@ -71,11 +70,6 @@ public class MainModel implements Iterable<BObject> {
 		this.blocks = new BlockList();
 	}
 
-	public void addExplosion(int x, int y, Color color) {
-		effects.add(new BExplosion(x, y, color));
-
-	}
-
 	/**
 	 * adds an object to the model.
 	 *
@@ -94,9 +88,6 @@ public class MainModel implements Iterable<BObject> {
 
 		} else if (object instanceof BBlock) {
 			blocks.add((BBlock) object);
-
-		} else if (object instanceof BExplosion) {
-			effects.add((BExplosion) object);
 
 		} else if (object instanceof BPaddle) {
 			paddle = (BPaddle) object;
@@ -218,9 +209,7 @@ public class MainModel implements Iterable<BObject> {
 		for (BBlock block : blocks) {
 			objectList.add(block);
 		}
-		for (BExplosion explosion : effects) {
-			objectList.add(explosion);
-		}
+
 		for (BText text : texts) {
 			objectList.add(text);
 		}

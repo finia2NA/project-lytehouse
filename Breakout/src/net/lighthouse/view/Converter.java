@@ -1,5 +1,4 @@
-package net.lighthouse
-.view;
+package net.lighthouse.view;
 
 import java.awt.Color;
 
@@ -11,7 +10,7 @@ import acm.graphics.GImage;
  * @author finite
  *
  */
-public final class Converter {
+final class Converter {
 	private Converter() {
 
 	}
@@ -26,7 +25,7 @@ public final class Converter {
 	 *            of the lighthouse pixel.
 	 * @return the corresponding client pixel (top left corner).
 	 */
-	public static int[] toClientPixel(int x, int y) {
+	static int[] toClientPixel(int x, int y) {
 		int[] re = new int[2];
 		re[0] = x * 20;
 		re[1] = y * 60;
@@ -43,7 +42,7 @@ public final class Converter {
 	 *            of the client pixel.
 	 * @return the corresponding lighthouse pixel.
 	 */
-	public static int[] toLighthousePixel(int x, int y) {
+	static int[] toLighthousePixel(int x, int y) {
 		int[] re = new int[2];
 		re[0] = x / 20;
 		re[1] = y / 60;
@@ -58,7 +57,7 @@ public final class Converter {
 	 *            the xy Color array that represents the current frame.
 	 * @return a byte array representing the input in lighthouse-format.
 	 */
-	public static byte[] dataConverter(Color[][] colorFrame) {
+	static byte[] dataConverter(Color[][] colorFrame) {
 		byte[] data = new byte[1176];
 		for (int y = 0; y < 14; y++) {
 			for (int x = 0; x < 28; x++) {
@@ -87,7 +86,7 @@ public final class Converter {
 	 *            the GImage.
 	 * @return a byte array representing the input in lighthouse-format.
 	 */
-	public static byte[] dataConverter(GImage image) {
+	static byte[] dataConverter(GImage image) {
 		byte[] data = new byte[1176];
 		int[][] pixelArray = image.getPixelArray();
 		for (int y = 0; y < 14; y++) {
