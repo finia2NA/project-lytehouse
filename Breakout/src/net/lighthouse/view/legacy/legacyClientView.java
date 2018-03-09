@@ -12,7 +12,7 @@ import acm.program.GraphicsProgram;
 import net.lighthouse.model.BBall;
 import net.lighthouse.model.BBlock;
 import net.lighthouse.model.BPaddle;
-import net.lighthouse.util.BlockList;
+import net.lighthouse.model.BlockList;
 import net.lighthouse.model.MainModel;
 
 /**

@@ -1,7 +1,7 @@
 package net.lighthouse.collision;
 
 import net.lighthouse.model.*;
-import net.lighthouse.util.BlockList;
+import net.lighthouse.model.BlockList;
 
 /**
  * Provide a various collision checks for a ball object.
