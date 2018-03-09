@@ -11,7 +11,7 @@ import java.awt.*;
  *
  * @author Christoph Fricke
  */
-public class BBossController {
+class BBossController {
 
     private BBoss boss;
 
@@ -24,7 +24,7 @@ public class BBossController {
      * Creates a new controller.
      * @param boss Boss that should be controlled
      */
-    public BBossController(BBoss boss) {
+    BBossController(BBoss boss) {
         if(boss == null) {
             throw new IllegalArgumentException("There is no possibility to control a null object");
         }
@@ -37,7 +37,7 @@ public class BBossController {
      *
      * @return A new laser if one is spawned. {@code null} otherwise.
      */
-    public BLaser playBossMove() {
+    BLaser playBossMove() {
         if (boss.getHealth() <= 0) {
             throw new IllegalStateException("Boss should be death by now!");
         }

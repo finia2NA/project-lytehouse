@@ -11,7 +11,7 @@ import java.util.ArrayList;
  *
  * @author Christoph Fricke
  */
-public final class BLaserController {
+final class BLaserController {
     /**
      * We do not want an object of this control since we always control all lasers at once.
      * Therefore we can use a static method which iterates over all lasers.
@@ -27,7 +27,7 @@ public final class BLaserController {
      *
      * @return True if a laser hit the paddle.
      */
-    public static boolean updateLasers(MainModel model, int windowWidth) {
+    static boolean updateLasers(MainModel model, int windowWidth) {
         if (model == null) {
             throw new IllegalArgumentException("Model can not be null!");
         }
