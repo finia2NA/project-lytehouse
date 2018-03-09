@@ -11,5 +11,4 @@ settings.txt
 # Eclipse
 .settings
 bin
-.classpath
 .project
