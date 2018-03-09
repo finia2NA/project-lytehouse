@@ -8,7 +8,7 @@ import java.awt.Color;
  *
  * @author finite, Christoph Fricke
  */
-public class BBall extends BBlock {
+public class BBall extends BObject {
     /**
      * Speed of object. {@code index 0} is the x speed and
      * {@code index 1} is the y speed.
@@ -16,16 +16,23 @@ public class BBall extends BBlock {
     private int[] speed;
 
     /**
-     * Creates a new BBall.
+     * Creates a new BBall. A ball has a default size of 40x60.
      *
      * @param x     x position of the ball
      * @param y     y position of the ball
      * @param color color of the ball
      * @param speed Array which represents the speed of a BBall object. {@code index 0} is the x speed and
      *              {@code index 1} is the y speed.
+     *
+     * @throws IllegalArgumentException if {@code speed} is {@code null}.
      */
     BBall(int x, int y, Color color, int[] speed) {
         super(x, y, 40, 60, color);
+
+        if (speed == null) {
+            throw new IllegalArgumentException("Speed can not be null");
+        }
+
         this.speed = speed;
     }
 
