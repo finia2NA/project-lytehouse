@@ -11,6 +11,7 @@ import acm.graphics.GImage;
  *
  */
 final class Converter {
+	// class provides only static methods, so there's no need for a constructor.
 	private Converter() {
 
 	}

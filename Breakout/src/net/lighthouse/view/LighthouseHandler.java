@@ -15,6 +15,8 @@ import net.lighthouse.view.Converter;
  *
  */
 class LighthouseHandler {
+	// Object vars because accessing settings each frame would be really bad for
+	// performance.
 	private String username;
 	private String token;
 

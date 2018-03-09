@@ -20,12 +20,16 @@ import net.lighthouse.settings.Settings;
  *
  */
 public class DarkhouseScaler {
+	// Building a new LighthouseHandler for each Frame would be kinda... not
+	// intelligent. So we build one once and then save it as an instance var.
 	LighthouseHandler handler;
 
-	// indicates wether scaled render outputs should be saved
+	// indicates wether scaled render outputs should be saved. Accessing the
+	// settings each update would be uncool, so we save it as an instance var.
 	private boolean save_Framebuffer = false;
 	// the number of the frame to save, starts at 0, iterates so we don't overwrite
-	// previous frames.
+	// previous frames. Is class var so one instance of this class doesn't overwrite
+	// imgs of another one.
 	private static int imgNumber = 0;
 
 	/**

@@ -1,4 +1,5 @@
 package net.lighthouse.view.legacy;
+
 //ACM
 import acm.program.GraphicsProgram;
 //LIGHTHOUSE
@@ -16,7 +17,8 @@ import net.lighthouse.view.DarkhouseScaler;
  *
  */
 public class legacyMainView implements View {
-
+	// These are object Vars because these are all things that persist over multiple
+	// methods.
 	private DarkhouseScaler lighthouse;
 	private legacyClientView client;
 	private GraphicsProgram top;

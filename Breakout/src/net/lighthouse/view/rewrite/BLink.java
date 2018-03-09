@@ -15,6 +15,7 @@ import net.lighthouse.model.BObject;
  *
  */
 class BLink {
+	// Object vars bc the whole point of objects of this class is to save them.
 	// The Model Representation that is linked to..
 	private BObject b;
 	// ..the ACM GObject Representation.
@@ -88,7 +89,7 @@ class BLink {
 	 *         sync.
 	 */
 	public boolean hasChameleoned() {
-		if (g instanceof GImage||g instanceof GLabel) {
+		if (g instanceof GImage || g instanceof GLabel) {
 			return false;
 		}
 		if (b.getColor().equals(((GFillable) g).getFillColor())) {

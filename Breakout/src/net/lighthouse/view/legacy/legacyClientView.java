@@ -25,6 +25,7 @@ import net.lighthouse.model.MainModel;
  *
  */
 class legacyClientView {
+	// Object Var because this thing persists over multiple methods.
 	private GraphicsProgram top;
 
 	legacyClientView(GraphicsProgram top) {

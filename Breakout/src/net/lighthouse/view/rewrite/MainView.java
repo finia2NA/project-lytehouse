@@ -36,15 +36,15 @@ import net.lighthouse.view.rewrite.BLink;
  */
 public class MainView implements View {
 
+	// These are object Vars because these are all things that persist over multiple
+	// methods.
 	private DarkhouseScaler darkhouse;
 	private GraphicsProgram top;
-
 	// things in this Compound get added to both canvases.
 	private GCompound sharedCompound;
-
-	private MainModel model;
 	private BLinkList links;
-
+	// this is an object var so there's less parameter passing in update().
+	private MainModel model;
 	// stored as a variable so we don't have to lookup settings each update.
 	private boolean use_darkhouse;
 
