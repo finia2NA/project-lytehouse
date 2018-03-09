@@ -44,6 +44,8 @@ public final class Settings {
                     break;
                 } else if (setting.equals("") || setting.charAt(0) == '#') {
                     continue;
+                } else if (!Pattern.compile("[a-zA-Z\\-]+ *= *[a-zA-Z0-9\\-_+/*]+").matcher(setting.trim()).matches()) {
+                    continue;
                 }
 
                 String[] settingKeyValue = setting.split("=");
