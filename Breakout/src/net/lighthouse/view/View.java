@@ -3,8 +3,8 @@ package net.lighthouse.view;
 import net.lighthouse.model.MainModel;
 
 /**
- * Wether you're using the legacy view or the new view, you can count on being
- * abled to use these methods!
+ * The View Interface defines which methods must be implemented by a MainView
+ * (legacy or rewrite).
  * 
  * @author finite
  *
@@ -19,7 +19,7 @@ public interface View {
 	public void update(MainModel model);
 
 	/**
-	 * initializes lighthouse connection and client size.
+	 * initializes lighthouse connection (if setting says so) and client size.
 	 */
 	public void init();
 

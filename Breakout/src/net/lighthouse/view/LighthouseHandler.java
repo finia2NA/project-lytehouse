@@ -35,8 +35,8 @@ public class LighthouseHandler {
 	 * Initializes the lighthouse display and tries to connect.
 	 */
 	public void init() {
-		assert !username.isEmpty() : "assert on LighthouseView: username is empty.";
-		assert !token.isEmpty() : "assert on LighthouseView: token is empty.";
+		if(username.isEmpty()) throw new IllegalArgumentException("username can't be empty! (Did you configure settings.txt right?)");
+		if(token.isEmpty()) throw new IllegalArgumentException("token can't be empty! (Did you configure settings.txt right?)");
 
 		display = new LighthouseDisplay(username, token);
 
