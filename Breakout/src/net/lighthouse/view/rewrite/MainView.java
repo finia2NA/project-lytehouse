@@ -182,15 +182,17 @@ public class MainView implements View {
 
 	/**
 	 * looks if the representations of a in the view have different coordinates than
-	 * the concept in the model. if yes, the view needs to be updated.
+	 * the concept in the model. if yes, the view needs to be updated. also looks if
+	 * there are view representations that hve a different color from their model
+	 * equivalents and fixes the color accordingly.
 	 */
 	public void movedOrChameleon() {
 		for (BLink link : links) {
 			if (link.hasMoved()) {
 				link.getG().setLocation(link.getB().getX(), link.getB().getY());
 			}
-			if(link.hasChameleoned()) {
-				link.getG().setColor(link.getB().getColor());
+			if (link.hasChameleoned()) {
+				((GFillable) link.getG()).setFillColor(link.getB().getColor());
 			}
 		}
 	}

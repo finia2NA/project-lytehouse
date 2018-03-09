@@ -10,9 +10,6 @@ import javax.imageio.ImageIO;
 import acm.graphics.GCanvas;
 import acm.graphics.GCompound;
 import acm.graphics.GImage;
-import acm.program.GraphicsProgram;
-import javafx.scene.shape.Rectangle;
-import net.lighthouse.model.MainModel;
 import net.lighthouse.settings.Settings;
 
 /**

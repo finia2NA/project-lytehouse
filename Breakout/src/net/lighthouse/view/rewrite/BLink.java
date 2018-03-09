@@ -3,6 +3,7 @@ package net.lighthouse.view.rewrite;
 import acm.graphics.GImage;
 //ACM
 import acm.graphics.GObject;
+import acm.graphics.GFillable;
 //LIGHTHOUSE
 import net.lighthouse.model.BObject;
 
@@ -13,11 +14,21 @@ import net.lighthouse.model.BObject;
  *
  */
 class BLink {
+	// The Model Representation that is linked to..
 	private BObject b;
+	// ..the ACM GObject Representation.
 	private GObject g;
 
-	public BLink(BObject o, GObject g) {
-		this.b = o;
+	/**
+	 * Constructs a new Link between a BObject and a GObject.
+	 * 
+	 * @param b
+	 *            the BObject.
+	 * @param g
+	 *            the GObject.
+	 */
+	public BLink(BObject b, GObject g) {
+		this.b = b;
 		this.g = g;
 	}
 
@@ -69,11 +80,17 @@ class BLink {
 		}
 	}
 
+	/**
+	 * indicates wether o and g are out of sync in terms of coordinates.
+	 * 
+	 * @return {@code true} g needs to be updated, {@code false} g and o are in
+	 *         sync.
+	 */
 	public boolean hasChameleoned() {
-		if(g instanceof GImage) {
+		if (g instanceof GImage) {
 			return false;
 		}
-		if (b.getColor().equals(g.getColor())) {
+		if (b.getColor().equals(((GFillable) g).getFillColor())) {
 			return false;
 		} else {
 			return true;

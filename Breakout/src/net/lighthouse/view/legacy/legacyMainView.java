@@ -2,7 +2,6 @@ package net.lighthouse.view.legacy;
 //ACM
 import acm.program.GraphicsProgram;
 //LIGHTHOUSE
-import net.lighthouse.controller.MainController;
 import net.lighthouse.model.MainModel;
 import net.lighthouse.settings.Settings;
 import net.lighthouse.view.View;
