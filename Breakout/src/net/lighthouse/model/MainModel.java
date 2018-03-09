@@ -55,6 +55,8 @@ public class MainModel implements Iterable<BObject> {
         paddle = new BPaddle(560 / 2 - 80, 840 - 60, Color.CYAN);
 
         blocks = LevelManager.getRandomLevel();
+
+        userScore = 0;
     }
 
     /**

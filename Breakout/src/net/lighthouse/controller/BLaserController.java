@@ -7,9 +7,15 @@ import net.lighthouse.model.MainModel;
 import java.util.ArrayList;
 
 /**
+ * Controls the lasers.
+ *
  * @author Christoph Fricke
  */
 public final class BLaserController {
+    /**
+     * We do not want an object of this control since we always control all lasers at once.
+     * Therefore we can use a static method which iterates over all lasers.
+     */
     private BLaserController() {
 
     }
@@ -23,7 +29,7 @@ public final class BLaserController {
      */
     public static boolean updateLasers(MainModel model, int windowWidth) {
         if (model == null) {
-           throw new IllegalArgumentException("Model can not be null!");
+            throw new IllegalArgumentException("Model can not be null!");
         }
         ArrayList<BLaser> laserToDelete = new ArrayList<>();
 

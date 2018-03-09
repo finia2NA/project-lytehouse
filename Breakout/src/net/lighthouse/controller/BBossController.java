@@ -7,13 +7,22 @@ import net.lighthouse.model.BLaser;
 import java.awt.*;
 
 /**
+ * Controls the behaviour of a BBoss.
+ *
  * @author Christoph Fricke
  */
 public class BBossController {
 
     private BBoss boss;
 
+    /**
+     * Creates a new controller.
+     * @param boss Boss that should be controlled
+     */
     public BBossController(BBoss boss) {
+        if(boss == null) {
+            throw new IllegalArgumentException("There is no possibility to control a null object");
+        }
         this.boss = boss;
     }
 
@@ -30,7 +39,9 @@ public class BBossController {
         BLaser laser = null;
 
         // Changes the color of the boss for one frame if damage was dealt.
+        // This it not visible since it is to fast :(
         if (boss.getHealth() != boss.getOldHealth()) {
+            // Damage was dealt
             boss.setColor(Color.WHITE);
             boss.evenOldHealth();
 
