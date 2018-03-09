@@ -1,6 +1,6 @@
 # Projekt Lytehouse
 ### Umsetzung des MVC Patterns:
-Bitte lest hier für dieses [OnlineDatei](https://docs.google.com/document/d/1lHld3JRTxQEDvUQT-EbQq3uXhG5AVPHm4WmNfmF-orM/edit#heading=h.p8enj645vapx).
+Bitte lest hier für dieses [OnlineDokument](https://docs.google.com/document/d/1lHld3JRTxQEDvUQT-EbQq3uXhG5AVPHm4WmNfmF-orM/edit#heading=h.p8enj645vapx).
 
 ### Background Story
 Your ship has crashed on the planet "35367", home planet of the mysterious BBlocks.
