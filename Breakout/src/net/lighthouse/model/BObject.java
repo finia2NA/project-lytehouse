@@ -3,88 +3,139 @@ package net.lighthouse.model;
 import java.awt.Color;
 
 /**
- * The most basic Breakout Object. Has a position.
- *
- * @author finite
+ * BObject provides the basic for every game object that can exits.
+ * Objects of every class that extends BObject can be rendered
+ * in the view.
  */
 public class BObject {
-	private int x;
-	private int y;
-	private int width;
-	private int height;
-	private Color color;
+    // Instance variables
+    private int x;
+    private int y;
+    private int width;
+    private int height;
+    private Color color;
 
-	/**
-	 * Constructs a new BObject with a position.
-	 *
-	 * @param x
-	 *            x.
-	 * @param y
-	 *            y.
-	 */
-	BObject(int x, int y, int width, int height) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-	}
+    /**
+     * Constructs a new BObject with a position and size and a color.
+     *
+     * @param x      X position of upper left corner
+     * @param y      y position of upper left corner
+     * @param width  Width of the object
+     * @param height Height of the Object
+     * @param color  Color of the new BObject
+     *
+     * @throws IllegalArgumentException if {@code color} is {@code null} or
+     *                                  the object has a negative size.
+     */
+    public BObject(int x, int y, int width, int height, Color color) {
+        if (color == null || width < 0 || height < 0) {
+            throw new IllegalArgumentException("Color can not be null");
+        }
 
-	BObject(int x, int y, int width, int height, Color color) {
-		this.x = x;
-		this.y = y;
-		this.width = width;
-		this.height = height;
-		this.color = color;
-	}
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
+        this.color = color;
+    }
 
-	/**
-	 * @return the color
-	 */
-	public Color getColor() {
-		return color;
-	}
+    /**
+     * Returns the color
+     *
+     * @return color of object
+     */
+    public Color getColor() {
+        return color;
+    }
 
-	/**
-	 * @param color
-	 *            the color to set
-	 */
-	public void setColor(Color color) {
-		this.color = color;
-	}
+    /**
+     * Set a new color
+     *
+     * @param color the color to set
+     *
+     * @throws IllegalArgumentException if {@code color} is {@code null}
+     */
+    public void setColor(Color color) {
+        if (color == null) {
+            throw new IllegalArgumentException("Color can not be null");
+        }
 
-	// All the Methods beyond this point are just getters and setters and do pretty
-	// much what you'd expect them to do.
-	public int getX() {
-		return x;
-	}
+        this.color = color;
+    }
 
-	public int getY() {
-		return y;
-	}
+    /**
+     * Returns x position of the object.
+     *
+     * @return x position of the object
+     */
+    public int getX() {
+        return x;
+    }
 
-	public int[] getXY() {
-		int[] re = { x, y };
-		return re;
-	}
+    /**
+     * Returns y position of the object.
+     *
+     * @return y position of the object
+     */
+    public int getY() {
+        return y;
+    }
 
-	public int getWith() {
-		return this.width;
-	}
+    /**
+     * Returns the position bundles as an array where
+     * x is at index 0 and y at index 1.
+     *
+     * @return Array containing x and y position
+     */
+    public int[] getXY() {
+        int[] xy = {x, y};
+        return xy;
+    }
 
-	public int getHeight() {
-		return this.height;
-	}
+    /**
+     * Returns the with of the object.
+     *
+     * @return Width of object
+     */
+    public int getWith() {
+        return this.width;
+    }
 
-	public void setX(int X) {
-		this.x = X;
-	}
+    /**
+     * Returns the height of the object.
+     *
+     * @return Height of object
+     */
+    public int getHeight() {
+        return this.height;
+    }
 
-	public void setY(int Y) {
-		this.y = Y;
-	}
+    /**
+     * Sets x position.
+     *
+     * @param x new x position
+     */
+    public void setX(int x) {
+        this.x = x;
+    }
 
-	public void setXY(int X, int Y) {
-		this.x = X;
-		this.y = Y;
-	}
+    /**
+     * Sets y position.
+     *
+     * @param y new x position
+     */
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    /**
+     * Sets a new position.
+     *
+     * @param x x coordinate of the new position
+     * @param y y coordinate of the new position
+     */
+    public void setXY(int x, int y) {
+        this.x = x;
+        this.y = y;
+    }
 }
