@@ -12,6 +12,8 @@ import java.awt.Color;
  * @author Christoph Fricke
  */
 public final class LevelManager {
+    // All levels are stored as a class variable. This way there is no need to initialize them whenever
+    // the getRandomLevel function get called.
     private static Color[][] level0 = {
         {Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN},
         {Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW},

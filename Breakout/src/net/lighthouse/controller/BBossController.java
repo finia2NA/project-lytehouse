@@ -13,19 +13,24 @@ import java.awt.*;
  */
 class BBossController {
 
+    /**
+     * Each BossController has his Boss for operation. So it is good to save the boss as a instance variable.
+     */
     private BBoss boss;
 
     /**
-     * Determines how long a hit should be shown through a color change
+     * Determines how long a hit should be shown through a color change. This needs to be
+     * an instance variable since the value has to live longer than a boss move call.
      */
     private int remainingHitFrames;
 
     /**
      * Creates a new controller.
+     *
      * @param boss Boss that should be controlled
      */
     BBossController(BBoss boss) {
-        if(boss == null) {
+        if (boss == null) {
             throw new IllegalArgumentException("There is no possibility to control a null object");
         }
         this.boss = boss;
@@ -58,7 +63,7 @@ class BBossController {
             // Spawns a new laser at the bottom center of the boss
             laser = new BLaser(boss.getX() + boss.getWith() / 2, boss.getY() + boss.getHeight(), speed);
         } else {
-            if(remainingHitFrames != -1 && remainingHitFrames == 0) {
+            if (remainingHitFrames != -1 && remainingHitFrames == 0) {
                 boss.setColor(Color.GREEN);
                 remainingHitFrames = -1;
             } else {

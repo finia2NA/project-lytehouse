@@ -19,7 +19,8 @@ final class DefaultSettings {
     private HashMap<String, String> settings;
 
     /**
-     * Array with all valid setting keys.
+     * Array with all valid setting keys. This property can be accessed from other classes so it should
+     * not be a local variable.
      */
     final String[] validSettings = {
         "user-name", "token", "web-view", "use_new_Viewport", "frametime", "print-frametimes", "save-framebuffer"

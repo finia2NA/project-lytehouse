@@ -14,8 +14,14 @@ import java.util.regex.Pattern;
  */
 public final class Settings {
 
+    /**
+     * Stores the default settings which are used to init the userSettings.
+     */
     private static DefaultSettings defaultSettings = new DefaultSettings();
 
+    /**
+     * This settings get provided to the app.
+     */
     private static HashMap<String, String> userSettings;
 
     /**

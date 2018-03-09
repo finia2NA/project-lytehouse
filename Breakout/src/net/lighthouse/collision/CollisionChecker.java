@@ -15,7 +15,9 @@ import net.lighthouse.model.BlockList;
 public class CollisionChecker {
 
     /**
-     * Ball object the CollisionChecker works for.
+     * Ball object the CollisionChecker works for. A CollisionChecker object operates on a ball
+     * object so he needs to now his ball. Passing the ball with every function call to have it as
+     * a local variable is not really object oriented, right?
      */
     private BBall ball;
 

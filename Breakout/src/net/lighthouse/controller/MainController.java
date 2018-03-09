@@ -20,15 +20,19 @@ import java.util.ArrayList;
  * @author Christoph Fricke
  */
 public class MainController extends GraphicsProgram {
+    // Current state and game objects used throughout the hole game class. It is way more beautiful to store
+    // them as instance variables than passing them with every function call.
     private View view;
     private MainModel model;
     private CollisionChecker ballChecker;
     private BBossController bossController;
 
+    // States of the game that are used within the hole class.
     private boolean isRunning;
     private boolean isBossFight;
     private boolean startGame;
 
+    // Little settings that are used for operation in the hole class.
     private boolean printFrametimes = false;
     private int frametime = 40;
 
@@ -194,7 +198,7 @@ public class MainController extends GraphicsProgram {
         messages.add(new BText(100, 200, "Your score is: " + (int) model.userScore));
         messages.add(new BText(100, 300, "press SPACE to start"));
         model = new MainModel(messages);
-        model.addObject(new BBlock(0,0, 560, 840, Color.RED));
+        model.addObject(new BBlock(0, 0, 560, 840, Color.RED));
         view.update(model);
 
         isRunning = false;
@@ -210,7 +214,7 @@ public class MainController extends GraphicsProgram {
         messages.add(new BText(100, 200, "Your score is: " + (int) model.userScore));
         messages.add(new BText(100, 300, "press SPACE to start"));
         model = new MainModel(messages);
-        model.addObject(new BBlock(0,0, 560, 840, Color.GREEN));
+        model.addObject(new BBlock(0, 0, 560, 840, Color.GREEN));
         view.update(model);
 
         isRunning = false;
