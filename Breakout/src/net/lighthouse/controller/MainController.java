@@ -194,6 +194,7 @@ public class MainController extends GraphicsProgram {
         messages.add(new BText(100, 200, "Your score is: " + (int) model.userScore));
         messages.add(new BText(100, 300, "press SPACE to start"));
         model = new MainModel(messages);
+        model.addObject(new BBlock(0,0, 560, 840, Color.RED));
         view.update(model);
 
         isRunning = false;
@@ -209,6 +210,7 @@ public class MainController extends GraphicsProgram {
         messages.add(new BText(100, 200, "Your score is: " + (int) model.userScore));
         messages.add(new BText(100, 300, "press SPACE to start"));
         model = new MainModel(messages);
+        model.addObject(new BBlock(0,0, 560, 840, Color.GREEN));
         view.update(model);
 
         isRunning = false;

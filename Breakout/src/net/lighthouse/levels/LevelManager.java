@@ -12,37 +12,42 @@ import java.awt.Color;
  * @author Christoph Fricke
  */
 public final class LevelManager {
-    private static Color[] level0 = {
-        Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN,
-        Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW,
-        Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN,
-        Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW,
-        Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN,
+    private static Color[][] level0 = {
+        {Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN},
+        {Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW},
+        {Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN},
+        {Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW},
+        {Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN},
     };
 
-    private static Color[] level1 = {
-        Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN,
-        null, null, null, null, null, null, null,
-        Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW,
-        null, null, null, null, null, null, null,
-        Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN,
+    private static Color[][] level1 = {
+        {Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN},
+        {null, null, null, null, null, null, null},
+        {Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW},
+        {null, null, null, null, null, null, null},
+        {Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN, Color.YELLOW, Color.CYAN},
     };
 
-    private static Color[] level2 = {
-        Color.GREEN, null, Color.GREEN, null, Color.GREEN, null, Color.GREEN,
-        null, Color.CYAN, null, Color.CYAN, null, Color.CYAN, null,
-        Color.GREEN, null, Color.GREEN, null, Color.GREEN, null, Color.GREEN,
-        null, Color.CYAN, null, Color.CYAN, null, Color.CYAN, null,
-        Color.GREEN, null, Color.GREEN, null, Color.GREEN, null, Color.GREEN,
+    private static Color[][] level2 = {
+        {Color.GREEN, null, Color.GREEN, null, Color.GREEN, null, Color.GREEN},
+        {null, Color.CYAN, null, Color.CYAN, null, Color.CYAN, null},
+        {Color.GREEN, null, Color.GREEN, null, Color.GREEN, null, Color.GREEN},
+        {null, Color.CYAN, null, Color.CYAN, null, Color.CYAN, null},
+        {Color.GREEN, null, Color.GREEN, null, Color.GREEN, null, Color.GREEN},
     };
 
-    private static Color[] level3 = {
-        null, null, null, Color.GREEN, null, null, null,
-        null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null,
-        null, null, null, null, null, null, null,
+    private static Color[][] level3 = {
+        {null, null, null, Color.GREEN, null, null, null},
+        {null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null},
+        {null, null, null, null, null, null, null},
     };
+
+    /**
+     * We do not want instances of LevelManager.
+     */
+    private LevelManager() {}
 
     /**
      * Get a BlockList for a random level.
@@ -51,7 +56,7 @@ public final class LevelManager {
      */
     public static BlockList getRandomLevel() {
         RandomGenerator rnd = RandomGenerator.getInstance();
-        switch (/*rnd.nextInt(1, 2)*/ 3) {
+        switch (rnd.nextInt(1, 2)) {
             case 0:
                 return makeBlockList(level0);
             case 1:
@@ -73,15 +78,15 @@ public final class LevelManager {
      *
      * @return BlockList that forms the level
      */
-    private static BlockList makeBlockList(Color[] level) {
+    private static BlockList makeBlockList(Color[][] level) {
         assert level != null : "levels can not be null";
 
         BlockList list = new BlockList();
 
-        for (int y = 0; y < 5; y++) {
-            for (int x = 0; x < 7; x++) {
-                if (level[(y * 7) + x] != null) {
-                    BBlock block = new BBlock(x * 80, y * 60, 80, 60, level[(y * 7) + x]);
+        for (int y = 0; y < level.length; y++) {
+            for (int x = 0; x < level[y].length; x++) {
+                if (level[y][x] != null) {
+                    BBlock block = new BBlock(x * 80, y * 60, 80, 60, level[y][x]);
                     list.add(block);
                 }
             }
