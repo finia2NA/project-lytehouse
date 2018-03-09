@@ -4,7 +4,6 @@ package net.lighthouse.view.rewrite;
 import java.awt.Color;
 import java.util.ArrayList;
 //ACM
-import acm.graphics.GCanvas;
 import acm.graphics.GCompound;
 import acm.graphics.GFillable;
 import acm.graphics.GImage;

@@ -1,6 +1,8 @@
 package net.lighthouse.view.rewrite;
 
+//ACM
 import acm.graphics.GObject;
+//LIGHTHOUSE
 import net.lighthouse.model.BObject;
 
 /**

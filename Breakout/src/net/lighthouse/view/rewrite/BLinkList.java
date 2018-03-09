@@ -1,8 +1,9 @@
 package net.lighthouse.view.rewrite;
-
+//JAVA
 import java.util.ArrayList;
-
+//ACM
 import acm.graphics.GObject;
+//LIGHTHOUSE
 import net.lighthouse.model.BObject;
 
 /**

@@ -1,8 +1,8 @@
 package net.lighthouse.model;
-
+//LIGHTHOUSE
 import net.lighthouse.levels.LevelManager;
 import net.lighthouse.model.BlockList;
-
+//JAVA
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Iterator;
