@@ -155,7 +155,7 @@ public class MainController extends GraphicsProgram {
                     }
                 } else {
                     // Logic during a boss fight
-                    assert isBossFight && model.getBoss() != null : "Wops looks like it is not a boss fight";
+                    assert isBossFight && model.getBoss() != null : "Woops looks like it is not a boss fight";
 
                     ballChecker.handleBossCollision(model.getBoss());
                     if (model.getBoss().getHealth() > 0) {
@@ -172,8 +172,10 @@ public class MainController extends GraphicsProgram {
                     }
                 }
 
-                // Finalizes ball position and makes the changes visible
+                // Finalizes ball position 
                 model.getBall(0).move();
+                
+               // makes the changes visible
                 view.update(model);
 
                 model.userScore += 0.01;
