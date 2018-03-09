@@ -1,7 +1,7 @@
 package net.lighthouse.model;
 
 import net.lighthouse.levels.LevelManager;
-import net.lighthouse.util.BlockList;
+import net.lighthouse.model.BlockList;
 
 import java.awt.Color;
 import java.util.ArrayList;

@@ -60,7 +60,7 @@ public class DarkhouseScaler {
 		BufferedImage captureImage = new BufferedImage(560, 840, BufferedImage.TYPE_4BYTE_ABGR);
 		top.paint(captureImage.getGraphics());
 
-		downsampleSend(captureImage);
+		downsample(captureImage);
 	}
 
 	/**
@@ -75,7 +75,7 @@ public class DarkhouseScaler {
 		BufferedImage captureImage = new BufferedImage(560, 840, BufferedImage.TYPE_4BYTE_ABGR);
 		top.paint(captureImage.getGraphics());
 
-		downsampleSend(captureImage);
+		downsample(captureImage);
 	}
 
 	/**
@@ -84,7 +84,7 @@ public class DarkhouseScaler {
 	 * @param captureImage
 	 *            the BufferedImage to downsample.
 	 */
-	private void downsampleSend(BufferedImage captureImage) {
+	private void downsample(BufferedImage captureImage) {
 		Image downsample = captureImage.getScaledInstance(28, 14, Image.SCALE_SMOOTH);
 		GImage gDownsample = new GImage(downsample);
 

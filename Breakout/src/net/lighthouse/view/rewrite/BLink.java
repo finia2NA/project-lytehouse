@@ -4,12 +4,12 @@ import acm.graphics.GObject;
 import net.lighthouse.model.BObject;
 
 /**
- * A class that links an Object in the Model to a representation in the view.
+ * A class that links an Object in the Model to a representation in the View.
  * 
  * @author finite
  *
  */
-public class BLink {
+class BLink {
 	private BObject b;
 	private GObject g;
 
@@ -21,7 +21,7 @@ public class BLink {
 	/**
 	 * @return the b
 	 */
-	public BObject getB() {
+	BObject getB() {
 		return b;
 	}
 
@@ -29,14 +29,14 @@ public class BLink {
 	 * @param b
 	 *            the b to set
 	 */
-	public void setB(BObject b) {
+	void setB(BObject b) {
 		this.b = b;
 	}
 
 	/**
 	 * @return the g
 	 */
-	public GObject getG() {
+	GObject getG() {
 		return g;
 	}
 
@@ -44,7 +44,7 @@ public class BLink {
 	 * @param g
 	 *            the g to set
 	 */
-	public void setG(GObject g) {
+	protected void setG(GObject g) {
 		this.g = g;
 	}
 
@@ -56,7 +56,7 @@ public class BLink {
 	 * 
 	 * @return {@code true} g needs to be moved, {@code false} g and o are in sync.
 	 */
-	public boolean hasMoved() {
+	boolean hasMoved() {
 		int[] atm = { (int) g.getX(), (int) g.getY() };
 
 		if (b.getXY().equals(atm)) {

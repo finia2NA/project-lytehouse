@@ -1,11 +1,12 @@
-package net.lighthouse.util;
+package net.lighthouse
+.view;
 
 import java.awt.Color;
 
 import acm.graphics.GImage;
 
 /**
- * provides Converters between different View Formats.
+ * Provides Converters between different View Formats.
  * 
  * @author finite
  *

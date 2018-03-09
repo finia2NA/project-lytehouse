@@ -13,7 +13,7 @@ import net.lighthouse.model.BObject;
  *
  */
 // TODO: could this be a Hashmap?
-public class BLinkList extends ArrayList<BLink> {
+class BLinkList extends ArrayList<BLink> {
 
 	/**
 	 * 
@@ -21,7 +21,7 @@ public class BLinkList extends ArrayList<BLink> {
 	 *            the BObject to look for.
 	 * @return {@code true} if the List contains a link to the BObject.
 	 */
-	public boolean containsBObject(BObject o) {
+	boolean containsBObject(BObject o) {
 		for (BLink b : this) {
 			// this is actually supposed to be == and not equals.
 			if (b.getB() == o) {
@@ -38,7 +38,7 @@ public class BLinkList extends ArrayList<BLink> {
 	 *            the BObject linked to the GObject that is returned
 	 * @return the GObject linked to the given BObject.
 	 */
-	public GObject getGObject(BObject o) {
+	GObject getGObject(BObject o) {
 		for (BLink b : this) {
 			// this is actually supposed to be == and not equals.
 			if (b.getB() == o) {

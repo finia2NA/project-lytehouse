@@ -2,7 +2,7 @@ package net.lighthouse.levels;
 
 import acm.util.RandomGenerator;
 import net.lighthouse.model.BBlock;
-import net.lighthouse.util.BlockList;
+import net.lighthouse.model.BlockList;
 
 import java.awt.Color;
 

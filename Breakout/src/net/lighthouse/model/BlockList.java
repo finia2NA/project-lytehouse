@@ -1,4 +1,4 @@
-package net.lighthouse.util;
+package net.lighthouse.model;
 
 import net.lighthouse.model.BBlock;
 

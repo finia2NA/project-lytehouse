@@ -2,12 +2,11 @@ package net.lighthouse.view;
 
 import java.awt.Color;
 import java.io.IOException;
-import java.util.concurrent.TimeUnit;
 
 import acm.graphics.GImage;
 import de.cau.infprogoo.lighthouse.LighthouseDisplay;
 import net.lighthouse.settings.Settings;
-import net.lighthouse.util.Converter;
+import net.lighthouse.view.Converter;
 
 /**
  * This class is responsible for sending data to the lighthouse.
@@ -35,8 +34,10 @@ public class LighthouseHandler {
 	 * Initializes the lighthouse display and tries to connect.
 	 */
 	public void init() {
-		if(username.isEmpty()) throw new IllegalArgumentException("username can't be empty! (Did you configure settings.txt right?)");
-		if(token.isEmpty()) throw new IllegalArgumentException("token can't be empty! (Did you configure settings.txt right?)");
+		if (username.isEmpty())
+			throw new IllegalArgumentException("username can't be empty! (Did you configure settings.txt right?)");
+		if (token.isEmpty())
+			throw new IllegalArgumentException("token can't be empty! (Did you configure settings.txt right?)");
 
 		display = new LighthouseDisplay(username, token);
 

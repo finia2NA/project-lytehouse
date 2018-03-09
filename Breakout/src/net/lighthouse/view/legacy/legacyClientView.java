@@ -19,22 +19,22 @@ import net.lighthouse.model.MainModel;
  * @deprecated Extremely simple implementation of client view refreshs. no
  *             support for explosions or text or endblock. It runs a bit faster
  *             than the new implementation, but because every block gets removed
- *             and re-added each frame, the view flickers.
+ *             and re-added each frame, the view flickers. replaced by rewrite.
  * 
  * @author finite
  *
  */
-public class legacyClientView {
-	GraphicsProgram top;
+class legacyClientView {
+	private GraphicsProgram top;
 
-	public legacyClientView(GraphicsProgram top) {
+	legacyClientView(GraphicsProgram top) {
 		this.top = top;
 	}
 
 	/**
 	 * initializes the Client View.
 	 */
-	public void init() {
+	void init() {
 		top.setSize(560, 840);
 		// TODO: this doesn't work. it's not essential, but it would be kinda cool.
 		top.setTitle("Breakout pre-release");
@@ -43,14 +43,14 @@ public class legacyClientView {
 	}
 
 	/**
-	 * completely redraws a Panel from a model. This is not the way to do it since
+	 * Completely redraws a Panel from a model. This is not the way to do it since
 	 * we target a refresh rate of 50hz and the image will flicker at that
 	 * framerate.
 	 * 
 	 * @param model
 	 *            the model to draw.
 	 */
-	public void reDraw(MainModel model) {
+	void reDraw(MainModel model) {
 		top.removeAll();
 		drawBlocks(model.getBlocks());
 		drawBalls(model.getAllBalls());
@@ -66,7 +66,7 @@ public class legacyClientView {
 	 * @param paddle
 	 *            to draw.
 	 */
-	private void drawPaddle(BPaddle paddle) {
+	void drawPaddle(BPaddle paddle) {
 		// gets all the info we need from the paddle.
 		int x = paddle.getX();
 		int y = paddle.getY();
