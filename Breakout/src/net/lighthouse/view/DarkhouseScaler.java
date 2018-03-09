@@ -56,24 +56,11 @@ public class DarkhouseScaler {
 	 *            the GCanvas to screenshot.
 	 */
 	public void update(GCanvas top) {
-
+		// takes the screenshot
 		BufferedImage captureImage = new BufferedImage(560, 840, BufferedImage.TYPE_4BYTE_ABGR);
 		top.paint(captureImage.getGraphics());
 
-		Image downsample = captureImage.getScaledInstance(28, 14, Image.SCALE_FAST);
-		GImage gDownsample = new GImage(downsample);
-
-		// if save_Framebuffer == true speichern wir jeden gerenderten Frame als png in
-		// den bin ordner.
-		handler.update(gDownsample);
-		if (save_Framebuffer)
-			try {
-				BufferedImage iDownsample = new BufferedImage(28, 14, BufferedImage.TYPE_4BYTE_ABGR);
-				gDownsample.paint(iDownsample.getGraphics());
-				ImageIO.write(iDownsample, "png", new File("img" + imgNumber++ + ".png"));
-			} catch (IOException e) { // TODO Auto-generated catch block
-				System.out.println("framebuffer save frame " + imgNumber + " failed!");
-			}
+		downsampleSend(captureImage);
 	}
 
 	/**
@@ -81,12 +68,23 @@ public class DarkhouseScaler {
 	 * that down and sending the data.
 	 * 
 	 * @param top
+	 *            the gCompound to screenshot.
 	 */
 	public void update(GCompound top) {
-
+		// takes the screenshot
 		BufferedImage captureImage = new BufferedImage(560, 840, BufferedImage.TYPE_4BYTE_ABGR);
 		top.paint(captureImage.getGraphics());
 
+		downsampleSend(captureImage);
+	}
+
+	/**
+	 * samples a BufferedImage down and sends it to the lighthouse.
+	 * 
+	 * @param captureImage
+	 *            the BufferedImage to downsample.
+	 */
+	private void downsampleSend(BufferedImage captureImage) {
 		Image downsample = captureImage.getScaledInstance(28, 14, Image.SCALE_SMOOTH);
 		GImage gDownsample = new GImage(downsample);
 
