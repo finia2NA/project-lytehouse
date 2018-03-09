@@ -8,7 +8,6 @@ import java.awt.Color;
  * @author undif
  */
 public class BPaddle extends BObject {
-    private double opacity;
 
     /**
      * Paddle Constructor.
