@@ -1,8 +1,5 @@
 package net.lighthouse.model;
 
-import net.lighthouse.model.BBlock;
-
-import java.awt.Color;
 import java.util.ArrayList;
 
 /**
