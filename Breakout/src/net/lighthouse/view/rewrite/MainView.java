@@ -36,7 +36,7 @@ import net.lighthouse.view.rewrite.BLink;
  */
 public class MainView implements View {
 
-	// These are object Vars because these are all things that persist over multiple
+	// These are instance Vars because these are all things that persist over multiple
 	// methods.
 	private DarkhouseScaler darkhouse;
 	private GraphicsProgram top;
