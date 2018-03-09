@@ -1,5 +1,6 @@
 package net.lighthouse.view.rewrite;
 
+import acm.graphics.GImage;
 //ACM
 import acm.graphics.GObject;
 //LIGHTHOUSE
@@ -62,6 +63,17 @@ class BLink {
 		int[] atm = { (int) g.getX(), (int) g.getY() };
 
 		if (b.getXY().equals(atm)) {
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	public boolean hasChameleoned() {
+		if(g instanceof GImage) {
+			return false;
+		}
+		if (b.getColor().equals(g.getColor())) {
 			return false;
 		} else {
 			return true;
