@@ -34,11 +34,13 @@ public class MainController extends GraphicsProgram {
 
     public void init() {
         Settings.readUserSettings("settings.txt");
+
         frametime = Integer.parseInt(Settings.getSetting("frametime"));
 
         if (Settings.getSetting("print-frametimes").equals("true")) {
             printFrametimes = true;
         }
+
         if (Settings.getSetting("use_new_Viewport").equals("true")) {
             view = new MainView(this);
         } else {
@@ -46,11 +48,11 @@ public class MainController extends GraphicsProgram {
         }
 
         view.init();
-        System.out.println(this.getWidth() + " " + this.getHeight());
 
         isRunning = false;
         startGame = false;
 
+        // Creates a main menu model (MainModel with only text) and displays it
         ArrayList<BText> messages = new ArrayList<>();
         messages.add(new BText(150, 100, "BREAKOUT"));
         messages.add(new BText(100, 200, "press SPACE to start"));
@@ -72,20 +74,30 @@ public class MainController extends GraphicsProgram {
         new MainController().start(args);
     }
 
+    /**
+     * Waits to start the game. This busy waiting loop is needed since startGame()
+     * in an event handler disables screen updating. An alternative would be a game thread
+     * but this way we can be sure that no side effects occur other than some performance loss.
+     */
     public void run() {
         while (true) {
             if (startGame) {
                 startNewGame();
             } else {
-                pause(20);
+                pause(frametime);
             }
         }
     }
 
+    /**
+     * Starts a new game and calls the game loop.
+     */
     private void startNewGame() {
         isRunning = true;
         isBossFight = false;
 
+        // Updates the model to a model which contains objects that should be drawn during
+        // a running game.
         model = new MainModel();
         ballChecker = new CollisionChecker(model.getBall(0));
         view.update(model);
@@ -98,6 +110,9 @@ public class MainController extends GraphicsProgram {
         gameLoop();
     }
 
+    /**
+     * This runs the game.
+     */
     private void gameLoop() {
         boolean playerLost = false;
         boolean playerWon = false;
@@ -106,17 +121,22 @@ public class MainController extends GraphicsProgram {
         while (!playerLost && !playerWon) {
             long nextTime = System.currentTimeMillis();
 
+            // Performs an update when the time has come
             if (nextTime - previousRefreshTime >= frametime) {
+                // Little performance measure option
                 if (printFrametimes) {
                     System.out.println(nextTime - previousRefreshTime);
                 }
+                // Creates a boss fight when the time has come
                 if (!isBossFight && model.getBlocks().size() == 0) {
                     initBossFight();
                 }
 
+                // Perform ball updates
                 ballChecker.handlePaddleCollision(model.getPaddle());
                 playerLost = !ballChecker.handleBorderCollision(this.getWidth(), model.getPaddle().getY());
                 if (playerLost) {
+                    // Stops game early since this could be false again when the boss move gets performed
                     break;
                 }
 
@@ -135,6 +155,7 @@ public class MainController extends GraphicsProgram {
 
                     ballChecker.handleBossCollision(model.getBoss());
                     if (model.getBoss().getHealth() > 0) {
+                        // Performs boss move and lasers
                         BLaser laser = bossController.playBossMove();
 
                         if (laser != null) {
@@ -147,6 +168,7 @@ public class MainController extends GraphicsProgram {
                     }
                 }
 
+                // Finalizes ball position and makes the changes visible
                 model.getBall(0).move();
                 view.update(model);
 
@@ -155,14 +177,18 @@ public class MainController extends GraphicsProgram {
             }
         }
 
+        // Determines which screen should be shown next.
         if (playerLost) {
-            stopGame();
+            lossScreen();
         } else if (playerWon) {
             winScreen();
         }
     }
 
-    private void stopGame() {
+    /**
+     * Shows a loss screen
+     */
+    private void lossScreen() {
         ArrayList<BText> messages = new ArrayList<>();
         messages.add(new BText(150, 100, "YOU LOST!"));
         messages.add(new BText(100, 200, "Your score is: " + (int) model.userScore));
@@ -174,6 +200,9 @@ public class MainController extends GraphicsProgram {
         startGame = false;
     }
 
+    /**
+     * Shows a win screen
+     */
     private void winScreen() {
         ArrayList<BText> messages = new ArrayList<>();
         messages.add(new BText(150, 100, "YOU WON!"));
@@ -186,11 +215,15 @@ public class MainController extends GraphicsProgram {
         startGame = false;
     }
 
+    /**
+     * Creates a boss fight scene
+     */
     private void initBossFight() {
         BBoss boss = new BBoss(10, Color.MAGENTA);
         model.addObject(boss);
         bossController = new BBossController(boss);
 
+        // Resets ball position
         model.getBall(0).setX(560 / 2);
         model.getBall(0).setY(840 / 2);
         RandomGenerator rnd = RandomGenerator.getInstance();
@@ -200,12 +233,22 @@ public class MainController extends GraphicsProgram {
         isBossFight = true;
     }
 
+    /**
+     * Moves the paddle.
+     *
+     * @param e MouseEvent
+     */
     public void mouseMoved(MouseEvent e) {
         if (model != null && model.getPaddle() != null) {
             model.getPaddle().move(e.getX() - model.getPaddle().getWith() / 2);
         }
     }
 
+    /**
+     * Starts new game if no game is currently running.
+     *
+     * @param e KeyEvent
+     */
     public void keyPressed(KeyEvent e) {
         if (!isRunning && e.getKeyCode() == KeyEvent.VK_SPACE) {
             startGame = true;
