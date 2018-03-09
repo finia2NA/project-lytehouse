@@ -74,7 +74,7 @@ public class MainView implements View {
 		}
 		top.setSize(560, 840);
 		// TODO: this doesn't work. it's not essential, but it would be kinda cool.
-		top.setTitle("Breakout pre-release");
+		top.setTitle("Breakout - A story of a stranded BPaddle");
 
 		top.add(sharedCompound);
 
