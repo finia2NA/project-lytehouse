@@ -73,7 +73,7 @@ public class MainView implements View {
 			use_darkhouse = false;
 		}
 		top.setSize(560, 840);
-		top.setTitle("Breakout pre-release");
+		top.setTitle("Breakout - A story of a stranded BPaddle");
 
 		top.add(sharedCompound);
 
