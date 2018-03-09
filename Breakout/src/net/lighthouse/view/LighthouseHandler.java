@@ -14,7 +14,7 @@ import net.lighthouse.view.Converter;
  * @author finite
  *
  */
-public class LighthouseHandler {
+class LighthouseHandler {
 	private String username;
 	private String token;
 
@@ -24,7 +24,7 @@ public class LighthouseHandler {
 	 * Constructs a lighthouse view and determines its username and password.
 	 * 
 	 */
-	public LighthouseHandler() {
+	LighthouseHandler() {
 		this.username = Settings.getSetting("user-name");
 		this.token = Settings.getSetting("token");
 
@@ -33,7 +33,7 @@ public class LighthouseHandler {
 	/**
 	 * Initializes the lighthouse display and tries to connect.
 	 */
-	public void init() {
+	void init() {
 		if (username.isEmpty())
 			throw new IllegalArgumentException("username can't be empty! (Did you configure settings.txt right?)");
 		if (token.isEmpty())
@@ -50,7 +50,7 @@ public class LighthouseHandler {
 	 * @param pixels
 	 *            the 28x14 2d Color array containing the values of each pixel.
 	 */
-	public void update(Color[][] pixels) {
+	void update(Color[][] pixels) {
 		// converts to lighthouse data standard.
 		byte[] data = Converter.dataConverter(pixels);
 
@@ -70,7 +70,7 @@ public class LighthouseHandler {
 	 *            the 28x14 GImage containing the current frame.
 	 */
 
-	public void update(GImage image) {
+	void update(GImage image) {
 		assert image != null;
 		byte[] data = Converter.dataConverter(image);
 		try {
@@ -84,7 +84,7 @@ public class LighthouseHandler {
 	/**
 	 * Tries to connect to the web display.
 	 */
-	private void connect() {
+	void connect() {
 		System.out.println(
 				"LighthouseView: Trying to connect to web with username " + username + ", token " + token + ".");
 		// Try connecting to the display
