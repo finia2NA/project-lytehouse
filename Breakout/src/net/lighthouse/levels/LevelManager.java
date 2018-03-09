@@ -56,7 +56,7 @@ public final class LevelManager {
      */
     public static BlockList getRandomLevel() {
         RandomGenerator rnd = RandomGenerator.getInstance();
-        switch (rnd.nextInt(1, 2)) {
+        switch (rnd.nextInt(0, 2)) {
             case 0:
                 return makeBlockList(level0);
             case 1:
