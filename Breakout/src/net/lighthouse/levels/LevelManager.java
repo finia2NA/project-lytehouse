@@ -44,9 +44,14 @@ public final class LevelManager {
         null, null, null, null, null, null, null,
     };
 
+    /**
+     * Get a BlockList for a random level.
+     *
+     * @return BlockList that can be used to build a level
+     */
     public static BlockList getRandomLevel() {
         RandomGenerator rnd = RandomGenerator.getInstance();
-        switch (rnd.nextInt(1,2)) {
+        switch (rnd.nextInt(1, 2)) {
             case 0:
                 return makeBlockList(level0);
             case 1:
@@ -54,13 +59,23 @@ public final class LevelManager {
             case 2:
                 return makeBlockList(level2);
             case 3:
-            	return makeBlockList(level3);
+                return makeBlockList(level3);
             default:
                 return makeBlockList(level0);
         }
     }
 
+    /**
+     * Creates a BlockList from a given color array. If the color is
+     * null no block will be drawn.
+     *
+     * @param level level which should be converted
+     *
+     * @return BlockList that forms the level
+     */
     private static BlockList makeBlockList(Color[] level) {
+        assert level != null : "levels can not be null";
+
         BlockList list = new BlockList();
 
         for (int y = 0; y < 5; y++) {
