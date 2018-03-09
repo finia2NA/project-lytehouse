@@ -4,7 +4,7 @@ Bitte lest hier für dieses [OnlineDokument](https://docs.google.com/document/d/
 
 <b>Hinweis:</b> Wenn die Jar zum spielen benutzt wird, muss sich eine settings.txt im selben Ordner wie die Jar befinden,
 damit diese gelesen wird. Um eine settings datei zu erstellen,
-kann die Configurator.jar verwendet werden.
+kann die Configurator.jar verwendet werden. Bitte diesen Ordner entpacken um zu spielen
 
 ### Background Story
 Your ship has crashed on the planet "35367", home planet of the mysterious BBlocks.
