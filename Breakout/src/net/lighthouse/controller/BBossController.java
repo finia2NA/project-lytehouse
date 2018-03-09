@@ -29,7 +29,7 @@ public class BBossController {
             throw new IllegalArgumentException("There is no possibility to control a null object");
         }
         this.boss = boss;
-        this.remainingHitFrames = 0;
+        this.remainingHitFrames = -1;
     }
 
     /**
@@ -58,8 +58,9 @@ public class BBossController {
             // Spawns a new laser at the bottom center of the boss
             laser = new BLaser(boss.getX() + boss.getWith() / 2, boss.getY() + boss.getHeight(), speed);
         } else {
-            if(remainingHitFrames == 0) {
+            if(remainingHitFrames != -1 && remainingHitFrames == 0) {
                 boss.setColor(Color.GREEN);
+                remainingHitFrames = -1;
             } else {
                 remainingHitFrames--;
             }
