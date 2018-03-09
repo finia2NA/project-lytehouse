@@ -3,6 +3,7 @@ package net.lighthouse.view.rewrite;
 import acm.graphics.GImage;
 //ACM
 import acm.graphics.GObject;
+import acm.graphics.GFillable;
 //LIGHTHOUSE
 import net.lighthouse.model.BObject;
 
@@ -15,7 +16,6 @@ import net.lighthouse.model.BObject;
 class BLink {
 	private BObject b;
 	private GObject g;
-	static int oja = 0;
 
 	public BLink(BObject o, GObject g) {
 		this.b = o;
@@ -74,12 +74,9 @@ class BLink {
 		if (g instanceof GImage) {
 			return false;
 		}
-		if (b.getColor().equals(g.getColor())) {
+		if (b.getColor().equals(((GFillable) g).getFillColor())) {
 			return false;
 		} else {
-			if (oja++ > 10)
-				System.out.println("oja!");
-
 			return true;
 		}
 	}
