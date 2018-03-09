@@ -15,6 +15,7 @@ import net.lighthouse.model.BObject;
 class BLink {
 	private BObject b;
 	private GObject g;
+	static int oja = 0;
 
 	public BLink(BObject o, GObject g) {
 		this.b = o;
@@ -70,12 +71,15 @@ class BLink {
 	}
 
 	public boolean hasChameleoned() {
-		if(g instanceof GImage) {
+		if (g instanceof GImage) {
 			return false;
 		}
 		if (b.getColor().equals(g.getColor())) {
 			return false;
 		} else {
+			if (oja++ > 10)
+				System.out.println("oja!");
+
 			return true;
 		}
 	}

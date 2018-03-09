@@ -190,7 +190,7 @@ public class MainView implements View {
 				link.getG().setLocation(link.getB().getX(), link.getB().getY());
 			}
 			if(link.hasChameleoned()) {
-				link.getG().setColor(link.getB().getColor());
+				((GFillable) link.getG()).setFillColor(link.getB().getColor());
 			}
 		}
 	}

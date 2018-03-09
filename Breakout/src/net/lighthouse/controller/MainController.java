@@ -219,7 +219,7 @@ public class MainController extends GraphicsProgram {
      * Creates a boss fight scene
      */
     private void initBossFight() {
-        BBoss boss = new BBoss(10, Color.MAGENTA);
+        BBoss boss = new BBoss(10, Color.GREEN);
         model.addObject(boss);
         bossController = new BBossController(boss);
 
